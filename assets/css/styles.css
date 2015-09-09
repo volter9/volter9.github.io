@@ -1,0 +1,298 @@
+@import 'essential.css';
+
+/**
+ * Welcome there, traveler
+ * 
+ * @author volter9
+ * @package volter9.github.io - my website
+ */
+
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+html,
+body {
+    font-family: sans-serif;
+    
+    height: 100%;
+    min-width: 700px;
+}
+
+a {
+    color: rgb(35, 127, 207);
+    border-bottom: 1px solid rgba(35, 127, 207, 0.2);
+    text-decoration: none;
+}
+
+a:hover {
+    border-bottom: 1px solid rgba(35, 127, 207, 0.5);
+}
+
+#wrapper {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    
+    min-height: 100%;
+    min-width: 700px;
+    max-width: 800px;
+    margin-left: 32px;
+    padding-bottom: 3em;
+    width: 60%;
+}
+
+/**
+ * Navigation
+ */
+
+#navigation {
+    margin-bottom: 8px;
+    margin-left: -8px;
+}
+
+#navigation .links {
+    list-style: none;
+}
+
+#navigation .separator {
+    margin-right: 2em;
+}
+
+#navigation a {
+    border-bottom: 0px;
+    color: #28d;
+    font-size: 14px;
+    text-decoration: none;
+    
+    display: block;
+    padding: 8px;
+}
+
+#navigation a:hover {
+    text-decoration: underline;
+}
+
+#navigation .current {
+    color: #000;
+    font-weight: bold;
+}
+
+#navigation .current:hover {
+    text-decoration: none;
+}
+
+/**
+ * Header
+ */
+
+#header {
+    margin-bottom: 32px;
+}
+
+#header .avatar {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 1px 4px #ddd;
+    
+    margin-right: 1.5em;
+}
+
+#header h1 {
+    font-weight: normal;
+    
+    margin-bottom: 0.25em;
+}
+
+#header p {
+    font-size: 14px;
+    line-height: 150%;
+    
+    margin-bottom: 0.5em;
+}
+
+#header ul {
+    font-size: 14px;
+    
+    list-style: none;
+}
+
+#header ul li {
+    margin-bottom: 0.5em;
+}
+
+/**
+ * Content 
+ */
+
+#content .title {
+    font-size: 32px;
+    
+    margin-top: 0px;
+}
+
+/**
+ * Typography
+ */
+
+#content h1,
+#content h2,
+#content h3,
+#content h4,
+#content h5,
+#content h6 {
+    font-weight: normal;
+    
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+#content h1 { font-size: 28px; }
+#content h2 { font-size: 24px; }
+#content h3 { font-size: 20px; }
+#content h4 { font-size: 16px; }
+
+#content p,
+#content blockquote,
+#content blockquote p,
+#content ul,
+#content ol,
+#content pre {
+    font-size: 14px;
+    line-height: 150%;
+    
+    margin-bottom: 1em;
+}
+
+#content p {
+    font-size: 16px;
+}
+
+#content p code {
+    font-size: 80%;
+}
+
+#content blockquote {
+    color: #888;   
+}
+
+#content ul,
+#content ol,
+#content blockquote {
+    margin-left: 1.5em;
+}
+
+#content ul,
+#content ol {
+    list-style: none;
+}
+
+#content ul li,
+#content ol li {
+    margin-bottom: 0.5%;
+}
+
+#content pre {
+    font-family: Menlo, Monaco, monospace;
+    font-size: 14px;
+}
+
+#content pre code {
+    font-family: inherit;
+    font-size: inherit;
+    
+    padding: 16px;
+}
+
+/**
+ * Posts
+ */
+
+#content .posts {
+    margin: 0px;
+}
+
+/**
+ * Projects
+ */
+
+.projects .project {
+    margin-bottom: 16px;
+    width: 33.33%;
+}
+
+#content .project:nth-child(3n + 1) {
+    clear: left;
+    padding-right: 30px;
+}
+
+#content .project:nth-child(3n + 2) {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+#content .project:nth-child(3n + 3) {
+    padding-left: 30px;
+}
+
+#content .project .title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#content .project .title a {
+    padding-bottom: 1px;
+}
+
+#content .project .about {
+    font-size: 12px;
+}
+
+#content .project .image {
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 8px;
+    box-shadow: 0px 2px 2px #ddd;
+    
+    margin-bottom: 10px;
+    width: 237px;
+    padding-top: 237px;
+}
+
+.avatar {
+    background-image: url('../img/avatar_medium.png');
+    background-position: center -12px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px #ddd;
+    
+    height: 180px;
+    margin-right: 16px;
+    width: 180px;
+}
+
+.about-me {
+    margin-bottom: 4em;
+}
+
+.about-me p:nth-child(2) {
+    padding-top: 10px;
+}
+
+/**
+ * Footer
+ */
+
+#footer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    
+    padding-bottom: 16px;
+}
+
+#footer p {
+    color: #aaa;
+    font-size: 14px;
+}
