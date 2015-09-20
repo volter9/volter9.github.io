@@ -37,10 +37,12 @@ a:hover {
     left: 0px;
     
     min-height: 100%;
-    min-width: 700px;
-    max-width: 800px;
-    margin-left: 32px;
     padding-bottom: 3em;
+}
+
+#wrapper > * {
+    margin-left: 32px;
+    max-width: 800px;
     width: 60%;
 }
 
@@ -50,7 +52,7 @@ a:hover {
 
 #navigation {
     margin-bottom: 8px;
-    margin-left: -8px;
+    margin-left: 24px;
 }
 
 #navigation .links {
@@ -90,37 +92,6 @@ a:hover {
 
 #header {
     margin-bottom: 32px;
-}
-
-#header .avatar {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0px 1px 4px #ddd;
-    
-    margin-right: 1.5em;
-}
-
-#header h1 {
-    font-weight: normal;
-    
-    margin-bottom: 0.25em;
-}
-
-#header p {
-    font-size: 14px;
-    line-height: 150%;
-    
-    margin-bottom: 0.5em;
-}
-
-#header ul {
-    font-size: 14px;
-    
-    list-style: none;
-}
-
-#header ul li {
-    margin-bottom: 0.5em;
 }
 
 /**
@@ -172,6 +143,14 @@ a:hover {
 
 #content p code {
     font-size: 80%;
+    font-style: normal;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    padding: 3px 6px 2px 6px;
+    display: inline-block;
+    line-height: 1;
+    border-radius: 2px;
+    background: #f4f4f4;
+    border: 1px solid #d4d4d4;
 }
 
 #content blockquote {
@@ -195,15 +174,23 @@ a:hover {
 }
 
 #content pre {
+    background-color: #f4f4f4;
     font-family: Menlo, Monaco, monospace;
     font-size: 14px;
+    overflow: hidden;
+    
+    width: 100%;
 }
 
 #content pre code {
+    background: transparent;
     font-family: inherit;
     font-size: inherit;
+    overflow-x: visible;
     
+    margin-left: 32px;
     padding: 16px;
+    max-width: 800px;
 }
 
 /**
@@ -212,6 +199,22 @@ a:hover {
 
 #content .posts {
     margin: 0px;
+}
+
+#content.post {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0px;
+}
+
+#content.post > * {
+    max-width: 800px;
+    margin-left: 32px;
+}
+
+#content.post pre {
+    max-width: 100%;
+    margin-left: 0px;
 }
 
 /**
@@ -265,7 +268,6 @@ a:hover {
     background-image: url('../img/avatar_medium.png');
     background-position: center -12px;
     border-radius: 8px;
-    box-shadow: 0px 2px 4px #ddd;
     
     height: 180px;
     margin-right: 16px;
