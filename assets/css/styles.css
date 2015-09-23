@@ -15,10 +15,10 @@
 
 html,
 body {
+    -webkit-text-size-adjust: 100%;
     font-family: sans-serif;
     
     height: 100%;
-    min-width: 700px;
 }
 
 a {
@@ -37,13 +37,14 @@ a:hover {
     left: 0px;
     
     min-height: 100%;
-    padding-bottom: 3em;
+    padding-bottom: 5em;
 }
 
-#wrapper > * {
-    margin-left: 32px;
+#wrapper > *,
+#content.post > * {
+    padding-left: 32px;
+    padding-right: 16px;
     max-width: 800px;
-    width: 60%;
 }
 
 /**
@@ -51,8 +52,8 @@ a:hover {
  */
 
 #navigation {
-    margin-bottom: 8px;
-    margin-left: 24px;
+    margin-bottom: 32px;
+    padding-left: 24px;
 }
 
 #navigation .links {
@@ -87,14 +88,6 @@ a:hover {
 }
 
 /**
- * Header
- */
-
-#header {
-    margin-bottom: 32px;
-}
-
-/**
  * Content 
  */
 
@@ -113,6 +106,11 @@ a:hover {
  * Typography
  */
 
+#content abbr {
+    border-bottom: 1px dotted #aaa;
+    cursor: help;
+}
+
 #content h1,
 #content h2,
 #content h3,
@@ -121,7 +119,7 @@ a:hover {
 #content h6 {
     font-weight: normal;
     
-    margin-top: 1em;
+    margin-top: 2em;
     margin-bottom: 0.5em;
 }
 
@@ -175,7 +173,7 @@ a:hover {
 
 #content ul li,
 #content ol li {
-    margin-bottom: 0.5%;
+    margin-bottom: 4px;
 }
 
 #content pre {
@@ -183,6 +181,7 @@ a:hover {
     font-family: Menlo, Monaco, monospace;
     font-size: 14px;
     overflow: hidden;
+    overflow-x: auto;
     
     width: 100%;
 }
@@ -191,11 +190,8 @@ a:hover {
     background: transparent;
     font-family: inherit;
     font-size: inherit;
-    overflow-x: visible;
     
-    margin-left: 32px;
     padding: 16px;
-    max-width: 800px;
 }
 
 /**
@@ -209,12 +205,8 @@ a:hover {
 #content.post {
     width: 100%;
     max-width: 100%;
-    margin-left: 0px;
-}
-
-#content.post > * {
-    max-width: 800px;
-    margin-left: 32px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 #content.post pre {
@@ -265,9 +257,12 @@ a:hover {
     border-radius: 8px;
     box-shadow: 0px 2px 2px #ddd;
     
-    margin-bottom: 10px;
-    width: 237px;
-    padding-top: 237px;
+    /** 
+     * Fuck you, Safari, and your Fucking. Blurry. Borders.
+     */
+    margin-bottom: 10.4px;
+    width: 100%;
+    padding-top: 100%;
 }
 
 .avatar {
@@ -297,10 +292,49 @@ a:hover {
     bottom: 0px;
     left: 0px;
     
-    padding-bottom: 16px;
+    padding-bottom: 24px;
 }
 
 #footer p {
     color: #aaa;
     font-size: 14px;
+}
+
+@media (max-width: 800px) {    
+    #wrapper > *,
+    #content.post > * {
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    #content .project {
+        width: 50%;
+    }
+    
+    #content .projects {
+        max-width: 480px;
+    }
+    
+    #content .project:nth-child(3n + 1) {
+        clear: none;
+        padding-right: 0px;
+    }
+
+    #content .project:nth-child(3n + 2) {
+        padding-right: 0px;
+        padding-left:  0px;
+    }
+
+    #content .project:nth-child(3n + 3) {
+        padding-left: 0px;
+    }
+    
+    #content .project:nth-child(2n + 1) {
+        clear: left;
+        padding-right: 10px;
+    }
+
+    #content .project:nth-child(2n + 2) {
+        padding-left:  10px;
+    }
 }
