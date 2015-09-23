@@ -104,6 +104,11 @@ a:hover {
     margin-top: 0px;
 }
 
+#content .date {
+    color: #aaa;
+    font-size: 14px;
+}
+
 /**
  * Typography
  */
@@ -254,6 +259,7 @@ a:hover {
 }
 
 #content .project .image {
+    background-image: url('../img/avatar_medium.png');
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 8px;
