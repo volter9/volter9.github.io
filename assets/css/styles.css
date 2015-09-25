@@ -41,10 +41,17 @@ a:hover {
 }
 
 .wrapper > *,
-.post > * {
+.post > *,
+.full-padding > * {
     padding-left: 32px;
     padding-right: 16px;
     max-width: 800px;
+}
+
+.full {
+    margin-left: 0px;
+    margin-right:0px;
+    padding: 0px;
 }
 
 /**
@@ -217,23 +224,17 @@ ol li {
  * Projects
  */
 
+.project h2 {
+    margin-top: 0px;
+}
+
 .projects .project {
-    margin-bottom: 16px;
-    width: 33.33%;
+    margin-bottom: 24px;
 }
 
-.projects .project:nth-child(3n + 1) {
-    clear: left;
-    padding-right: 30px;
-}
-
-.projects .project:nth-child(3n + 2) {
-    padding-right: 15px;
-    padding-left: 15px;
-}
-
-.projects .project:nth-child(3n + 3) {
-    padding-left: 30px;
+.projects .project .title,
+.projects .project .about {
+    padding-left: 32px;
 }
 
 .projects .project .title {
@@ -250,18 +251,16 @@ ol li {
 }
 
 .project .image {
-    background-image: url('../img/avatar_medium.png');
     background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 8px;
+    background-position: left center;
     box-shadow: 0px 2px 2px #ddd;
     
     /** 
      * Fuck you, Safari, and your Fucking. Blurry. Borders.
      */
-    margin-bottom: 10.4px;
+    height: 320px;
+    margin-bottom: 10px;
     width: 100%;
-    padding-top: 100%;
 }
 
 .avatar {
@@ -301,10 +300,17 @@ ol li {
 
 @media (max-width: 800px) {
     .wrapper > *,
-    .post > * {
+    .post > *,
+    .full-padding > * {
         max-width: 100%;
         width: 100%;
         padding-left: 16px;
+    }
+    
+    .full {
+        margin-left: 0px;
+        margin-right:0px;
+        padding: 0px;
     }
     
     .post {
@@ -313,60 +319,5 @@ ol li {
     
     #navigation {
         padding-left: 8px;
-    }
-    
-    .project {
-        width: 50%;
-    }
-    
-    .projects {
-        max-width: 480px;
-    }
-    
-    .projects .project:nth-child(3n + 1) {
-        clear: none;
-        padding-right: 0px;
-    }
-
-    .projects .project:nth-child(3n + 2) {
-        padding-right: 0px;
-        padding-left:  0px;
-    }
-
-    .projects .project:nth-child(3n + 3) {
-        padding-left: 0px;
-    }
-    
-    .projects .project:nth-child(2n + 1) {
-        clear: left;
-        padding-right: 10px;
-    }
-
-    .projects .project:nth-child(2n + 2) {
-        padding-left:  10px;
-    }
-    
-    .project .image {
-        background-size: cover;
-    }
-}
-
-@media (max-width: 480px) {
-    .projects .project {
-        width: 100%;
-    }
-    
-    .project:nth-child(3n + 1) {
-        clear: none;
-        padding-right: 0px;
-    }
-
-    .project:nth-child(3n + 2) {
-        padding-right: 0px;
-        padding-left:  0px;
-    }
-
-    .project:nth-child(3n + 3) {
-        padding-left: 0px;
     }
 }
