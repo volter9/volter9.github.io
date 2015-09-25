@@ -320,4 +320,9 @@ ol li {
     #navigation {
         padding-left: 8px;
     }
+    
+    .projects .project .title,
+    .projects .project .about {
+        padding-left: 16px;
+    }
 }
