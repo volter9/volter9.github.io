@@ -112,13 +112,23 @@ a:hover {
 }
 
 .post-date {
-    color: #aaa;
-    font-size: 14px;
+    color: #888;
+    font-size: 12px;
 }
 
 /**
  * Typography
  */
+
+.notice {
+    color: #888;
+    font-size: 14px;
+    
+    margin-top: -6px;
+    margin-bottom: 1.5em;
+}
+
+
 
 abbr {
     border-bottom: 1px dotted #aaa;
@@ -189,7 +199,8 @@ ol li {
     margin-bottom: 4px;
 }
 
-.post pre {
+.post pre,
+.spoiler {
     background-color: #f4f4f4;
     font-family: Menlo, Monaco, monospace;
     font-size: 14px;
@@ -208,6 +219,67 @@ ol li {
     
     padding: 16px;
     padding-left: 32px;
+}
+
+.spoiler pre {
+    margin-bottom: 0px;
+}
+
+.spoiler {
+    overflow: hidden;
+    
+    position: relative;
+    top: 0px;
+    left: 0px;
+    
+    margin-bottom: 1em;
+}
+
+.spoiler-toggle {
+    background-color: rgba(0, 0, 0, 0.025);
+    cursor: pointer;
+    text-align: center;
+    
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    
+    padding-top: 4px;
+    width: 24px;
+}
+
+.spoiler-toggle:hover,
+.spoiler-toggle.spoiler-open {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+.spoiler-toggle.spoiler-open:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.spoiler-close {
+    height: 112px;
+}
+
+.spoiler-open {
+    height: 100%;
+}
+
+.spoiler-icon {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 18px;
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    
+    display:inline-block;
+}
+
+.spoiler-open .spoiler-icon {
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    
+    margin-right: 3px;
 }
 
 /**
@@ -344,7 +416,8 @@ ol li {
         width: 100%;
     }
     
-    .full {
+    .full,
+    .spoiler {
         margin-left: 0px;
         margin-right:0px;
         padding: 0px;
