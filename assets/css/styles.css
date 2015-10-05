@@ -74,6 +74,10 @@ a:hover {
     margin-right: 2em;
 }
 
+#navigation li {
+    margin: 0px;
+}
+
 #navigation a {
     border-bottom: 0px;
     color: #28d;
