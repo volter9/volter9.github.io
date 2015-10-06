@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" 
+     xmlns:atom="http://www.w3.org/2005/Atom" 
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>volter9.github.io</title>
+        <description>Личный блог volter9</description>
+        <link>http://volter9.github.io</link>
+        
+        <atom:link href="/feed" 
+                   rel="self" 
+                   type="application/rss+xml"/>
+        
+         
+        <item>
+            <title>Два пробела</title>
+            
+            <link>/blog/double-space</link>
+            <guid isPermaLink="true">/blog/double-space</guid>
+            
+            <description>&lt;p&gt;Почему многие JS разработчики используют два пробела для отступа вместо табов или
+4-ех пробелов? Это типа модно?&lt;/p&gt;
+&lt;p&gt;С двумя пробелами получается каша а не код. Как бы хорошо он не был бы написан,
+он все равно нечитабелен. Из-за маленького отступа между строчками плохо виден отступ.
+Также, многие JS разработчики не разделяют блоки кода друг от друга логически,
+в итоге получается вот такая нечитабельная каша:&lt;/p&gt;
+&lt;div class="spoiler"&gt;
+    &lt;pre class="language-js"&gt;&lt;code&gt;// npm/npm lib/install/flatten-tree.js
+'use strict'
+var validate = require('aproba')
+
+module.exports = function (tree) {
+  validate('O', arguments)
+  var seen = {}
+  var flat = {}
+  var todo = [[tree, '/']]
+  while (todo.length) {
+    var next = todo.shift()
+    var pkg = next[0]
+    seen[pkg.path] = true
+    var path = next[1]
+    flat[path] = pkg
+    if (path !== '/') path += '/'
+    for (var ii = 0; ii &amp;lt; pkg.children.length; ++ii) {
+      var child = pkg.children[ii]
+      if (!seen[child.path]) {
+        todo.push([child, flatName(path, child)])
+      }
+    }
+  }
+  return flat
+}
+
+var flatName = module.exports.flatName = function (path, child) {
+  validate('SO', arguments)
+  return path + (child.package.name || 'TOP')
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p class="notice"&gt;
+    Один из исходников 
+    &lt;a href="https://github.com/npm/npm/" 
+       title="Node Package Manager" 
+       target="blank"&gt;NPM&lt;/a&gt;
+&lt;/p&gt;
+&lt;p&gt;Мне не удалось с первого раза прочитать этот код и понять что он делать.
+Этот код не читабелен.
+Вся его проблема читабельности этого кода в том что он слишком сжат.
+У нету разделения между блоками и имеется отступ в два пробела.&lt;/p&gt;
+&lt;p&gt;После форматирование, код становится более читабельным:&lt;/p&gt;
+&lt;div class="spoiler"&gt;
+    &lt;pre class="language-js"&gt;&lt;code&gt;'use strict'
+
+var validate = require('aproba')
+
+module.exports = function (tree) {
+    validate('O', arguments)
+
+    var seen = {},
+        flat = {},
+        todo = [[tree, '/']]
+
+    while (todo.length) {
+        var next = todo.shift(),
+            pkg  = next[0],
+            path = next[1]
+
+        seen[pkg.path] = true
+        flat[path] = pkg
+
+        if (path !== '/') path += '/'
+
+        for (var ii = 0; ii &amp;lt; pkg.children.length; ++ii) {
+            var child = pkg.children[ii]
+
+            if (!seen[child.path]) {
+                todo.push([child, flatName(path, child)])
+            }
+        }
+    }
+
+    return flat
+}
+
+var flatName = module.exports.flatName = function (path, child) {
+    validate('SO', arguments)
+
+    return path + (child.package.name || 'TOP')
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Все что я сделал это разделил код на логические блоки и заменил отступ в два
+пробела на четыре пробела.
+Разве код стал более читабельным? По моему, да.&lt;/p&gt;</description>
+            <pubDate>Mon, 05 Oct 2015 09:36:44 -0700</pubDate>
+        </item>
+         
+        <item>
+            <title>Техника минификации JS кода</title>
+            
+            <link>/blog/code-minification-techniques</link>
+            <guid isPermaLink="true">/blog/code-minification-techniques</guid>
+            
+            <description>&lt;p&gt;Недавно для одного проекта я портанул &lt;a href="http://ilyabirman.ru/projects/likely/"&gt;Лайкли&lt;/a&gt; на ванильный JS. Причина была в том что мне не хотелось тащить jQuery в свой проект ради социальных кнопок, но кнопки были нужны.&lt;/p&gt;
+&lt;p&gt;Тащить jQuery ради одного плагина не очень хотелось, по этому я решил потратить немножко времени на перевод Лайкли на ванильный JS. За время которое я провел портатируя Лайкли на ванильный JS я узнал несколько трюков и технику по минификации JS кода у минификатора кода &lt;a href="https://www.npmjs.com/package/uglify-js"&gt;uglify-js&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Внимание&lt;/strong&gt;: профессионал в действие, и не &lt;s&gt;повторяйте это&lt;/s&gt; минифицируйте ничего дома. Дополнительные скобки, комментарии и отступы добавлены с целью повышения читабельности сжатого кода.&lt;/p&gt;
+&lt;h2&gt;Сжатие инструкций&lt;/h2&gt;
+&lt;p&gt;Начнем с самого простого. Самое простое &amp;mdash; это сжать несколько &lt;abbr title="Под инструкцией, я имею ввиду несколько выражений которые разделенны ';'"&gt;инструкций&lt;/abbr&gt; в одну инструкцию. Сжимая инструкции, минифиактор может сократить код от одной &lt;code&gt;;&lt;/code&gt; и фигурных скобок.&lt;/p&gt;
+&lt;p&gt;Чтобы сжать несколько инструкций вроде вызовов функций/методов, присваивание значения к уже определенной переменной или другой операции можно воспользоватся &lt;code&gt;,&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Было 3 отдельных инструкций и вызова к 3-ем методам.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;this.getUserInput();
+this.processUserInput();
+this.doSomethingElse();&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Стало тех же самых три вызова, только теперь это все в одной инструкции и при этом сэкономили один символ (&lt;code&gt;;&lt;/code&gt;).&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;this.getUserInput(),
+this.processUserInput(),
+this.doSomethingElse()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Выигрыш небольшой, зато чем больше функций, тем больше экономим &lt;s&gt;на спичках&lt;/s&gt;.&lt;/p&gt;
+&lt;h3&gt;Сжатие инструкций и return&lt;/h3&gt;
+&lt;p&gt;Сжатие инструкций в функции с &lt;code&gt;return&lt;/code&gt; делается немножко по другому. Допустим, есть код который вызывает несколько функций и возвращает результат.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;/**
+ * Типичная инициализация игрового движка на WebGL
+ * 
+ * @return {WebGLRenderingContext}
+ */
+function init () {
+    initCanvas();
+    initGraphicContext();
+    initShaders();
+    initBuffers();
+
+    return getContext();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Чтобы сжать инструкции в этой функции, достаточно переместить все вызовы внутрь &lt;code&gt;return&lt;/code&gt;, сжать инструкции в одну инструкцию и добавить в конец то что мы хотим возвратить из функции.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;/** ... */
+function init () {
+    return initCanvas(),
+           initGraphicContext(),
+           initShaders(),
+           initBuffers(),
+           getContext()
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Запятые в JS работают не только для разделения аргументов в функциях, пары ключей-значений в ассоциативных массивах и элементы в массивах. С помощью запятых, можно выполнить несколько выражений в одной инструкции. А результат последнего выражения в инструкции будет возвращен (как &lt;code&gt;getContext()&lt;/code&gt; в примере выше).&lt;/p&gt;
+&lt;p&gt;В данном случае, выигрыш будет в один символ. Далее следует более продвинутые варианты экономии места.&lt;/p&gt;
+&lt;h2&gt;Сжатие if-else&lt;/h2&gt;
+&lt;p&gt;Переходим от простого к более продвинутому способу сжатию кода. Сжать простую if-else конструкцию можно с помощью тернарного оператора.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;if (is_user_logged_in()) {
+    greet_user();
+}
+else {
+    kick_out_user();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Нечитабельно, зато сэкономили на фигурных скобках и ключевых словах.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;is_user_logged_in() ? greet_user() : kick_out_user();&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;if-elseif-else сжимается таким же образом только с вложенным тернарным оператором.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;if (is_user_admin()) {
+    greet_admin();
+}
+else if (is_user_logged_in()) {
+    greet_user();
+}
+else {
+    kick_out_user();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;В итоге получается вот такая нечитабельная конструкция.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;is_user_admin() ? greet_admin : (is_user_logged_in() ? greet_user() : kick_out_user());&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Главное чтобы работало, не так ли? С тернарными операторами можно сэкономить намного больше места в сравнение с сжатия инструкций.&lt;/p&gt;
+&lt;h3&gt;Сжатие одного if&lt;/h3&gt;
+&lt;p&gt;if-(elseif)-else сжимаются с помощью тернарных выражений в то время как if сам по себе (без else и else if) сжимается через логические операторы &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; и &lt;code&gt;||&lt;/code&gt;. Вот фрагмент кода из минифицированного Лайкли:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;/**
+ * Получить DOM узел счетчика.
+ * Если DOM узел счетчика еще не существует то его надо создать.
+ * 
+ * @return {jQuery}
+ */
+getCounterElem: function() {
+    var e = this.widget.find("." + u + "counter_single");
+
+    return e.length || (e = t("&amp;lt;span&amp;gt;", {
+        "class": c("counter", "single")
+    }), this.widget.append(e)), e
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Обратите внимание на длинное выражение после &lt;code&gt;return&lt;/code&gt;. &lt;code&gt;e.length || (e = ...)&lt;/code&gt; это то самое место где сжат &lt;code&gt;if&lt;/code&gt;. Тут весь прикол в логике и &lt;code&gt;||&lt;/code&gt; операторе. &lt;/p&gt;
+&lt;p&gt;А теперь тот же самый фрагмент кода, только более читабельно и с &lt;code&gt;if&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;/** ... */
+getCounterElem: function() {
+    var counter = this.widget.find("." + prefix + "counter_single");
+
+    // e.length || ...
+    if (!counter.length) {
+        counter = $("&amp;lt;span&amp;gt;", {
+            "class": createClass("counter", "single")
+        });
+
+        this.widget.append(counter);
+    }
+
+    return counter;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Другой пример сжатия &lt;code&gt;if&lt;/code&gt; только с &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt;. &lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;/**
+ * Получить все data-* значения, обработать значения и 
+ * сохранить все это ассоциативный массив this.options
+ */
+detectParams: function() {
+    var t = this.widget.data();
+    if (t.counter) {
+        var e = parseInt(t.counter, 10);
+        isNaN(e) ? this.options.counterUrl = t.counter : this.options.counterNumber = e
+    }
+    t.title &amp;amp;&amp;amp; (this.options.title = t.title), t.url &amp;amp;&amp;amp; (this.options.url = t.url)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Тут используется &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; для сжатия двух &lt;code&gt;if&lt;/code&gt; в одну инструкцию. Заметьте, &lt;code&gt;if (t.counter)&lt;/code&gt; и все что внутри этого &lt;code&gt;if&lt;/code&gt; не может быть сжато в одну инструкцию т.к. внутри блока имеется объявление переменной &lt;code&gt;e&lt;/code&gt;. Определение переменных нельзя сжимать, только переназначение уже определенных переменых можно сжать. &lt;/p&gt;
+&lt;p&gt;А читабельный вариант будет выглядить так:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;/** ... */
+detectParams: function() {
+    var data = this.widget.data();
+
+    if (data.counter) {
+        var counter = parseInt(data.counter, 10);
+
+        if (isNaN(counter)) {
+            this.options.counterUrl = data.counter;
+        }
+        else {
+            this.options.counterNumber = counter;
+        }
+    }
+
+    // t.title &amp;amp;&amp;amp; ...
+    if (data.title) {
+        this.options.title = data.title;
+    }
+
+    // t.url &amp;amp;&amp;amp; ...
+    if (data.url) {
+        this.options.url = data.url;
+    }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Читабельная версия выглядит намного лучше, но длинее. На &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; и &lt;code&gt;||&lt;/code&gt; можно сэкономить много места.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Заметка&lt;/strong&gt;: uglify-js убирает условия если эти условия содержут константные значения и оптимзирует иногда условия внутри &lt;code&gt;if&lt;/code&gt; чтобы сэкономить побольше места.&lt;/p&gt;
+&lt;h2&gt;Сжатие циклов&lt;/h2&gt;
+&lt;p&gt;Циклы сжимаются посредством удаления фигурных скобок и сжатием всех выражений внутри методом который описан выше. Также некоторые минификаторы могут оптимизировать сжатие в некоторых ситуациях. &lt;/p&gt;
+&lt;p&gt;Вот небольшой абстрактный пример сжатия цикла.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;var success = false;
+
+while (!success) {
+    if (keep_trying() &amp;amp;&amp;amp; is_succeeded()) {
+        success = true;
+    }
+
+    eat();
+    sleep();
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Тут мы опустим фигурные скобки (для одной инструкции они не обязательны), сожмем &lt;code&gt;if&lt;/code&gt; с помощью &lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt; и воспользуемся &lt;code&gt;,&lt;/code&gt; для сжатия всего тела цикла в одну инструкцию.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;var success = false;
+
+while(!success)keep_trying() &amp;amp;&amp;amp; is_succeeded() &amp;amp;&amp;amp; (success = true),eat(),sleep()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Тут нету ничего сложного. Единственное на чем можно сэкономить в циклах это на фигурных скобках и, в зависимости от ситуации, пару символов на &lt;code&gt;while&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;Сжатие литералов&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;true&lt;/code&gt;, &lt;code&gt;false&lt;/code&gt; и &lt;code&gt;undefined&lt;/code&gt; тоже можно сжать. &lt;code&gt;true&lt;/code&gt; и &lt;code&gt;false&lt;/code&gt; сжимается посредством опретаором &lt;code&gt;!&lt;/code&gt;. Вот простая функция которая определяет является ли переменная булевом.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;function is_bool (bool) {
+    return bool === true || bool === false;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Чтобы сжать &lt;code&gt;true&lt;/code&gt; и &lt;code&gt;false&lt;/code&gt; достаточно воспользоватся оператором &lt;code&gt;!&lt;/code&gt; и &lt;code&gt;0&lt;/code&gt; или &lt;code&gt;1&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;/**
+ * !0 === true
+ * !1 === false
+ */
+function is_bool (bool) {
+    return bool === !0 || bool === !1;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;А вот &lt;code&gt;undefined&lt;/code&gt; можно сжать двумя способами: если есть замыкание через аргумент, через свойство объекта или же через выражение &lt;code&gt;void 0&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Сжатие &lt;code&gt;undefined&lt;/code&gt; через замыкание требует определения аргумента в замыкание, который никогда не будет передан, что сделает его &lt;code&gt;undefined&lt;/code&gt;. Этот метод требует минификатор или замену &lt;code&gt;undefined&lt;/code&gt; на имя переменной которой вы дали для замены &lt;code&gt;undefined&lt;/code&gt; в аргументах замыкания.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;(function (undefined) {
+    if (a == undefined) {
+        a = b == undefined;
+    }
+    else {
+        a = undefined;
+    }
+})();&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;И после прогона через минификатор вроде uglify-js мы получим сильно неузнаваемый укороченный код.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-js"&gt;!function(n){a==n?a=b==n:a=n}()&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Заключение&lt;/h2&gt;
+&lt;p&gt;Данный пост описывает только некоторые техники минификации кода. uglify-js делает еще многого всего включая грамотно сжимать название переменных в одну букву (), удаление комментариев и лишних whitespace (&lt;code&gt; &lt;/code&gt;, &lt;code&gt;\n&lt;/code&gt;, &lt;code&gt;\t&lt;/code&gt;) символов. &lt;/p&gt;
+&lt;p&gt;У минификатор также имеются некоторые ограничения, например: минификаторы не могут сжимать ключи ассоцитивных массивов при определение внутри &lt;code&gt;{}&lt;/code&gt; литералов или же при доступе к свойству. Можно было бы сэкономить много места на внутреней API сжимая имена всех методов и свойств.&lt;/p&gt;</description>
+            <pubDate>Sun, 20 Sep 2015 18:06:00 -0700</pubDate>
+        </item>
+         
+        <item>
+            <title>Привет мир!</title>
+            
+            <link>/blog/hello-world</link>
+            <guid isPermaLink="true">/blog/hello-world</guid>
+            
+            <description>&lt;p&gt;Добро пожаловать! Меня зовут Евгений, но я также известен под ником volter9.&lt;/p&gt;
+&lt;p&gt;В данном блоге я буду писать о веб технологиях (HTML/CSS, PHP, JS) и выкладывать
+свои проекты на обозрение. Тут я буду писать разные туториалы, обзоры, идеи,
+эксперименты и все что может быть связано с интернетом и веб технологиями. &lt;/p&gt;
+&lt;h2&gt;Как со мной связатся&lt;/h2&gt;
+&lt;p&gt;Со мной можно связатся можно по почте, Твиттеру или Скайпу (я использую Скайп
+как IM). Для того чтобы получить адрес моей почту и/или Скайп, вам прийдется
+запустить данный PHP скрипт.&lt;/p&gt;
+&lt;div class="spoiler"&gt;
+    &lt;pre class="language-php"&gt;&lt;code&gt;/**
+ * Скопируйте и вставьте весь код для получения
+ * мыла и Скайпа. 
+ */
+$base = 'aWJ5Z3JlOTI1QHR6bnZ5LnBieg==';
+$mail = base64_decode($base);
+$mail = str_rot13($mail); 
+
+echo "Моя почта: $mail";
+
+/**
+ * Если не нужен скайп, выполнять код ниже нету смысла
+ */
+$skype = substr($mail, 0, 7);
+$skype = str_replace('9', '_9', $skype);
+
+echo "Мой Скайп: $skype";
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Скрипт очень простой, достаточно его запустить в интерактивной консоле
+(&lt;a href="http://php.net/manual/en/features.commandline.interactive.php"&gt;php -a&lt;/a&gt; или
+&lt;a href="http://psysh.org/"&gt;psysh&lt;/a&gt;) чтобы получить скайп/почту.&lt;/p&gt;</description>
+            <pubDate>Sat, 05 Sep 2015 17:21:00 -0700</pubDate>
+        </item>
+         
+    </channel>
+</rss>
+

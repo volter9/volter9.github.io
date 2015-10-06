@@ -42,6 +42,7 @@ window.addEventListener('DOMContentLoaded', function () {
             
             this.classList.toggle('spoiler-open', !state);
             node.classList.toggle('spoiler-open', !state);
+            node.classList.toggle('spoiler-close', state);
         });
         
         node.appendChild(check);

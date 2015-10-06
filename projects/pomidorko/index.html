@@ -114,7 +114,8 @@
 <h3>ncftp</h3>
 <p>После сборки JS файла и HTML шаблонов следует третья фаза &mdash; деплой. В корне
 проекта лежит простой bash скрипт для деплоя помидоркового таймера через FTP:</p>
-<pre><code class="language-sh">#!/bin/sh
+<div class="spoiler">
+    <pre class="language-sh"><code>#!/bin/sh
 
 # FTP deploy script
 source ./ftp.sh
@@ -140,8 +141,9 @@ mkdir assets/img
 mkdir assets/sounds
 put -zf ./build/$LANG.html index.php
 $FILES
-EOF</code></pre>
-<!-- -->
+EOF
+</code></pre>
+</div>
 <p>Данный скрипт подключается к FTP и загружает нужные файлы. Нужные файлы определяются
 на основе git и третьего аргумента в shell скрипт. Если третий аргумент не существует
 или же не равен строке &quot;true&quot; то берется разница между двумя последними коммитами.</p>
