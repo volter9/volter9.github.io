@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta charset="utf-8">
+<title>Простой PHP валидатор &ndash; volter9.github.io</title>
+
+<link href="/assets/css/likely.css"
+      rel="stylesheet"
+      type="text/css">
+<link href="/assets/css/styles.css"
+      rel="stylesheet"
+      type="text/css">
+<link href="/assets/css/theme.css"
+      rel="stylesheet"
+      type="text/css">
+<meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"> 
+    </head>
+
+    <body>
+        <div class="wrapper">
+<nav id="navigation">
+    <ul class="clearfix links">
+     
+        <li class="left">
+            <a class="" 
+               href="/"
+               target="_self">
+                Главная 
+            </a>
+        </li>
+     
+        <li class="left">
+            <a class="current" 
+               href="/blog"
+               target="_self">
+                Блог 
+            </a>
+        </li>
+     
+        <li class="left">
+            <a class="" 
+               href="/projects"
+               target="_self">
+                Проекты 
+            </a>
+        </li>
+     
+        <li class="left">
+            <a class="" 
+               href="https://github.com/volter9"
+               target="_blank">
+                GitHub 
+            </a>
+        </li>
+     
+        <li class="left">
+            <a class="" 
+               href="https://twitter.com/volter_9"
+               target="_blank">
+                Twitter 
+            </a>
+        </li>
+     
+    </ul>
+</nav> 
+<article class="content full post">
+    <h1 class="post-title">
+        Простой PHP валидатор 
+    </h1>
+    
+    <p>Однажды, один мой знакомый спросил меня, как
+<abbr title="Человек который пишет велосипеды">велосипедиста</abbr>, как
+бы я реализовал простую валидацию данных.
+Ну если там несколько полей, то можно делать проверку через <code>empty</code> или <code>isset</code>:</p>
+<pre><code class="language-php">if (empty($_POST['name'])) {
+    die('Поле "имя" не введено');
+}
+
+if (
+    empty($_POST['password']) || 
+    empty($_POST['password_confirm'])
+) {
+    die('Поле "пароль" не введено');
+}</code></pre>
+<p>А если нужна более сложная валидация данных то тут необойтись без написание
+простой маленькой библиотеки для валидации данных. Встречайте «Валидатор 2000»:</p>
+<div class="spoiler spoiler-big">
+    <pre class="language-php"><code>/**
+ * Валидатор 2000
+ * 
+ * @author volter9
+ */
+
+/**
+ * @param array $data
+ * @param array $rules
+ * @return array
+ */
+function validate (array $data, array $rules) {
+    $errors = [];
+
+    foreach ($rules as $key =&gt; $rule) {
+        $error = validate_field($data[$key], parse_rule($rule), $data);
+
+        if ($error) {
+            $errors[$key] = $error;
+        }
+    }
+
+    return $errors;
+}
+
+/**
+ * @param mixed $value
+ * @param array $rule
+ * @param arary $data
+ * @return array
+ */
+function validate_field ($value, array $rule, array $data = []) {
+    $errors = [];
+
+    foreach ($rule as $validator =&gt; $args) {
+        $vargs = array_merge([$value, $data], $args);
+
+        if (!call_user_func_array($validator, $vargs)) {
+            $errors[$validator] = $args;
+        }
+    }
+
+    return $errors;
+}
+
+/**
+ * @param string $rule
+ * @return array
+ */
+function parse_rule ($rule) {
+    $rule = !$rule ? [] : $rule;
+
+    if (is_array($rule)) {
+        return $rule;
+    }
+
+    $result = [];
+    $rules  = explode('|', $rule);
+
+    foreach ($rules as $rule) {
+        $frags = explode(':', $rule);
+
+        $name = $frags[0];
+        $args = isset($frags[1]) ? explode(',', $frags[1]) : [];
+
+        $result[$name] = $args;
+    }
+
+    return $result;
+}
+</code></pre>
+</div> 
+<h2>Как все это работает</h2>
+<p>Чтобы провести валидацию данных нужно воспользоваться функцией <code>validate</code>.</p>
+<p>Функция <code>validate</code> берет два аргумента: ассоциативный массив с данными и
+ассоциативный массив с правилами для этих данных.</p>
+<p>Массив данных может содержать в себе все что угодно. Числа, строки, подмассивы, и т.д.</p>
+<p>Массив с правилами должен содержать в себе пару ключ-значение, где ключ это
+название поля в массиве данных, а значение может быть либо форматированной
+строкой (упрощенную запись) в виде:</p>
+<pre><code>имя_валидатора|второй_валидатор:с одним аргументом|третий_валидатор:с двумя аргументами,2</code></pre>
+<p>Или же значение может быть массивом из ключей-значений где ключ это название валидатора,
+а значение это массив с аргументами которые нужно передать в валидатор
+(эти значения могут быть чем угодно). Это обычная запись правил для валидации.</p>
+<p>Пример упрощенной и обычной записи правил.</p>
+<pre><code class="language-php">$rules = [
+    /* Упрощенная запись */
+    'name' =&gt; 'required',
+
+    /* Обычная запись */
+    'password' =&gt; [
+        'required' =&gt; [],
+        'confirm' =&gt; ['password_confirm']
+    ]
+];</code></pre>
+<p>Можно использовать оба формата в функции <code>validate</code>.</p>
+<p>Когда функция <code>validate</code> получает массив правил, она сначала приводит правила
+в обычную запись с помощью функции <code>parse_rule</code> (массив с аргументами).
+После обработки правила во время каждой итерации данных, функция <code>validate</code> проводит
+валидацию каждого поля с помощью функции <code>validate_field</code> передавая внутрь значение,
+обработанные правила и массив с данными.</p>
+<p>Алгоритм функции <code>validate_field</code> очень прост. Эта функция получает три аргумента:
+значение из массива с данных, правила в обычной форме и входной массив данных
+(необязательный аргумент).
+Эта функция проходится по всем правилам и вызывает валидаторы на переданном значение,
+если значение не проходит валидатор то функция собирает аргументы от валидатора
+в массив с ошибками, и возвращает массив с ошибками после окончания итерации.</p>
+<p>На этом все об алгоритме, теперь немного о валидаторах.</p>
+<h2>Валидаторы</h2>
+<p>Для массива правил нужно обозначить валидатор для каждой поля (в виде ключа).
+Валидатор это простая пользовательская функция которая должна возвращать булевое значение.
+По умолчанию, в эту функцию поступает два параметра: значение поля и массив данных.
+Все аргументы которые были переданны в правила идут после этих два аргументов.</p>
+<p>Пример валидатора:</p>
+<pre><code class="language-php">function required ($value) {
+    return !empty($value);
+}</code></pre>
+<p>И пример валидатора с дополнительными аргументами:</p>
+<pre><code class="language-php">function confirm ($value, $array, $field) {
+    return isset($array[$field])
+        &amp;&amp; (string)$value === (string)$array[$field];
+}</code></pre>
+<p>Для валидатора выше, нужно передать один аргумент в списке правил для поля:</p>
+<pre><code class="language-php">// Упрощенная запись
+'confirm:password_confirm'
+
+// Обычная запись
+[
+    'confirm' =&gt; ['password_confirm']
+]</code></pre>
+<h2>Пример использование библиотеки</h2>
+<p>Пример использования библиотеки:</p>
+<div class="spoiler spoiler-big">
+    <pre class="language-php"><code>/** Подключаем валидатор 2000 */
+require 'validator.php';
+
+/** Валидаторы */
+function required ($value) {
+    return !!$value;
+}
+
+function confirm ($value, $array, $field) {
+    return isset($array[$field])
+        &amp;&amp; (string)$value === (string)$array[$field];
+}
+
+/**
+ * $rules - правила для валидации
+ * $pass_data - данные которые пройдут валидацию
+ * $fail_data - данные которые не пройдут валидацию
+ */
+
+$rules = [
+    'name' =&gt; 'required',
+    'password' =&gt; 'required|confirm:password_confirm'
+];
+
+$pass_data = [
+    'name' =&gt; 'Вася Пупкин',
+    'password' =&gt; '123456',
+    'password_confirm' =&gt; '123456'
+];
+
+$fail_data = [
+    'name' =&gt; '',
+    'password' =&gt; '123456',
+    'password_confirm' =&gt; '123'
+];
+
+if (!validate($pass_data, $rules)) {
+    echo 'Валидация прошла';
+}
+
+$errors = validate($fail_data, $rules);
+
+if ($errors) {
+    echo 'Произошла ошибка:';
+
+    var_dump($errors);
+}
+</code></pre>
+</div>
+<p>Также данная библиотека доступна на
+<a href="http://gist.github.com/volter9/2d0bf88fceb8bdbfd201">GitHub Gist</a>. Лицензия MIT.</p> 
+    
+    <ul class="post-details">
+        <li class="post-date">
+            Октябрь 6, 2015 
+        </li>
+         
+        <li>
+            <span class="post-category post-php-category">
+                PHP 
+            </span>
+        </li>
+         
+        <li>
+             
+            <span class="post-tag">валидация</span>
+             
+            <span class="post-tag">KISS</span>
+             
+            <span class="post-tag">YAGNI</span>
+             
+            <span class="post-tag">минимализм</span>
+             
+            <span class="post-tag">велосипед</span>
+             
+        </li>
+            </ul>
+    
+    <div class="likely">
+    <div class="vkontakte">Поделиться</div>
+    <div class="twitter" data-via="volter_9">Твитнуть</div>
+    <div class="facebook">Поделиться</div>
+    <div class="gplus">Плюсануть</div>
+</div></article> 
+
+<footer id="footer">
+    <p>&copy; 2015+</p>
+</footer>
+
+<script src="/assets/js/hljs.js" 
+        type="text/javascript"></script>
+<script src="/assets/js/likely.js"
+        type="text/javascript"></script>
+<script src="/assets/js/spoiler.js"
+        type="text/javascript"></script>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script> 
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter --> 
+        </div>
+    </body>
+</html>

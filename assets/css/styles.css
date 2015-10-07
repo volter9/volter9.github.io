@@ -117,9 +117,42 @@ a:hover {
     margin-top: 0px;
 }
 
+.post-details {
+    font-size: 12px;
+    
+    margin-left: 0px;
+}
+
+.post-details li {
+    display: inline-block;
+    margin-right: 1em;
+}
+
 .post-date {
     color: #888;
-    font-size: 12px;
+}
+
+.post-category {
+    background-color: #eee;
+    border-radius: 4px;
+    
+    padding: 4px 8px;
+}
+
+.post-tag {
+    color: #666;
+    
+    margin-right: 6px;
+}
+
+/** Custom category styles */
+.post-javascript-category {
+    background-color: hsl(50, 90%, 70%);
+}
+
+.post-php-category {
+    background-color: hsl(225, 41%, 56%);
+    color: #fff;
 }
 
 /**
@@ -174,15 +207,15 @@ p {
 }
 
 p code {
-    font-size: 80%;
-    font-style: normal;
-    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-    padding: 3px 6px 2px 6px;
-    display: inline-block;
-    line-height: 1;
-    border-radius: 2px;
     background: #f4f4f4;
     border: 1px solid #d4d4d4;
+    border-radius: 2px;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-size: 80%;
+    line-height: 1;
+    
+    display: inline-block;
+    padding: 3px 6px 2px 6px;
 }
 
 blockquote {
@@ -222,6 +255,7 @@ ol li {
     font-family: inherit;
     font-size: inherit;
     
+    display: block;
     padding: 16px;
     padding-left: 32px;
 }
@@ -279,6 +313,10 @@ ol li {
 
 .spoiler-close {
     height: 112px;
+}
+
+.spoiler-close.spoiler-big {
+    height: 218px;
 }
 
 .spoiler-close:after {

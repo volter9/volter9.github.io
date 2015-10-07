@@ -13,6 +13,216 @@
         
          
         <item>
+            <title>Простой PHP валидатор</title>
+            
+            <link>http://volter9.github.io/blog/simple-php-validator</link>
+            <guid isPermaLink="true">http://volter9.github.io/blog/simple-php-validator</guid>
+            
+            <description>&lt;p&gt;Однажды, один мой знакомый спросил меня, как
+&lt;abbr title="Человек который пишет велосипеды"&gt;велосипедиста&lt;/abbr&gt;, как
+бы я реализовал простую валидацию данных.
+Ну если там несколько полей, то можно делать проверку через &lt;code&gt;empty&lt;/code&gt; или &lt;code&gt;isset&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-php"&gt;if (empty($_POST['name'])) {
+    die('Поле "имя" не введено');
+}
+
+if (
+    empty($_POST['password']) || 
+    empty($_POST['password_confirm'])
+) {
+    die('Поле "пароль" не введено');
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;А если нужна более сложная валидация данных то тут необойтись без написание
+простой маленькой библиотеки для валидации данных. Встречайте «Валидатор 2000»:&lt;/p&gt;
+&lt;div class="spoiler spoiler-big"&gt;
+    &lt;pre class="language-php"&gt;&lt;code&gt;/**
+ * Валидатор 2000
+ * 
+ * @author volter9
+ */
+
+/**
+ * @param array $data
+ * @param array $rules
+ * @return array
+ */
+function validate (array $data, array $rules) {
+    $errors = [];
+
+    foreach ($rules as $key =&amp;gt; $rule) {
+        $error = validate_field($data[$key], parse_rule($rule), $data);
+
+        if ($error) {
+            $errors[$key] = $error;
+        }
+    }
+
+    return $errors;
+}
+
+/**
+ * @param mixed $value
+ * @param array $rule
+ * @param arary $data
+ * @return array
+ */
+function validate_field ($value, array $rule, array $data = []) {
+    $errors = [];
+
+    foreach ($rule as $validator =&amp;gt; $args) {
+        $vargs = array_merge([$value, $data], $args);
+
+        if (!call_user_func_array($validator, $vargs)) {
+            $errors[$validator] = $args;
+        }
+    }
+
+    return $errors;
+}
+
+/**
+ * @param string $rule
+ * @return array
+ */
+function parse_rule ($rule) {
+    $rule = !$rule ? [] : $rule;
+
+    if (is_array($rule)) {
+        return $rule;
+    }
+
+    $result = [];
+    $rules  = explode('|', $rule);
+
+    foreach ($rules as $rule) {
+        $frags = explode(':', $rule);
+
+        $name = $frags[0];
+        $args = isset($frags[1]) ? explode(',', $frags[1]) : [];
+
+        $result[$name] = $args;
+    }
+
+    return $result;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt; 
+&lt;h2&gt;Как все это работает&lt;/h2&gt;
+&lt;p&gt;Чтобы провести валидацию данных нужно воспользоваться функцией &lt;code&gt;validate&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Функция &lt;code&gt;validate&lt;/code&gt; берет два аргумента: ассоциативный массив с данными и
+ассоциативный массив с правилами для этих данных.&lt;/p&gt;
+&lt;p&gt;Массив данных может содержать в себе все что угодно. Числа, строки, подмассивы, и т.д.&lt;/p&gt;
+&lt;p&gt;Массив с правилами должен содержать в себе пару ключ-значение, где ключ это
+название поля в массиве данных, а значение может быть либо форматированной
+строкой (упрощенную запись) в виде:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;имя_валидатора|второй_валидатор:с одним аргументом|третий_валидатор:с двумя аргументами,2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Или же значение может быть массивом из ключей-значений где ключ это название валидатора,
+а значение это массив с аргументами которые нужно передать в валидатор
+(эти значения могут быть чем угодно). Это обычная запись правил для валидации.&lt;/p&gt;
+&lt;p&gt;Пример упрощенной и обычной записи правил.&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-php"&gt;$rules = [
+    /* Упрощенная запись */
+    'name' =&amp;gt; 'required',
+
+    /* Обычная запись */
+    'password' =&amp;gt; [
+        'required' =&amp;gt; [],
+        'confirm' =&amp;gt; ['password_confirm']
+    ]
+];&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Можно использовать оба формата в функции &lt;code&gt;validate&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Когда функция &lt;code&gt;validate&lt;/code&gt; получает массив правил, она сначала приводит правила
+в обычную запись с помощью функции &lt;code&gt;parse_rule&lt;/code&gt; (массив с аргументами).
+После обработки правила во время каждой итерации данных, функция &lt;code&gt;validate&lt;/code&gt; проводит
+валидацию каждого поля с помощью функции &lt;code&gt;validate_field&lt;/code&gt; передавая внутрь значение,
+обработанные правила и массив с данными.&lt;/p&gt;
+&lt;p&gt;Алгоритм функции &lt;code&gt;validate_field&lt;/code&gt; очень прост. Эта функция получает три аргумента:
+значение из массива с данных, правила в обычной форме и входной массив данных
+(необязательный аргумент).
+Эта функция проходится по всем правилам и вызывает валидаторы на переданном значение,
+если значение не проходит валидатор то функция собирает аргументы от валидатора
+в массив с ошибками, и возвращает массив с ошибками после окончания итерации.&lt;/p&gt;
+&lt;p&gt;На этом все об алгоритме, теперь немного о валидаторах.&lt;/p&gt;
+&lt;h2&gt;Валидаторы&lt;/h2&gt;
+&lt;p&gt;Для массива правил нужно обозначить валидатор для каждой поля (в виде ключа).
+Валидатор это простая пользовательская функция которая должна возвращать булевое значение.
+По умолчанию, в эту функцию поступает два параметра: значение поля и массив данных.
+Все аргументы которые были переданны в правила идут после этих два аргументов.&lt;/p&gt;
+&lt;p&gt;Пример валидатора:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-php"&gt;function required ($value) {
+    return !empty($value);
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;И пример валидатора с дополнительными аргументами:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-php"&gt;function confirm ($value, $array, $field) {
+    return isset($array[$field])
+        &amp;amp;&amp;amp; (string)$value === (string)$array[$field];
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Для валидатора выше, нужно передать один аргумент в списке правил для поля:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-php"&gt;// Упрощенная запись
+'confirm:password_confirm'
+
+// Обычная запись
+[
+    'confirm' =&amp;gt; ['password_confirm']
+]&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Пример использование библиотеки&lt;/h2&gt;
+&lt;p&gt;Пример использования библиотеки:&lt;/p&gt;
+&lt;div class="spoiler spoiler-big"&gt;
+    &lt;pre class="language-php"&gt;&lt;code&gt;/** Подключаем валидатор 2000 */
+require 'validator.php';
+
+/** Валидаторы */
+function required ($value) {
+    return !!$value;
+}
+
+function confirm ($value, $array, $field) {
+    return isset($array[$field])
+        &amp;amp;&amp;amp; (string)$value === (string)$array[$field];
+}
+
+/**
+ * $rules - правила для валидации
+ * $pass_data - данные которые пройдут валидацию
+ * $fail_data - данные которые не пройдут валидацию
+ */
+
+$rules = [
+    'name' =&amp;gt; 'required',
+    'password' =&amp;gt; 'required|confirm:password_confirm'
+];
+
+$pass_data = [
+    'name' =&amp;gt; 'Вася Пупкин',
+    'password' =&amp;gt; '123456',
+    'password_confirm' =&amp;gt; '123456'
+];
+
+$fail_data = [
+    'name' =&amp;gt; '',
+    'password' =&amp;gt; '123456',
+    'password_confirm' =&amp;gt; '123'
+];
+
+if (!validate($pass_data, $rules)) {
+    echo 'Валидация прошла';
+}
+
+$errors = validate($fail_data, $rules);
+
+if ($errors) {
+    echo 'Произошла ошибка:';
+
+    var_dump($errors);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;Также данная библиотека доступна на
+&lt;a href="http://gist.github.com/volter9/2d0bf88fceb8bdbfd201"&gt;GitHub Gist&lt;/a&gt;. Лицензия MIT.&lt;/p&gt;</description>
+            <pubDate>Tue, 06 Oct 2015 14:02:37 -0700</pubDate>
+        </item>
+         
+        <item>
             <title>Два пробела</title>
             
             <link>http://volter9.github.io/blog/double-space</link>
