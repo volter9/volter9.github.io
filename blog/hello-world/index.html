@@ -19,7 +19,7 @@
 
     <body>
         <div class="wrapper">
-<nav id="navigation">
+<nav class="navigation ">
     <ul class="clearfix links">
      
         <li class="left">
@@ -77,8 +77,7 @@
 <p>Со мной можно связатся можно по почте, Твиттеру или Скайпу (я использую Скайп
 как IM). Для того чтобы получить адрес моей почту и/или Скайп, вам прийдется
 запустить данный PHP скрипт.</p>
-<div class="spoiler">
-    <pre class="language-php"><code>/**
+<div class="spoiler spoiler-big"><pre class="language-php"><code>/**
  * Скопируйте и вставьте весь код для получения
  * мыла и Скайпа. 
  */
@@ -94,9 +93,7 @@ echo "Моя почта: $mail";
 $skype = substr($mail, 0, 7);
 $skype = str_replace('9', '_9', $skype);
 
-echo "Мой Скайп: $skype";
-</code></pre>
-</div>
+echo "Мой Скайп: $skype";</code></pre></div>
 <p>Скрипт очень простой, достаточно его запустить в интерактивной консоле
 (<a href="http://php.net/manual/en/features.commandline.interactive.php">php -a</a> или
 <a href="http://psysh.org/">psysh</a>) чтобы получить скайп/почту.</p> 

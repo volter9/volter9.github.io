@@ -19,7 +19,10 @@
 
     <body>
         <div class="wrapper">
-<nav id="navigation">
+ 
+<div class="epic-header full"
+     style="background-color: #ED4455; padding-bottom: 80px;">
+    <nav class="navigation navigation-white">
     <ul class="clearfix links">
      
         <li class="left">
@@ -63,18 +66,20 @@
         </li>
      
     </ul>
-</nav> 
-<article class="content full full-padding post">
-    <h1 class="post-title">
-        Помидорковый таймер 
-    </h1>
-
-    <div class="project-image" 
-     style="height: 320px; overflow: hidden; background-color: #08B1CF">
+</nav>    
+    <div class="fluid">
+        <h1 class="epic-header-title">
+            Помидорковый таймер 
+        </h1>
+    </div>
+    
     <img src="/assets/uploads/pomidorko-scale.png" 
          alt="scale" 
-         style="margin-top: 110px; margin-left: 32px;">
+         class="adaptive"
+         style="margin-top: 40px">
 </div>
+
+<article class="content full full-padding post">
     <p><a href="http://pomidorko.ru/" target="_target">Помидорковый таймер</a> &mdash;
 это инструмент для управлением времени с помощью техники Помидоро. Суть данной
 техники это распределенние времени таким образом чтобы не нагружаться много,
@@ -116,8 +121,7 @@
 <h3>ncftp</h3>
 <p>После сборки JS файла и HTML шаблонов следует третья фаза &mdash; деплой. В корне
 проекта лежит простой bash скрипт для деплоя помидоркового таймера через FTP:</p>
-<div class="spoiler">
-    <pre class="language-sh"><code>#!/bin/sh
+<div class="spoiler spoiler-big"><pre class="language-sh"><code>#!/bin/sh
 
 # FTP deploy script
 source ./ftp.sh
@@ -143,14 +147,19 @@ mkdir assets/img
 mkdir assets/sounds
 put -zf ./build/$LANG.html index.php
 $FILES
-EOF
-</code></pre>
-</div>
-<p>Данный скрипт подключается к FTP и загружает нужные файлы. Нужные файлы определяются
-на основе git и третьего аргумента в shell скрипт. Если третий аргумент не существует
-или же не равен строке &quot;true&quot; то берется разница между двумя последними коммитами.</p>
+EOF</code></pre></div> 
+<p>Данный скрипт подключается к FTP и загружает нужные файлы.
+Нужные файлы определяются с помощью git и третьего аргумента в shell скрипт.
+Если третий аргумент не существует или же не равен строке &quot;true&quot; то берется
+разница между двумя последними коммитами, иначе загружаются все файлы через
+FTP.</p>
+<p>Файл <code>ftp.sh</code> содержит в себе переменные для подключения к FTP.</p>
 <p>А сам деплой запускается одной командой</p>
-<pre><code class="language-sh">make deploy</code></pre> 
+<pre><code class="language-sh"># Частичный деплой
+make deploy
+
+# Полный деплой
+make deploy FULL_DEPLOY=true</code></pre> 
     
     <div class="likely">
     <div class="vkontakte">Поделиться</div>

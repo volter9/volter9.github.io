@@ -19,7 +19,7 @@
 
     <body>
         <div class="wrapper">
-<nav id="navigation">
+<nav class="navigation ">
     <ul class="clearfix links">
      
         <li class="left">
@@ -85,8 +85,7 @@ if (
 }</code></pre>
 <p>А если нужна более сложная валидация данных то тут необойтись без написание
 простой маленькой библиотеки для валидации данных. Встречайте «Валидатор 2000»:</p>
-<div class="spoiler spoiler-big">
-    <pre class="language-php"><code>/**
+<div class="spoiler spoiler-big"><pre class="language-php"><code>/**
  * Валидатор 2000
  * 
  * @author volter9
@@ -155,9 +154,7 @@ function parse_rule ($rule) {
     }
 
     return $result;
-}
-</code></pre>
-</div> 
+}</code></pre></div>
 <h2>Как все это работает</h2>
 <p>Чтобы провести валидацию данных нужно воспользоваться функцией <code>validate</code>.</p>
 <p>Функция <code>validate</code> берет два аргумента: ассоциативный массив с данными и
@@ -218,8 +215,7 @@ function parse_rule ($rule) {
 ]</code></pre>
 <h2>Пример использование библиотеки</h2>
 <p>Пример использования библиотеки:</p>
-<div class="spoiler spoiler-big">
-    <pre class="language-php"><code>/** Подключаем валидатор 2000 */
+<div class="spoiler spoiler-big"><pre class="language-php"><code>/** Подключаем валидатор 2000 */
 require 'validator.php';
 
 /** Валидаторы */
@@ -265,9 +261,7 @@ if ($errors) {
     echo 'Произошла ошибка:';
 
     var_dump($errors);
-}
-</code></pre>
-</div>
+}</code></pre></div>
 <p>Также данная библиотека доступна на
 <a href="http://gist.github.com/volter9/2d0bf88fceb8bdbfd201">GitHub Gist</a>. Лицензия MIT.</p> 
     

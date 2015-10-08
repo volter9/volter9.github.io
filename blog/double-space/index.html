@@ -19,7 +19,7 @@
 
     <body>
         <div class="wrapper">
-<nav id="navigation">
+<nav class="navigation ">
     <ul class="clearfix links">
      
         <li class="left">
@@ -75,8 +75,7 @@
 он все равно нечитабелен. Из-за маленького отступа между строчками плохо виден отступ.
 Также, многие JS разработчики не разделяют блоки кода друг от друга логически,
 в итоге получается вот такая нечитабельная каша:</p>
-<div class="spoiler">
-    <pre class="language-js"><code>// npm/npm lib/install/flatten-tree.js
+<div class="spoiler spoiler-js"><pre class="language-code"><code>// lib/install/flatten-tree.js
 'use strict'
 var validate = require('aproba')
 
@@ -105,9 +104,7 @@ module.exports = function (tree) {
 var flatName = module.exports.flatName = function (path, child) {
   validate('SO', arguments)
   return path + (child.package.name || 'TOP')
-}
-</code></pre>
-</div>
+}</code></pre></div>
 <p class="notice">
     Один из исходников 
     <a href="https://github.com/npm/npm/" 
@@ -119,8 +116,7 @@ var flatName = module.exports.flatName = function (path, child) {
 Вся его проблема читабельности этого кода в том что он слишком сжат.
 У нету разделения между блоками и имеется отступ в два пробела.</p>
 <p>После форматирование, код становится более читабельным:</p>
-<div class="spoiler">
-    <pre class="language-js"><code>'use strict'
+<div class="spoiler spoiler-js"><pre class="language-code"><code>'use strict'
 
 var validate = require('aproba')
 
@@ -157,9 +153,7 @@ var flatName = module.exports.flatName = function (path, child) {
     validate('SO', arguments)
 
     return path + (child.package.name || 'TOP')
-}
-</code></pre>
-</div>
+}</code></pre></div>
 <p>Все что я сделал это разделил код на логические блоки и заменил отступ в два
 пробела на четыре пробела.
 Разве код стал более читабельным? По моему, да.</p> 

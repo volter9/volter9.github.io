@@ -13,6 +13,144 @@
         
          
         <item>
+            <title>Как использовать PJAX</title>
+            
+            <link>http://volter9.github.io/blog/pjax-example</link>
+            <guid isPermaLink="true">http://volter9.github.io/blog/pjax-example</guid>
+            
+            <description>&lt;p&gt;&lt;abbr title="Too Long; Don't Read"&gt;TL;DR&lt;/abbr&gt; – пример внизу.&lt;/p&gt;
+&lt;p&gt;Вчера, я наткнулся на плагин &lt;a href="https://github.com/defunkt/jquery-pjax"&gt;PJAX&lt;/a&gt; для
+jQuery. Решил я потестировать этот плагин.
+К моему сожалению, код из примера не хотел работать с полноценными HTML
+документами (без конфигурации приложения, это относится для статических сайтов
+вроде моего).&lt;/p&gt;
+&lt;p&gt;По этой причине, мне пришлость лезть в исходный код плагина и смотреть в чем проблема.
+Изначально я думал что проблема была в том что веб-сервер неправильно обрабатывает
+AJAX запросы т.к. Safari консоль не показывала AJAX запрос.&lt;/p&gt;
+&lt;p&gt;В итоге вычислилось что все работает, но в исходном код содержимое AJAX запроса
+не доходит до точки вывода содержимого в основной контейнер.&lt;/p&gt;
+&lt;div class="spoiler spoiler-big"&gt;&lt;pre class="language-js"&gt;&lt;code&gt;function extractContainer() {
+  /* ... */
+
+  /**
+   * Если не указать в options ключ fragment то содержимое AJAX запроса 
+   * не дойдет до места вывода, но это при условие что содержимое AJAX 
+   * запроса это полноценный HTML документа с DOCTYPE, html, head и body
+   */
+  if (options.fragment) {
+    // If they specified a fragment, look for it in the response
+    // and pull it out.
+    if (options.fragment === 'body') {
+      var $fragment = $body
+    } else {
+      var $fragment = findAll($body, options.fragment).first()
+    }
+
+    if ($fragment.length) {
+      obj.contents = options.fragment === 'body' ? $fragment : $fragment.contents()
+
+      // If there's no title, look for data-title and title attributes
+      // on the fragment
+      if (!obj.title)
+        obj.title = $fragment.attr('title') || $fragment.data('title')
+    }
+
+  } else if (!fullDocument) {
+    obj.contents = $body
+  }
+
+  /* ... */
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt; 
+&lt;p&gt;Таким образом я потратил впустую пол часа на разгадку &amp;quot;почему же PJAX не работает?&amp;quot;
+Было бы намного легче если бы данный плагин кинул исключение с сообщением вроде:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;h2&gt;Ахтунг!&lt;/h2&gt;
+&lt;p&gt;Я получил ответ с сервера и это оказался полноценный HTML документ, омг&lt;br /&gt;
+Тебе нужно установить fragment свойство в параметрах чтобы я смог нормально
+обработать HTML ответ с сервера&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;А теперь сам пример:&lt;/p&gt;
+&lt;div class="tabs-container full"&gt;
+    &lt;!-- script.js --&gt;
+    &lt;div class="tab"&gt;script.js&lt;/div&gt;
+    &lt;div data-tab="script.js"&gt;
+&lt;pre class="language-js"&gt;&lt;code&gt;$(function () {
+    /**
+     * PJAX будет срабатывать после нажатие на любую ссылку на странице
+     * и загружать фрагмент (контейнер #pjax-container внутри фрагмента) 
+     * AJAX запроса в #pjax-container
+     */
+    $(document).pjax('a', '#pjax-container', {
+        fragment: '#pjax-container'
+    });
+});&lt;/code&gt;&lt;/pre&gt; 
+    &lt;/div&gt;
+    &lt;!-- index.html --&gt;
+    &lt;div class="tab"&gt;index.html&lt;/div&gt;
+    &lt;div data-tab="index.html"&gt;
+&lt;pre class="language-html"&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;title&amp;gt;Index&amp;lt;/title&amp;gt;
+
+        &amp;lt;script src="//code.jquery.com/jquery-1.11.3.min.js"&amp;gt;&amp;lt;/script&amp;gt;
+        &amp;lt;script src="jquery.pjax.js"&amp;gt;&amp;lt;/script&amp;gt;
+        &amp;lt;script src="script.js"&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;/head&amp;gt;
+
+    &amp;lt;body&amp;gt;
+        &amp;lt;h1&amp;gt;Заголовок сайта&amp;lt;/h1&amp;gt;
+
+        &amp;lt;div id="pjax-container"&amp;gt;
+            &amp;lt;p&amp;gt;
+                Привет мир! Чтобы увидеть PJAX в действие, 
+                &amp;lt;a href="page.html"&amp;gt;перейдите по этой ссылке&amp;lt;/a&amp;gt;.
+            &amp;lt;/p&amp;gt;
+        &amp;lt;/div&amp;gt;
+
+        &amp;lt;footer&amp;gt;2015+&amp;lt;/footer&amp;gt;
+    &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt; 
+    &lt;/div&gt;
+
+    &lt;!-- page.html --&gt;
+    &lt;div class="tab"&gt;page.html&lt;/div&gt;
+    &lt;div data-tab="page.html"&gt;
+&lt;pre class="language-html"&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;title&amp;gt;Page&amp;lt;/title&amp;gt;
+
+        &amp;lt;script src="//code.jquery.com/jquery-1.11.3.min.js"&amp;gt;&amp;lt;/script&amp;gt;
+        &amp;lt;script src="jquery.pjax.js"&amp;gt;&amp;lt;/script&amp;gt;
+        &amp;lt;script src="script.js"&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;/head&amp;gt;
+
+    &amp;lt;body&amp;gt;
+        &amp;lt;h1&amp;gt;Заголовок сайта&amp;lt;/h1&amp;gt;
+
+        &amp;lt;div id="pjax-container"&amp;gt;
+            &amp;lt;p&amp;gt;
+                Эта страница должна была загрузится с помощью PJAX.
+                Теперь вы увидели PJAX в действие, &amp;lt;a href="index.html"&amp;gt;обратно&amp;lt;/a&amp;gt;?
+            &amp;lt;/p&amp;gt;
+        &amp;lt;/div&amp;gt;
+
+        &amp;lt;footer&amp;gt;2015+&amp;lt;/footer&amp;gt;
+    &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt; 
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;p class="notice"&gt;
+    Файл jquery.pjax.js нужно скачать с оффициального GitHub репозитория плагина
+&lt;/p&gt;
+&lt;p&gt;Я думаю что этот пример нужно обязательно добавить в README.md PJAX плагина для
+jQuery. Хотя ниже в README, в секции &amp;quot;Response types that force a reload&amp;quot;,
+данная проблема описана, жалко что оно там оче.&lt;/p&gt;</description>
+            <pubDate>Wed, 07 Oct 2015 17:23:12 -0700</pubDate>
+        </item>
+         
+        <item>
             <title>Простой PHP валидатор</title>
             
             <link>http://volter9.github.io/blog/simple-php-validator</link>
@@ -34,8 +172,7 @@ if (
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;А если нужна более сложная валидация данных то тут необойтись без написание
 простой маленькой библиотеки для валидации данных. Встречайте «Валидатор 2000»:&lt;/p&gt;
-&lt;div class="spoiler spoiler-big"&gt;
-    &lt;pre class="language-php"&gt;&lt;code&gt;/**
+&lt;div class="spoiler spoiler-big"&gt;&lt;pre class="language-php"&gt;&lt;code&gt;/**
  * Валидатор 2000
  * 
  * @author volter9
@@ -104,9 +241,7 @@ function parse_rule ($rule) {
     }
 
     return $result;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt; 
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2&gt;Как все это работает&lt;/h2&gt;
 &lt;p&gt;Чтобы провести валидацию данных нужно воспользоваться функцией &lt;code&gt;validate&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Функция &lt;code&gt;validate&lt;/code&gt; берет два аргумента: ассоциативный массив с данными и
@@ -167,8 +302,7 @@ function parse_rule ($rule) {
 ]&lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;Пример использование библиотеки&lt;/h2&gt;
 &lt;p&gt;Пример использования библиотеки:&lt;/p&gt;
-&lt;div class="spoiler spoiler-big"&gt;
-    &lt;pre class="language-php"&gt;&lt;code&gt;/** Подключаем валидатор 2000 */
+&lt;div class="spoiler spoiler-big"&gt;&lt;pre class="language-php"&gt;&lt;code&gt;/** Подключаем валидатор 2000 */
 require 'validator.php';
 
 /** Валидаторы */
@@ -214,9 +348,7 @@ if ($errors) {
     echo 'Произошла ошибка:';
 
     var_dump($errors);
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Также данная библиотека доступна на
 &lt;a href="http://gist.github.com/volter9/2d0bf88fceb8bdbfd201"&gt;GitHub Gist&lt;/a&gt;. Лицензия MIT.&lt;/p&gt;</description>
             <pubDate>Tue, 06 Oct 2015 14:02:37 -0700</pubDate>
@@ -234,8 +366,7 @@ if ($errors) {
 он все равно нечитабелен. Из-за маленького отступа между строчками плохо виден отступ.
 Также, многие JS разработчики не разделяют блоки кода друг от друга логически,
 в итоге получается вот такая нечитабельная каша:&lt;/p&gt;
-&lt;div class="spoiler"&gt;
-    &lt;pre class="language-js"&gt;&lt;code&gt;// npm/npm lib/install/flatten-tree.js
+&lt;div class="spoiler spoiler-js"&gt;&lt;pre class="language-code"&gt;&lt;code&gt;// lib/install/flatten-tree.js
 'use strict'
 var validate = require('aproba')
 
@@ -264,9 +395,7 @@ module.exports = function (tree) {
 var flatName = module.exports.flatName = function (path, child) {
   validate('SO', arguments)
   return path + (child.package.name || 'TOP')
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p class="notice"&gt;
     Один из исходников 
     &lt;a href="https://github.com/npm/npm/" 
@@ -278,8 +407,7 @@ var flatName = module.exports.flatName = function (path, child) {
 Вся его проблема читабельности этого кода в том что он слишком сжат.
 У нету разделения между блоками и имеется отступ в два пробела.&lt;/p&gt;
 &lt;p&gt;После форматирование, код становится более читабельным:&lt;/p&gt;
-&lt;div class="spoiler"&gt;
-    &lt;pre class="language-js"&gt;&lt;code&gt;'use strict'
+&lt;div class="spoiler spoiler-js"&gt;&lt;pre class="language-code"&gt;&lt;code&gt;'use strict'
 
 var validate = require('aproba')
 
@@ -316,9 +444,7 @@ var flatName = module.exports.flatName = function (path, child) {
     validate('SO', arguments)
 
     return path + (child.package.name || 'TOP')
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Все что я сделал это разделил код на логические блоки и заменил отступ в два
 пробела на четыре пробела.
 Разве код стал более читабельным? По моему, да.&lt;/p&gt;</description>
@@ -532,8 +658,7 @@ function is_bool (bool) {
 &lt;p&gt;Со мной можно связатся можно по почте, Твиттеру или Скайпу (я использую Скайп
 как IM). Для того чтобы получить адрес моей почту и/или Скайп, вам прийдется
 запустить данный PHP скрипт.&lt;/p&gt;
-&lt;div class="spoiler"&gt;
-    &lt;pre class="language-php"&gt;&lt;code&gt;/**
+&lt;div class="spoiler spoiler-big"&gt;&lt;pre class="language-php"&gt;&lt;code&gt;/**
  * Скопируйте и вставьте весь код для получения
  * мыла и Скайпа. 
  */
@@ -549,9 +674,7 @@ echo "Моя почта: $mail";
 $skype = substr($mail, 0, 7);
 $skype = str_replace('9', '_9', $skype);
 
-echo "Мой Скайп: $skype";
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+echo "Мой Скайп: $skype";&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Скрипт очень простой, достаточно его запустить в интерактивной консоле
 (&lt;a href="http://php.net/manual/en/features.commandline.interactive.php"&gt;php -a&lt;/a&gt; или
 &lt;a href="http://psysh.org/"&gt;psysh&lt;/a&gt;) чтобы получить скайп/почту.&lt;/p&gt;</description>

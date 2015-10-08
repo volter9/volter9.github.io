@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta charset="utf-8">
+<title>Как использовать PJAX &ndash; volter9.github.io</title>
+
+<link href="/assets/css/likely.css"
+      rel="stylesheet"
+      type="text/css">
+<link href="/assets/css/styles.css"
+      rel="stylesheet"
+      type="text/css">
+<link href="/assets/css/theme.css"
+      rel="stylesheet"
+      type="text/css">
+<meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"> 
+    </head>
+
+    <body>
+        <div class="wrapper">
+<nav class="navigation ">
+    <ul class="clearfix links">
+     
+        <li class="left">
+            <a class="" 
+               href="/"
+               target="_self">
+                Главная 
+            </a>
+        </li>
+     
+        <li class="left">
+            <a class="current" 
+               href="/blog"
+               target="_self">
+                Блог 
+            </a>
+        </li>
+     
+        <li class="left">
+            <a class="" 
+               href="/projects"
+               target="_self">
+                Проекты 
+            </a>
+        </li>
+     
+        <li class="left">
+            <a class="" 
+               href="https://github.com/volter9"
+               target="_blank">
+                GitHub 
+            </a>
+        </li>
+     
+        <li class="left">
+            <a class="" 
+               href="https://twitter.com/volter_9"
+               target="_blank">
+                Twitter 
+            </a>
+        </li>
+     
+    </ul>
+</nav> 
+<article class="content full post">
+    <h1 class="post-title">
+        Как использовать PJAX 
+    </h1>
+    
+    <p><abbr title="Too Long; Don't Read">TL;DR</abbr> – пример внизу.</p>
+<p>Вчера, я наткнулся на плагин <a href="https://github.com/defunkt/jquery-pjax">PJAX</a> для
+jQuery. Решил я потестировать этот плагин.
+К моему сожалению, код из примера не хотел работать с полноценными HTML
+документами (без конфигурации приложения, это относится для статических сайтов
+вроде моего).</p>
+<p>По этой причине, мне пришлость лезть в исходный код плагина и смотреть в чем проблема.
+Изначально я думал что проблема была в том что веб-сервер неправильно обрабатывает
+AJAX запросы т.к. Safari консоль не показывала AJAX запрос.</p>
+<p>В итоге вычислилось что все работает, но в исходном код содержимое AJAX запроса
+не доходит до точки вывода содержимого в основной контейнер.</p>
+<div class="spoiler spoiler-big"><pre class="language-js"><code>function extractContainer() {
+  /* ... */
+
+  /**
+   * Если не указать в options ключ fragment то содержимое AJAX запроса 
+   * не дойдет до места вывода, но это при условие что содержимое AJAX 
+   * запроса это полноценный HTML документа с DOCTYPE, html, head и body
+   */
+  if (options.fragment) {
+    // If they specified a fragment, look for it in the response
+    // and pull it out.
+    if (options.fragment === 'body') {
+      var $fragment = $body
+    } else {
+      var $fragment = findAll($body, options.fragment).first()
+    }
+
+    if ($fragment.length) {
+      obj.contents = options.fragment === 'body' ? $fragment : $fragment.contents()
+
+      // If there's no title, look for data-title and title attributes
+      // on the fragment
+      if (!obj.title)
+        obj.title = $fragment.attr('title') || $fragment.data('title')
+    }
+
+  } else if (!fullDocument) {
+    obj.contents = $body
+  }
+
+  /* ... */
+}</code></pre></div> 
+<p>Таким образом я потратил впустую пол часа на разгадку &quot;почему же PJAX не работает?&quot;
+Было бы намного легче если бы данный плагин кинул исключение с сообщением вроде:</p>
+<blockquote>
+<h2>Ахтунг!</h2>
+<p>Я получил ответ с сервера и это оказался полноценный HTML документ, омг<br />
+Тебе нужно установить fragment свойство в параметрах чтобы я смог нормально
+обработать HTML ответ с сервера</p>
+</blockquote>
+<p>А теперь сам пример:</p>
+<div class="tabs-container full">
+    <!-- script.js -->
+    <div class="tab">script.js</div>
+    <div data-tab="script.js">
+<pre class="language-js"><code>$(function () {
+    /**
+     * PJAX будет срабатывать после нажатие на любую ссылку на странице
+     * и загружать фрагмент (контейнер #pjax-container внутри фрагмента) 
+     * AJAX запроса в #pjax-container
+     */
+    $(document).pjax('a', '#pjax-container', {
+        fragment: '#pjax-container'
+    });
+});</code></pre> 
+    </div>
+    <!-- index.html -->
+    <div class="tab">index.html</div>
+    <div data-tab="index.html">
+<pre class="language-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Index&lt;/title&gt;
+
+        &lt;script src="//code.jquery.com/jquery-1.11.3.min.js"&gt;&lt;/script&gt;
+        &lt;script src="jquery.pjax.js"&gt;&lt;/script&gt;
+        &lt;script src="script.js"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;h1&gt;Заголовок сайта&lt;/h1&gt;
+
+        &lt;div id="pjax-container"&gt;
+            &lt;p&gt;
+                Привет мир! Чтобы увидеть PJAX в действие, 
+                &lt;a href="page.html"&gt;перейдите по этой ссылке&lt;/a&gt;.
+            &lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;footer&gt;2015+&lt;/footer&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre> 
+    </div>
+
+    <!-- page.html -->
+    <div class="tab">page.html</div>
+    <div data-tab="page.html">
+<pre class="language-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Page&lt;/title&gt;
+
+        &lt;script src="//code.jquery.com/jquery-1.11.3.min.js"&gt;&lt;/script&gt;
+        &lt;script src="jquery.pjax.js"&gt;&lt;/script&gt;
+        &lt;script src="script.js"&gt;&lt;/script&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;h1&gt;Заголовок сайта&lt;/h1&gt;
+
+        &lt;div id="pjax-container"&gt;
+            &lt;p&gt;
+                Эта страница должна была загрузится с помощью PJAX.
+                Теперь вы увидели PJAX в действие, &lt;a href="index.html"&gt;обратно&lt;/a&gt;?
+            &lt;/p&gt;
+        &lt;/div&gt;
+
+        &lt;footer&gt;2015+&lt;/footer&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre> 
+    </div>
+</div>
+<p class="notice">
+    Файл jquery.pjax.js нужно скачать с оффициального GitHub репозитория плагина
+</p>
+<p>Я думаю что этот пример нужно обязательно добавить в README.md PJAX плагина для
+jQuery. Хотя ниже в README, в секции &quot;Response types that force a reload&quot;,
+данная проблема описана, жалко что оно там оче.</p> 
+    
+    <ul class="post-details">
+        <li class="post-date">
+            Октябрь 7, 2015 
+        </li>
+         
+        <li>
+            <span class="post-category post-javascript-category">
+                JavaScript 
+            </span>
+        </li>
+         
+        <li>
+             
+            <span class="post-tag">PJAX</span>
+             
+            <span class="post-tag">jQuery</span>
+             
+            <span class="post-tag">свисто-перделки</span>
+             
+        </li>
+            </ul>
+    
+    <div class="likely">
+    <div class="vkontakte">Поделиться</div>
+    <div class="twitter" data-via="volter_9">Твитнуть</div>
+    <div class="facebook">Поделиться</div>
+    <div class="gplus">Плюсануть</div>
+</div></article> 
+
+<footer id="footer">
+    <p>&copy; 2015+</p>
+</footer>
+
+<script src="/assets/js/hljs.js" 
+        type="text/javascript"></script>
+<script src="/assets/js/likely.js"
+        type="text/javascript"></script>
+<script src="/assets/js/spoiler.js"
+        type="text/javascript"></script>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script> 
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter --> 
+        </div>
+    </body>
+</html>
