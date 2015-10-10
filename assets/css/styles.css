@@ -519,6 +519,7 @@ ol li {
 
 .tabs {
     background: #e4e4e4;
+    border-top: 1px solid #ddd;
     
     margin: 0px;
     margin-bottom: -1px;
@@ -532,7 +533,6 @@ ol li {
     background-color: #eaeaea;
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
-    border-top: 1px solid #ddd;
     color: #444;
     font-size: 14px;
     

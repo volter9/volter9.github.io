@@ -13,6 +13,167 @@
         
          
         <item>
+            <title>CMS в 8 строк!</title>
+            
+            <link>http://volter9.github.io/blog/8-loc-cms</link>
+            <guid isPermaLink="true">http://volter9.github.io/blog/8-loc-cms</guid>
+            
+            <description>&lt;style type="text/css"&gt;
+    /**
+     * Говно код, говнокод, 
+     * единственный в мире CSS говнокод
+     */
+    .buy-button {
+        background-color: hsl(40, 95%, 66%); 
+        border: 0px !important; 
+        border-radius: 8px;
+        color: #000; 
+        font-size: 24px; 
+        font-weight: bold; 
+        line-height: 140%;
+
+        display: inline-block; 
+        margin-left: -8px;
+        padding: 0.85em 2em; 
+    }
+
+    .buy-button:hover {
+        background-color: hsl(40, 100%, 72%); 
+    }
+&lt;/style&gt;
+&lt;p&gt;Привет ребята!&lt;/p&gt;
+&lt;p&gt;PHP &amp;mdash; это такой мощный язык программирования на котором можно написать какой-угодно
+вебсайт, в зависимости от вашего опыта.
+Но ты, уважаемый читатель, даже не подозревал что на PHP можно написать
+собственную CMS всего лишь в 8 строк! &lt;/p&gt;
+&lt;p&gt;PHP &amp;mdash; это самый крутой язык программирования на планете.&lt;/p&gt;
+&lt;!--              этого булшита --&gt;
+&lt;p&gt;После прочтение этой научной статьи, ты получишь знание о том как создать свою
+крутую CMS в 8 строк!
+Ну что же, давай начнем наше путешествие в удивительный мир &lt;!-- психоделического --&gt; PHP!&lt;/p&gt;
+&lt;h2&gt;CMS&lt;/h2&gt;
+&lt;!-- Пожалуйста, не воспринимайте этот параграф всерьез, это же шутка :) --&gt;
+&lt;p&gt;Наша CMS самая крутая и быстрая CMS на всей планете.
+Качество PHP кода нашей CMS круче чем качество кода Линуса Тордавльса!&lt;/p&gt;
+&lt;p&gt;Давайте начнем с проектирования нашей крутой CMS в 8 строчек.
+Нам нужен план. Предлагаю такой план:
+&lt;a href="http://macode.ru" target="_blank"&gt;просто написать код&lt;/a&gt;.
+Отличный план.&lt;/p&gt;
+&lt;p&gt;Я вот написал, а ты следуюешь за мной?&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-php"&gt;&amp;lt;?php  
+
+$route = trim(!empty($_GET['route']) ? $_GET['route'] : 'index', '/');
+
+$file = "content/$route";
+$file = file_exists("$file.php") ? "$file.php" : 'content/404.php';
+
+ob_start();
+$data = require $file;
+$content = ob_get_clean();
+
+extract($data ?: []);
+
+include 'theme/layout.php';&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Вот и вся наша CMS. В папке &lt;code&gt;theme&lt;/code&gt; должны содержатся шаблоны CMS,
+а в папке &lt;code&gt;content&lt;/code&gt; должен содержатся контент который должен возвращять массив
+с данными.&lt;/p&gt;
+&lt;h2&gt;Крутой пример сайта&lt;/h2&gt;
+&lt;p&gt;Вот пример сайта (требует apache):&lt;/p&gt;
+&lt;div class="tabs-container full"&gt;
+    &lt;div class="tab"&gt;index.php&lt;/div&gt;
+    &lt;div data-tab="index.php"&gt;
+&lt;pre class="language-php"&gt;&lt;code&gt;&amp;lt;?php  
+
+$route = trim(!empty($_GET['route']) ? $_GET['route'] : 'index', '/');
+
+$file = "content/$route";
+$file = file_exists("$file.php") ? "$file.php" : 'content/404.php';
+
+ob_start();
+$data = require $file;
+$content = ob_get_clean();
+
+extract($data ?: []);
+
+include 'theme/layout.php';&lt;/code&gt;&lt;/pre&gt;    &lt;/div&gt;
+
+    &lt;div class="tab"&gt;.htaccess&lt;/div&gt;
+    &lt;div data-tab=".htaccess"&gt;
+&lt;pre class="language-htaccess"&gt;&lt;code&gt;AddDefaultCharset UTF-8
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule (.*) index.php?route=$1 [QSA,L]&lt;/code&gt;&lt;/pre&gt;    &lt;/div&gt;
+
+    &lt;div class="tab"&gt;theme/index.php&lt;/div&gt;
+    &lt;div data-tab="theme/index.php"&gt;
+&lt;pre class="language-php"&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;?php isset($title) and print($title) ?&amp;gt; 
+    &amp;lt;/head&amp;gt;
+
+    &amp;lt;body&amp;gt;
+        &amp;lt;h1&amp;gt;
+            &amp;lt;?php isset($title) and print($title) ?&amp;gt; 
+        &amp;lt;/h1&amp;gt;
+
+        &amp;lt;?php echo $content ?&amp;gt; 
+    &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt; 
+    &lt;/div&gt;
+
+    &lt;div class="tab"&gt;content/index.php&lt;/div&gt;
+    &lt;div data-tab="content/index.php"&gt;
+&lt;pre class="language-php"&gt;&lt;code&gt;&amp;lt;p&amp;gt;
+    Добро пожаловать! 
+    Мой сайт работает на самой крутой и быстрой CMS в мире, 
+    которая написана в 8 строк кода.
+&amp;lt;/p&amp;gt;
+
+&amp;lt;?php 
+
+return [
+    'title' =&amp;gt; 'Добро пожаловать'
+];&lt;/code&gt;&lt;/pre&gt;    &lt;/div&gt;
+
+    &lt;div class="tab"&gt;content/404.php&lt;/div&gt;
+    &lt;div data-tab="content/404.php"&gt;
+&lt;pre class="language-php"&gt;&lt;code&gt;&amp;lt;p&amp;gt;
+    Вы наверное не на ту кнопку нажали. 
+    По этому попали сюда. Или же потому что я удалил страницу, но не удалил
+    внешнии ссылки.
+&amp;lt;/p&amp;gt;
+
+&amp;lt;?php 
+
+return [
+    'title' =&amp;gt; '404 - Страница не была найдена'
+];&lt;/code&gt;&lt;/pre&gt;    &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Вот и вся CMS. В следующей части &lt;!-- которая вряд ли будет опубликована --&gt;,
+я &lt;!-- не --&gt; покажу как создать крутой форум для ДотА сервера на основе
+этой CMS.&lt;/p&gt;
+&lt;h2&gt;Купите курс&lt;/h2&gt;
+&lt;p&gt;Вам понравился эта научная статья, и вы хотите научится писать такой же крутой код
+как я?&lt;/p&gt;
+&lt;!--               пограммированию --&gt;
+&lt;p&gt;Ты хочешь научится программировать на PHP, познать самые крутые паттерны и Дзен PHP
+и грести деньги лопатой? Не пропусти этот редкий щанс получить золотую жилу
+знаний, купите наш курс и ты получишь все богатсво мира!&lt;/p&gt;
+&lt;!-- Нот реалли --&gt;
+&lt;p&gt;&lt;a class="buy-button" href="javascript:alert('Хе-хе, шутка')" title="Купишь сейчас, получишь скидку в 50%, лимитед оффер"&gt;Жми на большую желтую кнопку, купи курс!&lt;/a&gt;&lt;/p&gt;
+&lt;!-- А это правда --&gt;
+&lt;p&gt;Забавный факт: данный блог начинался именно с этих строк.&lt;/p&gt;
+&lt;p&gt;P.S.: 8 строчек PHP кода. Контент, .htaccess конфиг, и шаблоны не идут в счет строчек.
+Только index.php&lt;/p&gt;</description>
+            <pubDate>Fri, 09 Oct 2015 20:44:03 -0700</pubDate>
+        </item>
+         
+        <item>
             <title>Как использовать PJAX</title>
             
             <link>http://volter9.github.io/blog/pjax-example</link>

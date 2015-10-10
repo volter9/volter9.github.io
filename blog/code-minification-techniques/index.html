@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" 
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
 <title>Техника минификации JS кода &ndash; volter9.github.io</title>
 
 <link href="/assets/css/likely.css"
@@ -71,7 +72,7 @@
         Техника минификации JS кода 
     </h1>
     
-    <p>Недавно для одного проекта я портанул <a href="http://ilyabirman.ru/projects/likely/">Лайкли</a> на ванильный JS. Причина была в том что мне не хотелось тащить jQuery в свой проект ради социальных кнопок, но кнопки были нужны.</p>
+<p>Недавно для одного проекта я портанул <a href="http://ilyabirman.ru/projects/likely/">Лайкли</a> на ванильный JS. Причина была в том что мне не хотелось тащить jQuery в свой проект ради социальных кнопок, но кнопки были нужны.</p>
 <p>Тащить jQuery ради одного плагина не очень хотелось, по этому я решил потратить немножко времени на перевод Лайкли на ванильный JS. За время которое я провел портатируя Лайкли на ванильный JS я узнал несколько трюков и технику по минификации JS кода у минификатора кода <a href="https://www.npmjs.com/package/uglify-js">uglify-js</a>.</p>
 <p><strong>Внимание</strong>: профессионал в действие, и не <s>повторяйте это</s> минифицируйте ничего дома. Дополнительные скобки, комментарии и отступы добавлены с целью повышения читабельности сжатого кода.</p>
 <h2>Сжатие инструкций</h2>
@@ -276,14 +277,16 @@ function is_bool (bool) {
             <span class="post-tag">минификация</span>
              
         </li>
-            </ul>
+         
+    </ul>
     
-    <div class="likely">
+<div class="likely">
     <div class="vkontakte">Поделиться</div>
     <div class="twitter" data-via="volter_9">Твитнуть</div>
     <div class="facebook">Поделиться</div>
     <div class="gplus">Плюсануть</div>
-</div></article> 
+</div> 
+</article> 
 
 <footer class="fluid" id="footer">
     <p>&copy; 2015+</p>
@@ -298,9 +301,11 @@ function is_bool (bool) {
 <script type="text/javascript">
     hljs.initHighlightingOnLoad();
 </script> 
+ 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter --> 
+<!-- /Yandex.Metrika counter -->
+  
         </div>
     </body>
 </html>
