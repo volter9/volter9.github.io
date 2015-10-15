@@ -13,18 +13,17 @@
 <link href="/assets/css/styles.css"
       rel="stylesheet"
       type="text/css">
-<link href="/assets/css/theme.css"
-      rel="stylesheet"
-      type="text/css">
 <link rel="alternate" type="application/rss+xml"
-      href="/feed.xml" title="RSS Feed"> 
+      href="/feed.xml" 
+      title="RSS Feed"> 
     </head>
 
     <body>
         <div class="wrapper">
  
 <div class="epic-header full"
-     style="background-color: #ED4455; padding-bottom: 80px;">
+     id="pomidorko"
+     style="background-color: #ED4455; padding-bottom: 40px;">
     <nav class="navigation navigation-white">
     <ul class="clearfix links">
      
@@ -76,10 +75,30 @@
         </h1>
     </div>
     
-    <img src="/assets/uploads/pomidorko-scale.png" 
-         alt="scale" 
-         class="adaptive"
-         style="margin-top: 40px">
+    <div class="pa-timer adaptive clearfix">
+        <div class="pa-left-block">
+            <div class="pa-timer-time">
+                <span class="pa-min">00</span>
+                <span class="pa-colon">:</span>
+                <span class="pa-sec">00</span>
+            </div>
+        
+            <div class="pa-timer-control pa-play">
+                <span class="pa-icon pa-play"></span>
+            </div>
+            
+            <div class="pa-skip">
+                <span>Пропустить</span>
+            </div>
+        </div>
+        
+        <div class="pa-timer-scale pa-right-block">
+            <div class="pa-timer-wrapper">
+                <img srcset="/assets/img/scale@2x.png 2x"
+                     src="/assets/img/scale.png" alt="Шкала времени">
+            </div>
+        </div>
+    </div>
 </div>
 
 <article class="content full full-padding post">
@@ -176,14 +195,13 @@ make deploy FULL_DEPLOY=true</code></pre>
     <p>&copy; 2015+</p>
 </footer>
 
-<script src="/assets/js/hljs.js" 
-        type="text/javascript"></script>
+ 
 <script src="/assets/js/likely.js"
         type="text/javascript"></script>
 <script src="/assets/js/spoiler.js"
         type="text/javascript"></script>
 <script type="text/javascript">
-    hljs.initHighlightingOnLoad();
+    typeof hljs !== 'undefined' && hljs.initHighlightingOnLoad();
 </script> 
  
 <!-- Yandex.Metrika counter -->
