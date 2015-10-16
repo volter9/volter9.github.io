@@ -59,6 +59,10 @@ a:hover {
     width: 100%;
 }
 
+.content {
+    overflow-x: hidden;
+}
+
 .blog {
     margin-bottom: 3em;
 }
