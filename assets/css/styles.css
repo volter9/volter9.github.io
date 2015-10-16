@@ -60,7 +60,7 @@ a:hover {
 }
 
 .content {
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .blog {
