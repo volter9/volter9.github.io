@@ -7,20 +7,20 @@
 
 <title>Помидорковый таймер &ndash; volter9.github.io</title>
 
-<link href="/assets/css/likely.css"
+<link href="/assets/uploads/likely/likely.css"
       rel="stylesheet"
       type="text/css">
-<link href="/assets/css/styles.css"
+<link href="/assets/css/main.css"
       rel="stylesheet"
       type="text/css">
- 
-<link href="/assets/css/pomidorko.css"
+
+<link href="/assets/uploads/pomidorko/pomidorko.css"
       rel="stylesheet"
       type="text/css">
- 
 <link href="/assets/css/theme.css"
       rel="stylesheet"
       type="text/css">
+
 <link rel="alternate" type="application/rss+xml"
       href="/feed.xml" 
       title="RSS Feed"> 
@@ -28,11 +28,11 @@
 
     <body>
         <div class="wrapper">
- 
 <div class="epic-header full"
      id="pomidorko"
      style="background-color: #ED4455; padding-bottom: 40px;">
-    <nav class="navigation navigation-white">
+
+<nav class="navigation navigation-white">
     <ul class="clearfix links">
      
         <li class="left">
@@ -59,24 +59,9 @@
             </a>
         </li>
      
-        <li class="left">
-            <a class="" 
-               href="https://github.com/volter9"
-               target="_blank">
-                GitHub 
-            </a>
-        </li>
-     
-        <li class="left">
-            <a class="" 
-               href="https://twitter.com/volter_9"
-               target="_blank">
-                Twitter 
-            </a>
-        </li>
-     
     </ul>
-</nav>    
+</nav> 
+    
     <div class="fluid">
         <h1 class="epic-header-title">
             Помидорковый таймер 
@@ -102,19 +87,19 @@
         
         <div class="pa-timer-scale pa-right-block">
             <div class="pa-timer-wrapper">
-                <img srcset="/assets/img/scale@2x.png 2x"
-                     src="/assets/img/scale.png" alt="Шкала времени">
+                <img srcset="/assets/uploads/pomidorko/img/scale@2x.png 2x"
+                     src="/assets/uploads/pomidorko/img/scale.png"
+                     alt="Шкала времени">
             </div>
         </div>
     </div>
 </div>
-
 <article class="content full full-padding post">
-<p><a href="http://pomidorko.ru/" target="_target">Помидорковый таймер</a> &mdash;
-это инструмент для управлением времени с помощью техники Помидоро. Суть данной
+<p><a href="http://pomidorko.ru/" target="_blank">Помидорковый таймер</a> &mdash;
+это инструмент для управлением времени по технике «Помодоро». Суть данной
 техники это распределенние времени таким образом чтобы не нагружаться много,
-давая себе и мозгу небольшой перерыв. Также доступна
-<a href="http://pomidorko.com/" target="_target">Английская версия</a>
+давая себе и мозгу сделать небольшой перерыв. Также доступна
+<a href="http://pomidorko.com/" target="_blank">Английская версия</a>
 помидоркового таймера.</p>
 <p>Инструкция по эксплутации таймера:</p>
 <ol>
@@ -125,37 +110,135 @@
 <p>Моя роль в этом проекте была разработка самого приложения (верстка, JS, PHP).<br />
 <a href="http://omelekhin.ru" target="_target">Паша Омелёхин</a>
 занимался дизайном приложения а также правил иногда CSS.</p>
-<h2>Техническая сторона проекта</h2>
-<p>В данном проекте я использовал данные инструменты:</p>
+<h2>Инструменты</h2>
+<p>В данном проекте я воспользовался данными <del>костылями</del> инструментами:</p>
 <ul>
-<li>GNU Make &mdash; автоматизация деплоя и сборки</li>
-<li>browserify и uglify-js &mdash; сборка модульного front end JS кода</li>
-<li>PHP &mdash; компиляция локализированного HTML</li>
-<li>ncftp &mdash; FTP деплой</li>
-<li>git &mdash; ну как а же без git?</li>
+<li>make — сборка и автоматизация</li>
+<li>JS, Browerify и uglify-js — фронт-енд</li>
+<li>PHP — сборка локализированных HTML шаблонов</li>
+<li>ncftp — деплой на FTP сервер</li>
 </ul>
-<p>А теперь, полный рецепт этого блюда.</p>
-<h3>Front end</h3>
-<p>Весь функционал помидоркового таймера заключается в JS коде который собран в один
-файл с помощью browserify и сжат с помощью uglify-js (а точнее его обертки minify).</p>
-<p>Сам код написан на моем велосипеде который является упрощенной версией Backbone.js
-фреймворка.</p>
-<p>Сборка JS файла &mdash; это первая фаза сборки таймера.</p>
-<h3>PHP</h3>
-<p>Чтобы не заморачиватся с HTML, я написал небольшой PHP скрипт который собирает отдает
-в шаблоны локализированные строки и выводит их в зависимости от языка.
-Пока что у нас есть только две версии: Русская и Английская.</p>
-<p>Там ничего сложного нету, голый PHP, HTML шаблоны и локализированные строки в JSON.
-А потом все это компилируется в HTML. </p>
-<p>Сборка HTML шаблонов &mdash; это вторая фаза сборки таймера. </p>
-<h3>ncftp</h3>
-<p>После сборки JS файла и HTML шаблонов следует третья фаза &mdash; деплой. В корне
-проекта лежит простой bash скрипт для деплоя помидоркового таймера через FTP:</p>
+<h2>JS и Browerify</h2>
+<p>Основная часть кода написана на JS. Код написан в node.js стиле и собирается
+посредством browserify. JS часть состоит из: UI компонентов, хелперов и моделей.</p>
+<h3>Компоненты</h3>
+<p>Компоненты принимают таймер, DOM узел в который нужно вывести нужную информацию,
+и/или модель(-ли). Также, у каждого компонента имеется activate метод который
+запускает компонент (привязывает события к таймеру/модели и отображает/меняет
+состояние модели).</p>
+<p>Вот пример компонента который меняет Favicon в зависимости от состояния таймера
+(перерыв/помидорка):</p>
+<pre><code class="language-js">var Component = require('./component');
+
+module.exports = Component.extend({
+    /**
+     * @param {Node} link
+     * @param {pomidorko.Timer} timer
+     * @param {mvc.Model} goals
+     */
+    constructor: function (link, timer, goals) {
+        this.link = link;
+        this.timer = timer;
+        this.goals = goals;
+    },
+
+    activate: function () {
+        this.timer.on('stop', this.change.bind(this));
+
+        this.change();
+    },
+
+    change: function () {
+        var icon = this.goals.get('recess') ? 'break.ico' : 'work.ico';
+
+        this.link.href = 'assets/img/' + icon;
+    }
+});</code></pre>
+<p>Таким образом каждый компонент находится в изоляции от других компонентов и
+имеет всего лишь одну обязанность, тем самым делая код более чище и модульным.
+Полная версия таймера использует все 14 компонентов, в то время как данные
+компоненты можно использовать по отдельности (как у меня
+<a href="http://volter9.github.io/projects/pomidorko/">на сайте в шапке</a>).</p>
+<p>С поверхности, это не выглядит очень полезным, зато в таком коде легче искать
+баги (если они не связаны с челочкой событий).</p>
+<h3>Все остальное</h3>
+<p>В помидорке используются базовые хелперы: обертка над localStorage, события,
+расширения прототипов (.extend), dom, массивы/объекты, и т.д. В общем все хелперы
+это просто функция или namespace (объект) с функциями для упрощения кода.</p>
+<p>Модели в помидорке — это &quot;класс&quot; который расширен для работы с событиями через
+mixin и содержит в себе данные которые можно получить/установить через get/set
+методы. При использования set метода срабатывает 'change' событие, с помощью
+этого события можно узнать когда изменилось общее состояние модели. Таким
+образом, очень просто привязать слушатель события и отобразить что-нибудь
+опираясь на это состояние.</p>
+<h3>Bootstrap</h3>
+<p>Чтобы запустить помидорковый таймер нужно создать poimdorko.Timer, получить
+модели из localStorage или дефолтные значения, заполнить языковой конфиг,
+создать компоненты/сервисы и активировать все компоненты, в общем bootstrap
+код таймера:</p>
+<pre><code class="language-js">var components = pomidorko.components,
+    dom        = pomidorko.dom;
+
+/* reset() - отвечает за сброс goals после 6 часов утра */
+pomidorko.bootstrap.reset();
+
+var container = dom.find('#pomidorka'),
+    timer     = new pomidorko.Timer,
+    data      = pomidorko.bootstrap(pomidorko.config);
+
+var settings = data.settings,
+    goals    = data.goals;
+
+pomidorko.lang.set({ /* Объект с локализированными строками */ });
+
+var services = [
+    new components.PlayPause(dom.find('.pa-timer-control'), timer),
+    new components.State(container, timer, goals, settings),
+    new components.Scale(dom.find('.pa-timer-wrapper'), timer),
+    new components.Time(dom.find('.pa-timer-time'), timer),
+    new components.Skip(dom.find('.pa-skip'), timer, goals),
+    new components.Goals(dom.find('.pa-goals'), goals, settings),
+    new components.TickTock(
+        timer, settings, new Audio('assets/sounds/tick.mp3')
+    ),
+    new components.Sound(
+        timer, settings, new Audio('assets/sounds/bell.mp3')
+    ),
+    new components.About(
+        dom.find('.pa-about-button'), dom.find('.pa-about')
+    ),
+    new components.Favicon(dom.find('[rel=icon]'), timer, goals),
+    new components.Title(timer, goals),
+    new components.Notifications(timer, goals, settings),
+    new components.Settings(
+        dom.find('.pa-settings-button'), 
+        dom.find('.pa-settings'), settings
+    ),
+    new components.Save(timer, goals)
+];
+
+services.forEach(function (service) {
+    service.activate();
+});</code></pre>
+<p>Ну и конечно же нужно до этого загрузить HTML.</p>
+<h2>PHP</h2>
+<p>PHP в данном проекте служит как простой сборщик локализированных шаблонов. Там
+особо ничего интересного, просто что-то вроде:</p>
+<pre><code class="language-php">ob_start(); 
+
+require $file; 
+
+file_put_contents("build/$lang.html", ob_get_clean());</code></pre>
+<h2>ncftp</h2>
+<p>ncftp нужен для деплоя помидрокового таймера на сервер через FTP. Ручками каждый
+раз заливать все файлы через filezilla не очень удобно, а git'a на хостинге нету,
+поэтому приходится придумывать вот такие скрипты:</p>
 <div class="spoiler spoiler-big"><pre class="language-sh"><code>#!/bin/sh
 
 # FTP deploy script
 source ./ftp.sh
 
+# Variables
 DOMAIN="$1"
 LANG="$2"
 FILES=$(git diff --name-only HEAD~1 HEAD)
@@ -177,40 +260,51 @@ mkdir assets/img
 mkdir assets/sounds
 put -zf ./build/$LANG.html index.php
 $FILES
-EOF</code></pre></div> 
-<p>Данный скрипт подключается к FTP и загружает нужные файлы.
-Нужные файлы определяются с помощью git и третьего аргумента в shell скрипт.
-Если третий аргумент не существует или же не равен строке &quot;true&quot; то берется
-разница между двумя последними коммитами, иначе загружаются все файлы через
-FTP.</p>
-<p>Файл <code>ftp.sh</code> содержит в себе переменные для подключения к FTP.</p>
-<p>А сам деплой запускается одной командой</p>
+EOF</code></pre></div>
+<p>Данный скрипт загружает разницу файлов между сейчашним и последним созданным
+коммитом на FTP сервер. Если этому скрипту дать третий аргумент который равен
+строке &quot;true&quot;, то делается полный upload файлов на FTP сервер.</p>
+<p>Информация подключения к FTP серверу находится в файле ftp.sh (который не
+находится в индексе git). Ну чтобы пароль и хост нечаянно не попал в git
+репозиторий.</p>
+<p>А сам деплой выполняется одной командой в консоле:</p>
 <pre><code class="language-sh"># Частичный деплой
 make deploy
 
 # Полный деплой
 make deploy FULL_DEPLOY=true</code></pre> 
     
-    <div class="likely">
+
+<div class="likely">
     <div class="vkontakte">Поделиться</div>
     <div class="twitter" data-via="volter_9">Твитнуть</div>
     <div class="facebook">Поделиться</div>
     <div class="gplus">Плюсануть</div>
-</div></article>
- 
+</div> 
+</article> 
 
-<footer class="fluid" id="footer">
-    <p>&copy; 2015+</p>
+<footer class="fluid footer">
+    <ul class="footer-menu clearfix">
+        <li>
+            &copy; 2015+
+        </li>
+        <li>
+            <a href="http://twitter.com/volter_9"
+               target="_blank">Twitter</a>
+        </li> 
+        <li>
+            <a href="http://github.com/volter9"
+               target="_blank">Github</a>
+        </li>
+    </ul>
 </footer>
 
- 
-<script src="/assets/js/pomidorko.js" 
+<script src="/assets/uploads/pomidorko/pomidorko.js" 
         type="text/javascript"></script>
- 
 <script src="/assets/js/hljs.js" 
         type="text/javascript"></script>
- 
-<script src="/assets/js/likely.js"
+
+<script src="/assets/uploads/likely/likely.js"
         type="text/javascript"></script>
 <script src="/assets/js/spoiler.js"
         type="text/javascript"></script>
@@ -219,7 +313,8 @@ make deploy FULL_DEPLOY=true</code></pre>
 </script> 
  
 <!-- Yandex.Metrika counter -->
-<script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+<noscript><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt=""></noscript>
 <!-- /Yandex.Metrika counter -->
   
         </div>

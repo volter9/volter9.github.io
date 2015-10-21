@@ -7,16 +7,17 @@
 
 <title>Техника минификации JS кода &ndash; volter9.github.io</title>
 
-<link href="/assets/css/likely.css"
+<link href="/assets/uploads/likely/likely.css"
       rel="stylesheet"
       type="text/css">
-<link href="/assets/css/styles.css"
+<link href="/assets/css/main.css"
       rel="stylesheet"
       type="text/css">
- 
+
 <link href="/assets/css/theme.css"
       rel="stylesheet"
       type="text/css">
+
 <link rel="alternate" type="application/rss+xml"
       href="/feed.xml" 
       title="RSS Feed"> 
@@ -24,7 +25,7 @@
 
     <body>
         <div class="wrapper">
-<nav class="navigation ">
+<nav class="navigation">
     <ul class="clearfix links">
      
         <li class="left">
@@ -51,22 +52,6 @@
             </a>
         </li>
      
-        <li class="left">
-            <a class="" 
-               href="https://github.com/volter9"
-               target="_blank">
-                GitHub 
-            </a>
-        </li>
-     
-        <li class="left">
-            <a class="" 
-               href="https://twitter.com/volter_9"
-               target="_blank">
-                Twitter 
-            </a>
-        </li>
-     
     </ul>
 </nav> 
 <article class="content full full-padding post">
@@ -74,23 +59,38 @@
         Техника минификации JS кода 
     </h1>
     
-<p>Недавно для одного проекта я портанул <a href="http://ilyabirman.ru/projects/likely/">Лайкли</a> на ванильный JS. Причина была в том что мне не хотелось тащить jQuery в свой проект ради социальных кнопок, но кнопки были нужны.</p>
-<p>Тащить jQuery ради одного плагина не очень хотелось, по этому я решил потратить немножко времени на перевод Лайкли на ванильный JS. За время которое я провел портатируя Лайкли на ванильный JS я узнал несколько трюков и технику по минификации JS кода у минификатора кода <a href="https://www.npmjs.com/package/uglify-js">uglify-js</a>.</p>
-<p><strong>Внимание</strong>: профессионал в действие, и не <s>повторяйте это</s> минифицируйте ничего дома. Дополнительные скобки, комментарии и отступы добавлены с целью повышения читабельности сжатого кода.</p>
+<p>Недавно для одного проекта я портанул <a href="http://ilyabirman.ru/projects/likely/">Лайкли</a>
+на ванильный JS. Причина была в том что мне не хотелось тащить jQuery в свой
+проект ради социальных кнопок, но кнопки были нужны.</p>
+<p>Тащить jQuery ради одного плагина не очень хотелось, по этому я решил потратить
+немножко времени на перевод Лайкли на ванильный JS. За время которое я провел
+портатируя Лайкли на ванильный JS я узнал несколько трюков и технику по
+минификации JS кода у минификатора кода
+<a href="https://www.npmjs.com/package/uglify-js">uglify-js</a>.</p>
+<p><strong>Внимание</strong>: профессионал в действие, и не <s>повторяйте это</s> минифицируйте
+ничего дома. Дополнительные скобки, комментарии и отступы добавлены с целью
+повышения читабельности сжатого кода.</p>
 <h2>Сжатие инструкций</h2>
-<p>Начнем с самого простого. Самое простое &mdash; это сжать несколько <abbr title="Под инструкцией, я имею ввиду несколько выражений которые разделенны ';'">инструкций</abbr> в одну инструкцию. Сжимая инструкции, минифиактор может сократить код от одной <code>;</code> и фигурных скобок.</p>
-<p>Чтобы сжать несколько инструкций вроде вызовов функций/методов, присваивание значения к уже определенной переменной или другой операции можно воспользоватся <code>,</code>.</p>
+<p>Начнем с самого простого. Самое простое &mdash; это сжать несколько
+<abbr title="Под инструкцией, я имею ввиду несколько выражений которые разделенны ';'">инструкций</abbr>
+в одну инструкцию. Сжимая инструкции, минифиактор может сократить код от одной
+<code>;</code> и фигурных скобок.</p>
+<p>Чтобы сжать несколько инструкций вроде вызовов функций/методов, присваивание
+значения к уже определенной переменной или другой операции можно воспользоватся
+<code>,</code>.</p>
 <p>Было 3 отдельных инструкций и вызова к 3-ем методам.</p>
 <pre><code class="language-js">this.getUserInput();
 this.processUserInput();
 this.doSomethingElse();</code></pre>
-<p>Стало тех же самых три вызова, только теперь это все в одной инструкции и при этом сэкономили один символ (<code>;</code>).</p>
+<p>Стало тех же самых три вызова, только теперь это все в одной инструкции и при
+этом сэкономили один символ (<code>;</code>).</p>
 <pre><code class="language-js">this.getUserInput(),
 this.processUserInput(),
 this.doSomethingElse()</code></pre>
 <p>Выигрыш небольшой, зато чем больше функций, тем больше экономим <s>на спичках</s>.</p>
 <h3>Сжатие инструкций и return</h3>
-<p>Сжатие инструкций в функции с <code>return</code> делается немножко по другому. Допустим, есть код который вызывает несколько функций и возвращает результат.</p>
+<p>Сжатие инструкций в функции с <code>return</code> делается немножко по другому. Допустим,
+есть код который вызывает несколько функций и возвращает результат.</p>
 <pre><code class="language-js">/**
  * Типичная инициализация игрового движка на WebGL
  * 
@@ -104,7 +104,9 @@ function init () {
 
     return getContext();
 }</code></pre>
-<p>Чтобы сжать инструкции в этой функции, достаточно переместить все вызовы внутрь <code>return</code>, сжать инструкции в одну инструкцию и добавить в конец то что мы хотим возвратить из функции.</p>
+<p>Чтобы сжать инструкции в этой функции, достаточно переместить все вызовы внутрь
+<code>return</code>, сжать инструкции в одну инструкцию и добавить в конец то что мы хотим
+возвратить из функции.</p>
 <pre><code class="language-js">/** ... */
 function init () {
     return initCanvas(),
@@ -113,10 +115,16 @@ function init () {
            initBuffers(),
            getContext()
 }</code></pre>
-<p>Запятые в JS работают не только для разделения аргументов в функциях, пары ключей-значений в ассоциативных массивах и элементы в массивах. С помощью запятых, можно выполнить несколько выражений в одной инструкции. А результат последнего выражения в инструкции будет возвращен (как <code>getContext()</code> в примере выше).</p>
-<p>В данном случае, выигрыш будет в один символ. Далее следует более продвинутые варианты экономии места.</p>
+<p>Запятые в JS работают не только для разделения аргументов в функциях, пары
+ключей-значений в ассоциативных массивах и элементы в массивах. С помощью
+запятых, можно выполнить несколько выражений в одной инструкции. А результат
+последнего выражения в инструкции будет возвращен (как <code>getContext()</code> в примере
+выше).</p>
+<p>В данном случае, выигрыш будет в один символ. Далее следует более продвинутые
+варианты экономии места.</p>
 <h2>Сжатие if-else</h2>
-<p>Переходим от простого к более продвинутому способу сжатию кода. Сжать простую if-else конструкцию можно с помощью тернарного оператора.</p>
+<p>Переходим от простого к более продвинутому способу сжатию кода. Сжать простую
+if-else конструкцию можно с помощью тернарного оператора.</p>
 <pre><code class="language-js">if (is_user_logged_in()) {
     greet_user();
 }
@@ -125,7 +133,8 @@ else {
 }</code></pre>
 <p>Нечитабельно, зато сэкономили на фигурных скобках и ключевых словах.</p>
 <pre><code class="language-js">is_user_logged_in() ? greet_user() : kick_out_user();</code></pre>
-<p>if-elseif-else сжимается таким же образом только с вложенным тернарным оператором.</p>
+<p>if-elseif-else сжимается таким же образом только с вложенным тернарным
+оператором.</p>
 <pre><code class="language-js">if (is_user_admin()) {
     greet_admin();
 }
@@ -137,9 +146,12 @@ else {
 }</code></pre>
 <p>В итоге получается вот такая нечитабельная конструкция.</p>
 <pre><code class="language-js">is_user_admin() ? greet_admin : (is_user_logged_in() ? greet_user() : kick_out_user());</code></pre>
-<p>Главное чтобы работало, не так ли? С тернарными операторами можно сэкономить намного больше места в сравнение с сжатия инструкций.</p>
+<p>Главное чтобы работало, не так ли? С тернарными операторами можно сэкономить
+намного больше места в сравнение с сжатия инструкций.</p>
 <h3>Сжатие одного if</h3>
-<p>if-(elseif)-else сжимаются с помощью тернарных выражений в то время как if сам по себе (без else и else if) сжимается через логические операторы <code>&amp;&amp;</code> и <code>||</code>. Вот фрагмент кода из минифицированного Лайкли:</p>
+<p>if-(elseif)-else сжимаются с помощью тернарных выражений в то время как if сам
+по себе (без else и else if) сжимается через логические операторы <code>&amp;&amp;</code> и <code>||</code>.
+Вот фрагмент кода из минифицированного Лайкли:</p>
 <pre><code class="language-js">/**
  * Получить DOM узел счетчика.
  * Если DOM узел счетчика еще не существует то его надо создать.
@@ -153,7 +165,8 @@ getCounterElem: function() {
         "class": c("counter", "single")
     }), this.widget.append(e)), e
 }</code></pre>
-<p>Обратите внимание на длинное выражение после <code>return</code>. <code>e.length || (e = ...)</code> это то самое место где сжат <code>if</code>. Тут весь прикол в логике и <code>||</code> операторе. </p>
+<p>Обратите внимание на длинное выражение после <code>return</code>. <code>e.length || (e = ...)</code>
+это то самое место где сжат <code>if</code>. Тут весь прикол в логике и <code>||</code> операторе. </p>
 <p>А теперь тот же самый фрагмент кода, только более читабельно и с <code>if</code>.</p>
 <pre><code class="language-js">/** ... */
 getCounterElem: function() {
@@ -183,7 +196,11 @@ detectParams: function() {
     }
     t.title &amp;&amp; (this.options.title = t.title), t.url &amp;&amp; (this.options.url = t.url)
 }</code></pre>
-<p>Тут используется <code>&amp;&amp;</code> для сжатия двух <code>if</code> в одну инструкцию. Заметьте, <code>if (t.counter)</code> и все что внутри этого <code>if</code> не может быть сжато в одну инструкцию т.к. внутри блока имеется объявление переменной <code>e</code>. Определение переменных нельзя сжимать, только переназначение уже определенных переменых можно сжать. </p>
+<p>Тут используется <code>&amp;&amp;</code> для сжатия двух <code>if</code> в одну инструкцию. Заметьте,
+<code>if (t.counter)</code> и все что внутри этого <code>if</code> не может быть сжато в одну
+инструкцию т.к. внутри блока имеется объявление переменной <code>e</code>. Определение
+переменных нельзя сжимать, только переназначение уже определенных переменых
+можно сжать. </p>
 <p>А читабельный вариант будет выглядить так:</p>
 <pre><code class="language-js">/** ... */
 detectParams: function() {
@@ -210,10 +227,15 @@ detectParams: function() {
         this.options.url = data.url;
     }
 }</code></pre>
-<p>Читабельная версия выглядит намного лучше, но длинее. На <code>&amp;&amp;</code> и <code>||</code> можно сэкономить много места.</p>
-<p><strong>Заметка</strong>: uglify-js убирает условия если эти условия содержут константные значения и оптимзирует иногда условия внутри <code>if</code> чтобы сэкономить побольше места.</p>
+<p>Читабельная версия выглядит намного лучше, но длинее. На <code>&amp;&amp;</code> и <code>||</code> можно
+сэкономить много места.</p>
+<p><strong>Заметка</strong>: uglify-js убирает условия если эти условия содержут константные
+значения и оптимзирует иногда условия внутри <code>if</code> чтобы сэкономить побольше
+места.</p>
 <h2>Сжатие циклов</h2>
-<p>Циклы сжимаются посредством удаления фигурных скобок и сжатием всех выражений внутри методом который описан выше. Также некоторые минификаторы могут оптимизировать сжатие в некоторых ситуациях. </p>
+<p>Циклы сжимаются посредством удаления фигурных скобок и сжатием всех выражений
+внутри методом который описан выше. Также некоторые минификаторы могут
+оптимизировать сжатие в некоторых ситуациях. </p>
 <p>Вот небольшой абстрактный пример сжатия цикла.</p>
 <pre><code class="language-js">var success = false;
 
@@ -225,13 +247,18 @@ while (!success) {
     eat();
     sleep();
 }</code></pre>
-<p>Тут мы опустим фигурные скобки (для одной инструкции они не обязательны), сожмем <code>if</code> с помощью <code>&amp;&amp;</code> и воспользуемся <code>,</code> для сжатия всего тела цикла в одну инструкцию.</p>
+<p>Тут мы опустим фигурные скобки (для одной инструкции они не обязательны),
+сожмем <code>if</code> с помощью <code>&amp;&amp;</code> и воспользуемся <code>,</code> для сжатия всего тела цикла в
+одну инструкцию.</p>
 <pre><code class="language-js">var success = false;
 
 while(!success)keep_trying() &amp;&amp; is_succeeded() &amp;&amp; (success = true),eat(),sleep()</code></pre>
-<p>Тут нету ничего сложного. Единственное на чем можно сэкономить в циклах это на фигурных скобках и, в зависимости от ситуации, пару символов на <code>while</code>.</p>
+<p>Тут нету ничего сложного. Единственное на чем можно сэкономить в циклах это на
+фигурных скобках и, в зависимости от ситуации, пару символов на <code>while</code>.</p>
 <h2>Сжатие литералов</h2>
-<p><code>true</code>, <code>false</code> и <code>undefined</code> тоже можно сжать. <code>true</code> и <code>false</code> сжимается посредством опретаором <code>!</code>. Вот простая функция которая определяет является ли переменная булевом.</p>
+<p><code>true</code>, <code>false</code> и <code>undefined</code> тоже можно сжать. <code>true</code> и <code>false</code> сжимается
+посредством опретаором <code>!</code>. Вот простая функция которая определяет является ли
+переменная булевом.</p>
 <pre><code class="language-js">function is_bool (bool) {
     return bool === true || bool === false;
 }</code></pre>
@@ -243,8 +270,12 @@ while(!success)keep_trying() &amp;&amp; is_succeeded() &amp;&amp; (success = tru
 function is_bool (bool) {
     return bool === !0 || bool === !1;
 }</code></pre>
-<p>А вот <code>undefined</code> можно сжать двумя способами: если есть замыкание через аргумент, через свойство объекта или же через выражение <code>void 0</code>.</p>
-<p>Сжатие <code>undefined</code> через замыкание требует определения аргумента в замыкание, который никогда не будет передан, что сделает его <code>undefined</code>. Этот метод требует минификатор или замену <code>undefined</code> на имя переменной которой вы дали для замены <code>undefined</code> в аргументах замыкания.</p>
+<p>А вот <code>undefined</code> можно сжать двумя способами: если есть замыкание через
+аргумент, через свойство объекта или же через выражение <code>void 0</code>.</p>
+<p>Сжатие <code>undefined</code> через замыкание требует определения аргумента в замыкание,
+который никогда не будет передан, что сделает его <code>undefined</code>. Этот метод
+требует минификатор или замену <code>undefined</code> на имя переменной которой вы
+дали для замены <code>undefined</code> в аргументах замыкания.</p>
 <pre><code class="language-js">(function (undefined) {
     if (a == undefined) {
         a = b == undefined;
@@ -253,11 +284,17 @@ function is_bool (bool) {
         a = undefined;
     }
 })();</code></pre>
-<p>И после прогона через минификатор вроде uglify-js мы получим сильно неузнаваемый укороченный код.</p>
+<p>И после прогона через минификатор вроде uglify-js мы получим сильно неузнаваемый
+укороченный код.</p>
 <pre><code class="language-js">!function(n){a==n?a=b==n:a=n}()</code></pre>
 <h2>Заключение</h2>
-<p>Данный пост описывает только некоторые техники минификации кода. uglify-js делает еще многого всего включая грамотно сжимать название переменных в одну букву (), удаление комментариев и лишних whitespace (<code> </code>, <code>\n</code>, <code>\t</code>) символов. </p>
-<p>У минификатор также имеются некоторые ограничения, например: минификаторы не могут сжимать ключи ассоцитивных массивов при определение внутри <code>{}</code> литералов или же при доступе к свойству. Можно было бы сэкономить много места на внутреней API сжимая имена всех методов и свойств.</p> 
+<p>Данный пост описывает только некоторые техники минификации кода. uglify-js
+делает еще многого всего включая грамотно сжимать название переменных в одну
+букву (), удаление комментариев и лишних whitespace (<code> </code>, <code>\n</code>, <code>\t</code>) символов. </p>
+<p>У минификатор также имеются некоторые ограничения, например: минификаторы не
+могут сжимать ключи ассоцитивных массивов при определение внутри <code>{}</code> литералов
+или же при доступе к свойству. Можно было бы сэкономить много места на внутреней
+API сжимая имена всех методов и свойств.</p> 
     
     <ul class="post-details">
         <li class="post-date">
@@ -282,6 +319,7 @@ function is_bool (bool) {
          
     </ul>
     
+
 <div class="likely">
     <div class="vkontakte">Поделиться</div>
     <div class="twitter" data-via="volter_9">Твитнуть</div>
@@ -290,15 +328,26 @@ function is_bool (bool) {
 </div> 
 </article> 
 
-<footer class="fluid" id="footer">
-    <p>&copy; 2015+</p>
+<footer class="fluid footer">
+    <ul class="footer-menu clearfix">
+        <li>
+            &copy; 2015+
+        </li>
+        <li>
+            <a href="http://twitter.com/volter_9"
+               target="_blank">Twitter</a>
+        </li> 
+        <li>
+            <a href="http://github.com/volter9"
+               target="_blank">Github</a>
+        </li>
+    </ul>
 </footer>
 
- 
 <script src="/assets/js/hljs.js" 
         type="text/javascript"></script>
- 
-<script src="/assets/js/likely.js"
+
+<script src="/assets/uploads/likely/likely.js"
         type="text/javascript"></script>
 <script src="/assets/js/spoiler.js"
         type="text/javascript"></script>
@@ -307,7 +356,8 @@ function is_bool (bool) {
 </script> 
  
 <!-- Yandex.Metrika counter -->
-<script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+<noscript><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt=""></noscript>
 <!-- /Yandex.Metrika counter -->
   
         </div>

@@ -118,7 +118,7 @@
 }
 
 .pa-timer-control span {
-    background-image: url('../img/play-pause.png');
+    background-image: url('img/play-pause.png');
     background-repeat: no-repeat;
     
     display: inline-block;
@@ -141,7 +141,7 @@
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
     .pa-timer-control span {
-        background-image: url('../img/play-pause@2x.png');
+        background-image: url('img/play-pause@2x.png');
         background-size: 128px 64px;
     }
 }

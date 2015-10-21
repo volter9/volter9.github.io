@@ -5,7 +5,7 @@
 <meta name="viewport" 
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-<title>volter9.github.io</title>
+<title>Лайкли &ndash; volter9.github.io</title>
 
 <link href="/assets/uploads/likely/likely.css"
       rel="stylesheet"
@@ -14,6 +14,9 @@
       rel="stylesheet"
       type="text/css">
 
+<link href="/assets/css/theme.css"
+      rel="stylesheet"
+      type="text/css">
 
 <link rel="alternate" type="application/rss+xml"
       href="/feed.xml" 
@@ -22,11 +25,17 @@
 
     <body>
         <div class="wrapper">
-<nav class="navigation">
+
+<div class="epic-header full"
+     style="background-size: cover; 
+            background-position: 0px 50%;
+            background-image: url('/assets/uploads/likely/lights.jpg');">
+
+<nav class="navigation navigation-white navigation-shadow">
     <ul class="clearfix links">
      
         <li class="left">
-            <a class="current" 
+            <a class="" 
                href="/"
                target="_self">
                 Главная 
@@ -42,7 +51,7 @@
         </li>
      
         <li class="left">
-            <a class="" 
+            <a class="current" 
                href="/projects"
                target="_self">
                 Проекты 
@@ -51,52 +60,14 @@
      
     </ul>
 </nav> 
-<article class="content full full-padding">
-
-<!-- Обо мне -->
-<div class="about-me full">
-    <div class="fluid clearfix">
-        <div class="about-me-avatar left"></div>
-        
-        <div class="about-me-text left">
-            <h2>Немножко обо мне</h2>
-            
-<p>Добро пожаловать! Меня зовут Евгений, но я также известен под ником volter9.</p>
-<p>В данном блоге я буду писать о веб технологиях (HTML/CSS, PHP, JS) и выкладывать
-свои проекты на обозрение. Тут я буду писать разные туториалы, обзоры, идеи,
-эксперименты и все что может быть связано с интернетом и веб технологиями. </p>
- 
-        </div>
+    
+    <div class="fluid">
+        <h1 class="epic-header-title text-shadow">
+            Лайкли 
+        </h1>
     </div>
-</div>
-
-<!-- Проекты -->
-<div class="projects full">
-    <h1 class="fluid">Проекты</h1>
     
-    
-<div class="clearfix full projects">
- 
-    <div class="project left full">
-
-        
-        
-<div class="project-image" 
-     style="background-size: cover; 
-            background-image: url('/assets/uploads/likely/lights.jpg');
-            background-position: 0px 50%;">
-
-<h2 class="project-title">
-    <a href="/projects/likely">
-        Лайкли 
-    </a>
-</h2>
-
-<p class="project-about">
-    Социокнопки, которые не стыдно поставить<br><b>Роль</b> &mdash; портатирование Лайкли на vanilla JS 
-</p>
-
-    <div class="likely-separated">
+    <div class="fluid text-shadow" style="margin: 1em 0px 3em 0px">
 
 
 <div class="likely likely-big likely-light">
@@ -106,69 +77,29 @@
     <div class="gplus">Плюсануть</div>
 </div> 
 
-<div class="likely likely-light">
-    <div class="vkontakte">Поделиться</div>
-    <div class="twitter" data-via="volter_9">Твитнуть</div>
-    <div class="facebook">Поделиться</div>
-    <div class="gplus">Плюсануть</div>
-</div> 
-
-<div class="likely likely-small likely-light">
-    <div class="vkontakte">Поделиться</div>
-    <div class="twitter" data-via="volter_9">Твитнуть</div>
-    <div class="facebook">Поделиться</div>
-    <div class="gplus">Плюсануть</div>
-</div> 
-
     </div>
-</div>    </div>
- 
 </div>
- 
-</div>
-
-
-<!-- Блог -->
-<div class="blog">
-    <h1>Блог</h1>
+<article class="content full full-padding post">
+<p><a href="http://ilyabirman.ru/projects/likely" target="_blank">Лайкли</a> &mdash;
+это красивые социокнопоки с счетчиками. Оргинальный автор этого виджета является
+<a href="http://ilyabirman.ru/" target="_blank">Илья Бирман</a>, а я являюсь
+теперь со-автором проекта после портатирования Лайкли в
+<a href="http://vanilla-js.com" target="_blank">vanilla JS</a>.</p>
+<h2>Ванилификация Лайкли</h2>
+<p><abbr title="Портатирование jQuery кода в ванильный JS">Ванилификации</abbr>
+является достаточно простым но при этом рутинным заданием. Процесс ванилификации
+Лайкли состоял из следующих пунктов:</p>
+<ol>
+<li>Скачать и распаковать Лайкли</li>
+<li>Привести минифицированный код в читабельное состояние </li>
+<li>Разделить код на модули</li>
+<li>Убрать весь jQuery код и заменить его на ванильный JS
+<!-- 5. Get your shit together, man --></li>
+</ol>
+<p>Первый пункт очень прост, его можно пропустить (хотя он является самым важным
+пунктом).</p>
+<!-- [таблица портатирования jQuery кода в vanilla JS](http://youmightnotneedjquery.com). --> 
     
-    <ul class="posts">
- 
-    <li>
-        <a href="/blog/8-loc-cms">
-            CMS в 8 строк! 
-        </a>
-    </li>
- 
-    <li>
-        <a href="/blog/pjax-example">
-            Как использовать PJAX 
-        </a>
-    </li>
- 
-    <li>
-        <a href="/blog/simple-php-validator">
-            Простой PHP валидатор 
-        </a>
-    </li>
- 
-    <li>
-        <a href="/blog/double-space">
-            Два пробела 
-        </a>
-    </li>
- 
-    <li>
-        <a href="/blog/code-minification-techniques">
-            Техника минификации JS кода 
-        </a>
-    </li>
- 
-</ul>
-
- 
-</div>
-
 
 <div class="likely">
     <div class="vkontakte">Поделиться</div>
@@ -194,6 +125,8 @@
     </ul>
 </footer>
 
+<script src="/assets/js/hljs.js" 
+        type="text/javascript"></script>
 
 <script src="/assets/uploads/likely/likely.js"
         type="text/javascript"></script>
