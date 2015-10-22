@@ -7,7 +7,7 @@
         <description>Личный блог volter9</description>
         <link>http://volter9.github.io</link>
         
-        <atom:link href="http://volter9.github.io/feed" 
+        <atom:link href="http://volter9.github.io/feed/" 
                    rel="self" 
                    type="application/rss+xml"/>
         
@@ -15,8 +15,8 @@
         <item>
             <title>CMS в 8 строк!</title>
             
-            <link>http://volter9.github.io/blog/8-loc-cms</link>
-            <guid isPermaLink="true">http://volter9.github.io/blog/8-loc-cms</guid>
+            <link>http://volter9.github.io/blog/8-loc-cms/</link>
+            <guid isPermaLink="true">http://volter9.github.io/blog/8-loc-cms/</guid>
             
             <description>&lt;style type="text/css"&gt;
     /**
@@ -182,8 +182,8 @@ return [
         <item>
             <title>Как использовать PJAX</title>
             
-            <link>http://volter9.github.io/blog/pjax-example</link>
-            <guid isPermaLink="true">http://volter9.github.io/blog/pjax-example</guid>
+            <link>http://volter9.github.io/blog/pjax-example/</link>
+            <guid isPermaLink="true">http://volter9.github.io/blog/pjax-example/</guid>
             
             <description>&lt;p&gt;&lt;abbr title="Too Long; Don't Read"&gt;TL;DR&lt;/abbr&gt; – пример внизу.&lt;/p&gt;
 &lt;p&gt;Вчера, я наткнулся на плагин &lt;a href="https://github.com/defunkt/jquery-pjax"&gt;PJAX&lt;/a&gt; для
@@ -320,8 +320,8 @@ jQuery. Хотя ниже в README, в секции &amp;quot;Response types th
         <item>
             <title>Простой PHP валидатор</title>
             
-            <link>http://volter9.github.io/blog/simple-php-validator</link>
-            <guid isPermaLink="true">http://volter9.github.io/blog/simple-php-validator</guid>
+            <link>http://volter9.github.io/blog/simple-php-validator/</link>
+            <guid isPermaLink="true">http://volter9.github.io/blog/simple-php-validator/</guid>
             
             <description>&lt;p&gt;Однажды, один мой знакомый спросил меня, как
 &lt;abbr title="Человек который пишет велосипеды"&gt;велосипедиста&lt;/abbr&gt;, как
@@ -524,8 +524,8 @@ if ($errors) {
         <item>
             <title>Два пробела</title>
             
-            <link>http://volter9.github.io/blog/double-space</link>
-            <guid isPermaLink="true">http://volter9.github.io/blog/double-space</guid>
+            <link>http://volter9.github.io/blog/double-space/</link>
+            <guid isPermaLink="true">http://volter9.github.io/blog/double-space/</guid>
             
             <description>&lt;p&gt;Почему многие JS разработчики используют два пробела для отступа вместо табов или
 4-ех пробелов? Это типа модно?&lt;/p&gt;
@@ -621,8 +621,8 @@ var flatName = module.exports.flatName = function (path, child) {
         <item>
             <title>Техника минификации JS кода</title>
             
-            <link>http://volter9.github.io/blog/code-minification-techniques</link>
-            <guid isPermaLink="true">http://volter9.github.io/blog/code-minification-techniques</guid>
+            <link>http://volter9.github.io/blog/code-minification-techniques/</link>
+            <guid isPermaLink="true">http://volter9.github.io/blog/code-minification-techniques/</guid>
             
             <description>&lt;p&gt;Недавно для одного проекта я портанул &lt;a href="http://ilyabirman.ru/projects/likely/"&gt;Лайкли&lt;/a&gt;
 на ванильный JS. Причина была в том что мне не хотелось тащить jQuery в свой
@@ -866,8 +866,8 @@ API сжимая имена всех методов и свойств.&lt;/p&gt;
         <item>
             <title>Привет мир!</title>
             
-            <link>http://volter9.github.io/blog/hello-world</link>
-            <guid isPermaLink="true">http://volter9.github.io/blog/hello-world</guid>
+            <link>http://volter9.github.io/blog/hello-world/</link>
+            <guid isPermaLink="true">http://volter9.github.io/blog/hello-world/</guid>
             
             <description>&lt;p&gt;Добро пожаловать! Меня зовут Евгений, но я также известен под ником volter9.&lt;/p&gt;
 &lt;p&gt;В данном блоге я буду писать о веб технологиях (HTML/CSS, PHP, JS) и выкладывать
