@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta charset="utf-8">
+<meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<title>Красивые PHP шаблонны &ndash; volter9.github.io</title>
+
+<link href="/assets/uploads/likely/likely.css"
+      rel="stylesheet"
+      type="text/css">
+<link href="/assets/css/main.css"
+      rel="stylesheet"
+      type="text/css">
+
+<link href="/assets/css/theme.css"
+      rel="stylesheet"
+      type="text/css">
+
+<link rel="alternate" type="application/rss+xml"
+      href="/feed.xml" 
+      title="RSS Feed"> 
+    </head>
+
+    <body>
+        <div class="wrapper">
+<nav class="navigation">
+    <ul class="clearfix links">
+     
+        <li class="left">
+            <a class="" 
+               href="/">
+                Главная 
+            </a>
+        </li>
+     
+        <li class="left">
+            <a class="current" 
+               href="/blog/">
+                Блог 
+            </a>
+        </li>
+     
+        <li class="left">
+            <a class="" 
+               href="/projects/">
+                Проекты 
+            </a>
+        </li>
+     
+    </ul>
+</nav> 
+<article class="content full full-padding post">
+    <h1 class="post-title">
+        Красивые PHP шаблонны 
+    </h1>
+    
+<p>Привет, данный пост посвящен перфекционистам как я.</p>
+<p>Бывало у тебя такое что когда пишешь PHP/Twig шаблоны в итоге вывод получается
+что-то вроде такого?:</p>
+<div class="spoiler"><pre class="language-html"><code>&lt;!-- blocks/navigation --&gt;
+&lt;nav class="navigation"&gt;
+    &lt;ul&gt;
+                &lt;li&gt;
+            &lt;a href="/"&gt;
+            Главная            &lt;/a&gt;
+        &lt;/li&gt;
+                &lt;li&gt;
+            &lt;a href="/blog"&gt;
+            Блог            &lt;/a&gt;
+        &lt;/li&gt;
+                &lt;li&gt;
+            &lt;a href="/contact"&gt;
+            Контакты            &lt;/a&gt;
+        &lt;/li&gt;
+            &lt;/ul&gt;
+&lt;/nav&gt;</code></pre></div>
+<p>Этот вывод... это же <em>некрасиво</em>. PHP шаблон имеет такое содержание:</p>
+<pre class="language-html"><code>&lt;!-- blocks/navigation --&gt;
+&lt;nav class="navigation"&gt;
+    &lt;ul&gt;
+        &lt;?php foreach ($links as $link): ?&gt;
+        &lt;li&gt;
+            &lt;a href="&lt;?php echo $link[0] ?&gt;"&gt;
+            &lt;?php echo $link[1] ?&gt;
+            &lt;/a&gt;
+        &lt;/li&gt;
+        &lt;?php endforeach; ?&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+<p>Да к в чем же проблема? Почему PHP просто не может вывести так как есть в
+шаблонах? Что же происходит там в недрах PHP что приводит к искажению
+форматирования? Ответ очень прост:</p>
+<p>Закрывающиеся PHP тэги (<code>?&gt;</code>) удаляют один перенос строки (<code>\n</code>) в итоге
+форматирование шаблонов обрывается. Чтобы предотвратить данную проблему все что
+нужно сделать это добавить после каждого <code>?&gt;</code> пробел.</p>
+<div class="spoiler"><pre class="language-html"><code>&lt;!-- blocks/navigation --&gt;
+&lt;nav class="navigation"&gt;
+    &lt;ul&gt;
+        &lt;!-- Так намного лучше --&gt;
+
+        &lt;li&gt;
+            &lt;a href="/"&gt;
+            Главная 
+            &lt;/a&gt;
+        &lt;/li&gt;
+
+        &lt;li&gt;
+            &lt;a href="/blog"&gt;
+            Блог 
+            &lt;/a&gt;
+        &lt;/li&gt;
+
+        &lt;li&gt;
+            &lt;a href="/contact"&gt;
+            Контакты 
+            &lt;/a&gt;
+        &lt;/li&gt;
+
+    &lt;/ul&gt;
+&lt;/nav&gt;</code></pre></div>
+<p>Вот так то лучше! Это вывод того же самого PHP шаблона, только после каждого
+закрывающегося PHP тэга добавлен пробел.</p>
+<h3>Вывод</h3>
+<p>К сожалению, нельзя добится полного контроля над форматированием вывода
+PHP шаблонов без потери форматирования в исходном коде.</p> 
+
+
+<div class="likely" data-title="Красивые PHP шаблонны">
+    <div class="vkontakte">Поделиться</div>
+    <div class="twitter" data-via="volter_9">Твитнуть</div>
+    <div class="facebook">Поделиться</div>
+    <div class="gplus">Плюсануть</div>
+</div> 
+
+    <ul class="post-details">
+        <li class="post-date">
+            Октябрь 27, 2015 
+        </li>
+         
+        <li>
+            <span class="post-category post-php-category">
+                PHP 
+            </span>
+        </li>
+         
+        <li>
+             
+            <span class="post-tag">верстка</span>
+             
+            <span class="post-tag">HTML</span>
+             
+            <span class="post-tag">форматирование</span>
+             
+        </li>
+         
+    </ul>
+</article> 
+
+<footer class="fluid footer">
+    <ul class="footer-menu clearfix">
+        <li>
+            &copy; 2015+
+        </li>
+        <li>
+            <a href="http://twitter.com/volter_9"
+               target="_blank">Twitter</a>
+        </li> 
+        <li>
+            <a href="http://github.com/volter9"
+               target="_blank">Github</a>
+        </li>
+    </ul>
+</footer>
+
+<script src="/assets/js/hljs.js" 
+        type="text/javascript"></script>
+
+<script src="/assets/uploads/likely/likely.js"
+        type="text/javascript"></script>
+<script src="/assets/js/spoiler.js"
+        type="text/javascript"></script>
+<script type="text/javascript">
+    typeof hljs !== 'undefined' && hljs.initHighlightingOnLoad();
+</script> 
+ 
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+<noscript><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt=""></noscript>
+<!-- /Yandex.Metrika counter -->
+  
+        </div>
+    </body>
+</html>

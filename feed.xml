@@ -13,6 +13,84 @@
         
          
         <item>
+            <title>Красивые PHP шаблонны</title>
+            
+            <link>http://volter9.github.io/blog/beautiful-php-templates/</link>
+            <guid isPermaLink="true">http://volter9.github.io/blog/beautiful-php-templates/</guid>
+            
+            <description>&lt;p&gt;Привет, данный пост посвящен перфекционистам как я.&lt;/p&gt;
+&lt;p&gt;Бывало у тебя такое что когда пишешь PHP/Twig шаблоны в итоге вывод получается
+что-то вроде такого?:&lt;/p&gt;
+&lt;div class="spoiler"&gt;&lt;pre class="language-html"&gt;&lt;code&gt;&amp;lt;!-- blocks/navigation --&amp;gt;
+&amp;lt;nav class="navigation"&amp;gt;
+    &amp;lt;ul&amp;gt;
+                &amp;lt;li&amp;gt;
+            &amp;lt;a href="/"&amp;gt;
+            Главная            &amp;lt;/a&amp;gt;
+        &amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;
+            &amp;lt;a href="/blog"&amp;gt;
+            Блог            &amp;lt;/a&amp;gt;
+        &amp;lt;/li&amp;gt;
+                &amp;lt;li&amp;gt;
+            &amp;lt;a href="/contact"&amp;gt;
+            Контакты            &amp;lt;/a&amp;gt;
+        &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+&amp;lt;/nav&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Этот вывод... это же &lt;em&gt;некрасиво&lt;/em&gt;. PHP шаблон имеет такое содержание:&lt;/p&gt;
+&lt;pre class="language-html"&gt;&lt;code&gt;&amp;lt;!-- blocks/navigation --&amp;gt;
+&amp;lt;nav class="navigation"&amp;gt;
+    &amp;lt;ul&amp;gt;
+        &amp;lt;?php foreach ($links as $link): ?&amp;gt;
+        &amp;lt;li&amp;gt;
+            &amp;lt;a href="&amp;lt;?php echo $link[0] ?&amp;gt;"&amp;gt;
+            &amp;lt;?php echo $link[1] ?&amp;gt;
+            &amp;lt;/a&amp;gt;
+        &amp;lt;/li&amp;gt;
+        &amp;lt;?php endforeach; ?&amp;gt;
+    &amp;lt;/ul&amp;gt;
+&amp;lt;/nav&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Да к в чем же проблема? Почему PHP просто не может вывести так как есть в
+шаблонах? Что же происходит там в недрах PHP что приводит к искажению
+форматирования? Ответ очень прост:&lt;/p&gt;
+&lt;p&gt;Закрывающиеся PHP тэги (&lt;code&gt;?&amp;gt;&lt;/code&gt;) удаляют один перенос строки (&lt;code&gt;\n&lt;/code&gt;) в итоге
+форматирование шаблонов обрывается. Чтобы предотвратить данную проблему все что
+нужно сделать это добавить после каждого &lt;code&gt;?&amp;gt;&lt;/code&gt; пробел.&lt;/p&gt;
+&lt;div class="spoiler"&gt;&lt;pre class="language-html"&gt;&lt;code&gt;&amp;lt;!-- blocks/navigation --&amp;gt;
+&amp;lt;nav class="navigation"&amp;gt;
+    &amp;lt;ul&amp;gt;
+        &amp;lt;!-- Так намного лучше --&amp;gt;
+
+        &amp;lt;li&amp;gt;
+            &amp;lt;a href="/"&amp;gt;
+            Главная 
+            &amp;lt;/a&amp;gt;
+        &amp;lt;/li&amp;gt;
+
+        &amp;lt;li&amp;gt;
+            &amp;lt;a href="/blog"&amp;gt;
+            Блог 
+            &amp;lt;/a&amp;gt;
+        &amp;lt;/li&amp;gt;
+
+        &amp;lt;li&amp;gt;
+            &amp;lt;a href="/contact"&amp;gt;
+            Контакты 
+            &amp;lt;/a&amp;gt;
+        &amp;lt;/li&amp;gt;
+
+    &amp;lt;/ul&amp;gt;
+&amp;lt;/nav&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Вот так то лучше! Это вывод того же самого PHP шаблона, только после каждого
+закрывающегося PHP тэга добавлен пробел.&lt;/p&gt;
+&lt;h3&gt;Вывод&lt;/h3&gt;
+&lt;p&gt;К сожалению, нельзя добится полного контроля над форматированием вывода
+PHP шаблонов без потери форматирования в исходном коде.&lt;/p&gt;</description>
+            <pubDate>Tue, 27 Oct 2015 07:03:35 -0700</pubDate>
+        </item>
+         
+        <item>
             <title>CMS в 8 строк!</title>
             
             <link>http://volter9.github.io/blog/8-loc-cms/</link>
@@ -42,6 +120,7 @@
     }
 &lt;/style&gt;
 &lt;p&gt;Привет ребята!&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;UPD&lt;/strong&gt;: CMS из этой крутой статьи теперь на &lt;a href="https://github.com/volter9/8-cms"&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;PHP &amp;mdash; это такой мощный язык программирования на котором можно написать какой-угодно
 вебсайт, в зависимости от вашего опыта.
 Но ты, уважаемый читатель, даже не подозревал что на PHP можно написать
