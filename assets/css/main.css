@@ -292,6 +292,8 @@ ol li {
 }
 .post .likely__widget:first-child {
     margin-left: 2px;
+}
+.post .likely {
     margin-bottom: 24px;
 }
 .post pre {
