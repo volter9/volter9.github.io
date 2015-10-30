@@ -281,7 +281,8 @@ ol li {
 /**
  * Blog posts
  */
-.posts {
+.posts,
+.links {
     margin: 0;
 }
 .post {
@@ -292,9 +293,6 @@ ol li {
 }
 .post .likely__widget:first-child {
     margin-left: 2px;
-}
-.post .likely {
-    margin-bottom: 24px;
 }
 .post pre {
     background-color: #f4f4f4;
@@ -316,6 +314,7 @@ ol li {
 }
 .post-details {
     font-size: 12px;
+    margin-top: 12px;
     margin-left: 0;
 }
 .post-details li {
@@ -344,6 +343,10 @@ ol li {
 .post-php-category {
     background-color: #6178bd;
     color: #fff;
+}
+.post-comments {
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 @media (max-width: 800px) {
     .post {
