@@ -128,7 +128,7 @@ include 'theme/layout.php';</code></pre>
 <div class="tabs-container full">
     <div class="tab">index.php</div>
     <div data-tab="index.php">
-<pre class="language-php"><code>&lt;?php  
+<pre class="language-php"><code>&lt;?php
 
 $route = trim(!empty($_GET['route']) ? $_GET['route'] : 'index', '/');
 
@@ -159,15 +159,15 @@ RewriteRule (.*) index.php?route=$1 [QSA,L]</code></pre>    </div>
 <pre class="language-php"><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;?php isset($title) and print($title) ?&gt; 
+        &lt;?php isset($title) and print($title) ?&gt;
     &lt;/head&gt;
 
     &lt;body&gt;
         &lt;h1&gt;
-            &lt;?php isset($title) and print($title) ?&gt; 
+            &lt;?php isset($title) and print($title) ?&gt;
         &lt;/h1&gt;
 
-        &lt;?php echo $content ?&gt; 
+        &lt;?php echo $content ?&gt;
     &lt;/body&gt;
 &lt;/html&gt;</code></pre> 
     </div>
@@ -180,7 +180,7 @@ RewriteRule (.*) index.php?route=$1 [QSA,L]</code></pre>    </div>
     которая написана в 8 строк кода.
 &lt;/p&gt;
 
-&lt;?php 
+&lt;?php
 
 return [
     'title' =&gt; 'Добро пожаловать'
@@ -194,7 +194,7 @@ return [
     внешнии ссылки.
 &lt;/p&gt;
 
-&lt;?php 
+&lt;?php
 
 return [
     'title' =&gt; '404 - Страница не была найдена'

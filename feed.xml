@@ -189,7 +189,7 @@ include 'theme/layout.php';&lt;/code&gt;&lt;/pre&gt;
 &lt;div class="tabs-container full"&gt;
     &lt;div class="tab"&gt;index.php&lt;/div&gt;
     &lt;div data-tab="index.php"&gt;
-&lt;pre class="language-php"&gt;&lt;code&gt;&amp;lt;?php  
+&lt;pre class="language-php"&gt;&lt;code&gt;&amp;lt;?php
 
 $route = trim(!empty($_GET['route']) ? $_GET['route'] : 'index', '/');
 
@@ -220,15 +220,15 @@ RewriteRule (.*) index.php?route=$1 [QSA,L]&lt;/code&gt;&lt;/pre&gt;    &lt;/div
 &lt;pre class="language-php"&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html&amp;gt;
     &amp;lt;head&amp;gt;
-        &amp;lt;?php isset($title) and print($title) ?&amp;gt; 
+        &amp;lt;?php isset($title) and print($title) ?&amp;gt;
     &amp;lt;/head&amp;gt;
 
     &amp;lt;body&amp;gt;
         &amp;lt;h1&amp;gt;
-            &amp;lt;?php isset($title) and print($title) ?&amp;gt; 
+            &amp;lt;?php isset($title) and print($title) ?&amp;gt;
         &amp;lt;/h1&amp;gt;
 
-        &amp;lt;?php echo $content ?&amp;gt; 
+        &amp;lt;?php echo $content ?&amp;gt;
     &amp;lt;/body&amp;gt;
 &amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt; 
     &lt;/div&gt;
@@ -241,7 +241,7 @@ RewriteRule (.*) index.php?route=$1 [QSA,L]&lt;/code&gt;&lt;/pre&gt;    &lt;/div
     которая написана в 8 строк кода.
 &amp;lt;/p&amp;gt;
 
-&amp;lt;?php 
+&amp;lt;?php
 
 return [
     'title' =&amp;gt; 'Добро пожаловать'
@@ -255,7 +255,7 @@ return [
     внешнии ссылки.
 &amp;lt;/p&amp;gt;
 
-&amp;lt;?php 
+&amp;lt;?php
 
 return [
     'title' =&amp;gt; '404 - Страница не была найдена'

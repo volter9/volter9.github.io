@@ -511,42 +511,54 @@ ol li {
  * Tabs 
  */
 .tabs-container {
+    position: relative;
     margin-bottom: 1em;
 }
 .tabs-container pre {
     margin-bottom: 0;
 }
 .tab {
-    background-color: #eaeaea;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
     color: #444;
-    font-size: 14px;
+    font-size: 12px;
     margin: 0;
     padding: 6px 32px;
 }
 .tab-active {
-    border-bottom: 1px solid #f4f4f4;
-    background-color: #f4f4f4;
-    color: #222;
+    border-left: 4px solid #ccc;
     font-weight: bold;
+    padding: 6px 28px;
 }
 .tabs {
-    background: #e4e4e4;
-    border-top: 1px solid #ddd;
+    background: #fafafa;
+    border-right: 1px solid #eee;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
     margin: 0;
     margin-bottom: -1px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 0;
+    width: 200px;
 }
-.tabs .tab {
-    float: left;
+.tabs ~ * {
+    padding-left: 200px;
 }
-.tabs .tab:hover {
+.tabs .tab:hover,
+.tabs .tab-active {
     background-color: #eee;
     cursor: pointer;
 }
-.tabs .tab-active:hover {
-    background-color: #f8f8f8;
-    cursor: pointer;
+@media (max-width: 800px) {
+    .tabs ~ * {
+        padding-left: 0;
+    }
+    .tabs {
+        border: 0;
+        position: static;
+        width: 100%;
+    }
 }
 .likely-separated > .likely {
     display: block;
