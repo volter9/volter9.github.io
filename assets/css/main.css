@@ -353,6 +353,9 @@ ol li {
     .post {
         padding-left: 0;
     }
+    .post pre code {
+        padding-left: 16px;
+    }
 }
 /**
  * Projects styles
@@ -517,6 +520,9 @@ ol li {
 .tabs-container pre {
     margin-bottom: 0;
 }
+.tabs-container pre code {
+    padding-left: 16px;
+}
 .tab {
     color: #444;
     font-size: 12px;
@@ -558,6 +564,12 @@ ol li {
         border: 0;
         position: static;
         width: 100%;
+    }
+    .tab {
+        padding: 6px 16px;
+    }
+    .tab-active {
+        padding: 6px 12px;
     }
 }
 .likely-separated > .likely {
