@@ -519,9 +519,9 @@ ol li {
     padding: 6px 32px;
 }
 .tab-active {
-    border-left: 4px solid #ccc;
+    border-left: 2px solid #ccc;
     font-weight: bold;
-    padding: 6px 28px;
+    padding: 6px 30px;
 }
 .tabs {
     background: #fafafa;
@@ -558,7 +558,7 @@ ol li {
         padding: 6px 16px;
     }
     .tab-active {
-        padding: 6px 12px;
+        padding: 6px 14px;
     }
 }
 .likely-separated > .likely {
