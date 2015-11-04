@@ -25,7 +25,7 @@
 
     <body>
         <div class="wrapper">
-<nav class="navigation">
+<nav class="fluid navigation">
     <ul class="clearfix links">
      
         <li class="left">
@@ -64,10 +64,10 @@
     </h1>
     
 <p>В этом посте я расскажу о двух очень полезных функциях которыми я очень часто
-пользуюсь и о которых, наверное, мало кто знает или считает говном.</p>
+пользуюсь и о которых, наверное, мало кто знает или считает плохой практикой. </p>
 <p>Для начала я скажу что управление областью видимости не является плохой вещью.
 По моему мнению, нету плохого и хорошего в программирование. Есть просто разные
-инструменты и техники для решение определенной задачи.</p>
+инструменты и техники для решение определенных задач.</p>
 <p class="notice">
 <b>Внимание</b>: в параграфе выше я не утверждаю что нужно пользоватся только  
 синглетонами, глобальными переменными и <code>goto</code>. Каждый решает для 
@@ -172,8 +172,9 @@ $text  = 'Длинный текст...';
 
 render('theme/view.php', compact('title', 'text'));</code></pre> 
 <p>Эти функции очень полезны для работы с переменными в данной области видимости.
-Используйте там где они нужны. В любом случае, пример был усложнен для
-того чтобы показать как работает extract/compact. Примере можно упростить до:</p>
+Используйте их там где они нужны. В любом случае, пример был усложнен для
+того чтобы показать как работает extract/compact. Первый пример можно упростить
+до:</p>
 <pre class="language-php"><code>&lt;?php
 
 $title = 'Привет мир!';
@@ -182,6 +183,7 @@ $text  = 'Длинный текст...';
 require 'theme/view.php';</code></pre> 
 <p>Всем хорошего дня/вечера!</p> 
 
+    <div class="fluid">
 
 <div class="likely likely-medium" data-title="extract и compact">
     <div class="twitter" data-via="volter_9">Твитнуть</div>
@@ -189,32 +191,33 @@ require 'theme/view.php';</code></pre>
     <div class="facebook">Поделиться</div>
 </div> 
 
-    <ul class="post-details">
-        <li class="post-date">
-            Ноябрь 3, 2015 
-        </li>
-         
-        <li>
-            <span class="post-category post-php-category">
-                PHP 
-            </span>
-        </li>
-         
-        <li>
+        <ul class="post-details">
+            <li class="post-date">
+                Ноябрь 3, 2015 
+            </li>
              
-            <span class="post-tag">область видимости</span>
+            <li>
+                <span class="post-category post-php-category">
+                    PHP 
+                </span>
+            </li>
              
-            <span class="post-tag">extract</span>
+            <li>
+                 
+                <span class="post-tag">область видимости</span>
+                 
+                <span class="post-tag">extract</span>
+                 
+                <span class="post-tag">compact</span>
+                 
+                <span class="post-tag">массивы</span>
+                 
+                <span class="post-tag">трюки</span>
+                 
+            </li>
              
-            <span class="post-tag">compact</span>
-             
-            <span class="post-tag">массивы</span>
-             
-            <span class="post-tag">трюки</span>
-             
-        </li>
-         
-    </ul>
+        </ul>
+    </div>
     
 <div class="post-comments">
     <h2>Комментарии</h2>
@@ -247,20 +250,22 @@ require 'theme/view.php';</code></pre>
  
 </article> 
 
-<footer class="fluid footer">
-    <ul class="footer-menu clearfix">
-        <li>
-            &copy; 2015+
-        </li>
-        <li>
-            <a href="http://twitter.com/volter_9"
-               target="_blank">Twitter</a>
-        </li> 
-        <li>
-            <a href="http://github.com/volter9"
-               target="_blank">Github</a>
-        </li>
-    </ul>
+<footer class="footer">
+    <div class="fluid">
+        <ul class="footer-menu clearfix">
+            <li>
+                &copy; 2015+
+            </li>
+            <li>
+                <a href="http://twitter.com/volter_9"
+                   target="_blank">Twitter</a>
+            </li> 
+            <li>
+                <a href="http://github.com/volter9"
+                   target="_blank">Github</a>
+            </li>
+        </ul>
+    </div>
 </footer>
 
 <script src="/assets/js/hljs.js" 

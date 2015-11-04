@@ -25,7 +25,7 @@
 
     <body>
         <div class="wrapper">
-<nav class="navigation">
+<nav class="fluid navigation">
     <ul class="clearfix links">
      
         <li class="left">
@@ -152,6 +152,7 @@ var flatName = module.exports.flatName = function (path, child) {
 пробела на четыре пробела.
 Разве код стал более читабельным? По моему, да.</p> 
 
+    <div class="fluid">
 
 <div class="likely likely-medium" data-title="Два пробела">
     <div class="twitter" data-via="volter_9">Твитнуть</div>
@@ -159,28 +160,29 @@ var flatName = module.exports.flatName = function (path, child) {
     <div class="facebook">Поделиться</div>
 </div> 
 
-    <ul class="post-details">
-        <li class="post-date">
-            Октябрь 5, 2015 
-        </li>
-         
-        <li>
-            <span class="post-category post-javascript-category">
-                JavaScript 
-            </span>
-        </li>
-         
-        <li>
+        <ul class="post-details">
+            <li class="post-date">
+                Октябрь 5, 2015 
+            </li>
              
-            <span class="post-tag">npm</span>
+            <li>
+                <span class="post-category post-javascript-category">
+                    JavaScript 
+                </span>
+            </li>
              
-            <span class="post-tag">ИМХО</span>
+            <li>
+                 
+                <span class="post-tag">npm</span>
+                 
+                <span class="post-tag">ИМХО</span>
+                 
+                <span class="post-tag">форматирование</span>
+                 
+            </li>
              
-            <span class="post-tag">форматирование</span>
-             
-        </li>
-         
-    </ul>
+        </ul>
+    </div>
     
 <div class="post-comments">
     <h2>Комментарии</h2>
@@ -213,20 +215,22 @@ var flatName = module.exports.flatName = function (path, child) {
  
 </article> 
 
-<footer class="fluid footer">
-    <ul class="footer-menu clearfix">
-        <li>
-            &copy; 2015+
-        </li>
-        <li>
-            <a href="http://twitter.com/volter_9"
-               target="_blank">Twitter</a>
-        </li> 
-        <li>
-            <a href="http://github.com/volter9"
-               target="_blank">Github</a>
-        </li>
-    </ul>
+<footer class="footer">
+    <div class="fluid">
+        <ul class="footer-menu clearfix">
+            <li>
+                &copy; 2015+
+            </li>
+            <li>
+                <a href="http://twitter.com/volter_9"
+                   target="_blank">Twitter</a>
+            </li> 
+            <li>
+                <a href="http://github.com/volter9"
+                   target="_blank">Github</a>
+            </li>
+        </ul>
+    </div>
 </footer>
 
 <script src="/assets/js/hljs.js" 
