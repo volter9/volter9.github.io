@@ -13,6 +13,133 @@
         
          
         <item>
+            <title>extract и compact</title>
+            
+            <link>http://volter9.github.io/blog/php-extract-and-compact/</link>
+            <guid isPermaLink="true">http://volter9.github.io/blog/php-extract-and-compact/</guid>
+            
+            <description>&lt;p&gt;В этом посте я расскажу о двух очень полезных функциях которыми я очень часто
+пользуюсь и о которых, наверное, мало кто знает или считает говном.&lt;/p&gt;
+&lt;p&gt;Для начала я скажу что управление областью видимости не является плохой вещью.
+По моему мнению, нету плохого и хорошего в программирование. Есть просто разные
+инструменты и техники для решение определенной задачи.&lt;/p&gt;
+&lt;p class="notice"&gt;
+&lt;b&gt;Внимание&lt;/b&gt;: в параграфе выше я не утверждаю что нужно пользоватся только  
+синглетонами, глобальными переменными и &lt;code&gt;goto&lt;/code&gt;. Каждый решает для 
+себя какую технику использовать и имеет право на мнение против/за разные практики.
+&lt;/p&gt;
+&lt;p&gt;Теперь перейдем к самому интересному, самим функциям &lt;code&gt;extract&lt;/code&gt; и &lt;code&gt;compact&lt;/code&gt;.&lt;/p&gt;
+&lt;h2&gt;extract&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://php.net/manual/en/function.extract.php"&gt;extract&lt;/a&gt; функция распаковывает
+значение из ассоциативного массива в данную область видимости. Аналогичный код
+который делает тоже самое что и extract с одним аргументом в виде массива:&lt;/p&gt;
+&lt;pre&gt;&lt;code class="language-php"&gt;foreach ($assoc_array as $key =&amp;gt; $value) {
+    $$key = $value;
+}
+
+// vs.
+
+extract($assos_array);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Данная функция полезна для следующих задач:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Распаковка переменных в шаблонах в кастомном шаблонизаторе на основе PHP/своего
+синтаксиса&lt;/li&gt;
+&lt;li&gt;Распаковка переменных для облегчения обращение к ключам ассоциативного массива
+&lt;code&gt;$config['abc']&lt;/code&gt; → &lt;code&gt;$abc&lt;/code&gt; (но тут нужно точно знать какие ключи существуют)&lt;/li&gt;
+&lt;li&gt;Пседо-эмуляция Python &lt;code&gt;**kwargs&lt;/code&gt; в PHP&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Пример использования:&lt;/p&gt;
+&lt;div class="tabs-container full"&gt;
+    &lt;div class="tab"&gt;index.php&lt;/div&gt;
+    &lt;div data-tab="index.php"&gt;
+&lt;pre class="language-php"&gt;&lt;code&gt;&amp;lt;?php
+
+/**
+ * __ нужны для предотвращения перезаписи переменных
+ * 
+ * @param string $__view__
+ * @param array $__data__
+ */
+function render ($__view__, $__data__) {
+    extract($__data__);
+
+    require($__view__);
+}
+
+$title = 'Привет мир!';
+$text  = 'Длинный текст...';
+
+render('theme/view.php', [
+    'title' =&amp;gt; $title,
+    'text'  =&amp;gt; $text
+]);&lt;/code&gt;&lt;/pre&gt; 
+    &lt;/div&gt;
+
+    &lt;div class="tab"&gt;theme/view.php&lt;/div&gt;
+    &lt;div data-tab="theme/view.php"&gt;
+&lt;pre class="language-html"&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+    &amp;lt;head&amp;gt;
+        &amp;lt;meta charset="utf-8"&amp;gt;
+        &amp;lt;title&amp;gt;&amp;lt;?php echo $title ?&amp;gt;&amp;lt;/title&amp;gt;
+    &amp;lt;/head&amp;gt;
+
+    &amp;lt;body&amp;gt;
+        &amp;lt;h1&amp;gt;
+            &amp;lt;?php echo $title ?&amp;gt; 
+        &amp;lt;/h1&amp;gt;
+
+        &amp;lt;p&amp;gt;
+            &amp;lt;?php echo $text ?&amp;gt;
+        &amp;lt;/p&amp;gt;
+    &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt; 
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Я уверен что есть еще применение этой функции, но только их пока что не знаю.&lt;/p&gt;
+&lt;h2&gt;compact&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://php.net/manual/en/function.compact.php"&gt;compact&lt;/a&gt; функция является
+противоположностью функции extract. Данная функция запаковывает массив ключей
+или названия переменных, разделенные через запятые, в ассоциативный массив, где
+название переменной станет ключем, а значение значением в массиве.&lt;/p&gt;
+&lt;p&gt;Эта функция будет полезна в следующих случаях:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Передать из контролера переменные в представление (MVC)&lt;/li&gt;
+&lt;li&gt;Вернуть из функции значения переменных в виде массива&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Предыдущий пример можно упростить (укоротить) за счет использования compact:&lt;/p&gt;
+&lt;pre class="language-php"&gt;&lt;code&gt;&amp;lt;?php
+
+/**
+ * __ нужны для предотвращения перезаписи переменных
+ * 
+ * @param string $__view__
+ * @param array $__data__
+ */
+function render ($__view__, $__data__) {
+    extract($__data__);
+
+    require($__view__);
+}
+
+$title = 'Привет мир!';
+$text  = 'Длинный текст...';
+
+render('theme/view.php', compact('title', 'text'));&lt;/code&gt;&lt;/pre&gt; 
+&lt;p&gt;Эти функции очень полезны для работы с переменными в данной области видимости.
+Используйте там где они нужны. В любом случае, пример был усложнен для
+того чтобы показать как работает extract/compact. Примере можно упростить до:&lt;/p&gt;
+&lt;pre class="language-php"&gt;&lt;code&gt;&amp;lt;?php
+
+$title = 'Привет мир!';
+$text  = 'Длинный текст...';
+
+require 'theme/view.php';&lt;/code&gt;&lt;/pre&gt; 
+&lt;p&gt;Всем хорошего дня/вечера!&lt;/p&gt;</description>
+            <pubDate>Tue, 03 Nov 2015 20:40:06 -0800</pubDate>
+        </item>
+         
+        <item>
             <title>Трек недели: Bring the Madness</title>
             
             <link>http://volter9.github.io/blog/bring-the-madness/</link>
@@ -217,7 +344,7 @@ RewriteRule (.*) index.php?route=$1 [QSA,L]&lt;/code&gt;&lt;/pre&gt;    &lt;/div
 
     &lt;div class="tab"&gt;theme/index.php&lt;/div&gt;
     &lt;div data-tab="theme/index.php"&gt;
-&lt;pre class="language-php"&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&lt;pre class="language-html"&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
 &amp;lt;html&amp;gt;
     &amp;lt;head&amp;gt;
         &amp;lt;?php isset($title) and print($title) ?&amp;gt;
@@ -235,7 +362,7 @@ RewriteRule (.*) index.php?route=$1 [QSA,L]&lt;/code&gt;&lt;/pre&gt;    &lt;/div
 
     &lt;div class="tab"&gt;content/index.php&lt;/div&gt;
     &lt;div data-tab="content/index.php"&gt;
-&lt;pre class="language-php"&gt;&lt;code&gt;&amp;lt;p&amp;gt;
+&lt;pre class="language-html"&gt;&lt;code&gt;&amp;lt;p&amp;gt;
     Добро пожаловать! 
     Мой сайт работает на самой крутой и быстрой CMS в мире, 
     которая написана в 8 строк кода.
@@ -249,7 +376,7 @@ return [
 
     &lt;div class="tab"&gt;content/404.php&lt;/div&gt;
     &lt;div data-tab="content/404.php"&gt;
-&lt;pre class="language-php"&gt;&lt;code&gt;&amp;lt;p&amp;gt;
+&lt;pre class="language-html"&gt;&lt;code&gt;&amp;lt;p&amp;gt;
     Вы наверное не на ту кнопку нажали. 
     По этому попали сюда. Или же потому что я удалил страницу, но не удалил
     внешнии ссылки.
@@ -280,7 +407,7 @@ return [
     &lt;/a&gt;
 &lt;/p&gt;
 &lt;!-- А это правда --&gt;
-&lt;p&gt;Забавный факт: данный блог начинался именно с этих строк.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Забавный факт&lt;/strong&gt;: данный блог начинался именно с этих строк.&lt;/p&gt;
 &lt;p&gt;P.S.: 8 строчек PHP кода. Контент, .htaccess конфиг, и шаблоны не идут в счет строчек.
 Только index.php&lt;/p&gt;</description>
             <pubDate>Fri, 09 Oct 2015 20:44:03 -0700</pubDate>

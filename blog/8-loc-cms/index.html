@@ -156,7 +156,7 @@ RewriteRule (.*) index.php?route=$1 [QSA,L]</code></pre>    </div>
 
     <div class="tab">theme/index.php</div>
     <div data-tab="theme/index.php">
-<pre class="language-php"><code>&lt;!DOCTYPE html&gt;
+<pre class="language-html"><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
     &lt;head&gt;
         &lt;?php isset($title) and print($title) ?&gt;
@@ -174,7 +174,7 @@ RewriteRule (.*) index.php?route=$1 [QSA,L]</code></pre>    </div>
 
     <div class="tab">content/index.php</div>
     <div data-tab="content/index.php">
-<pre class="language-php"><code>&lt;p&gt;
+<pre class="language-html"><code>&lt;p&gt;
     Добро пожаловать! 
     Мой сайт работает на самой крутой и быстрой CMS в мире, 
     которая написана в 8 строк кода.
@@ -188,7 +188,7 @@ return [
 
     <div class="tab">content/404.php</div>
     <div data-tab="content/404.php">
-<pre class="language-php"><code>&lt;p&gt;
+<pre class="language-html"><code>&lt;p&gt;
     Вы наверное не на ту кнопку нажали. 
     По этому попали сюда. Или же потому что я удалил страницу, но не удалил
     внешнии ссылки.
@@ -219,7 +219,7 @@ return [
     </a>
 </p>
 <!-- А это правда -->
-<p>Забавный факт: данный блог начинался именно с этих строк.</p>
+<p><strong>Забавный факт</strong>: данный блог начинался именно с этих строк.</p>
 <p>P.S.: 8 строчек PHP кода. Контент, .htaccess конфиг, и шаблоны не идут в счет строчек.
 Только index.php</p> 
 

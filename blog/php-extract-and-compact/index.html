@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<meta charset="utf-8">
+<meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<title>extract и compact &ndash; volter9.github.io</title>
+
+<link href="/assets/uploads/likely/likely.css"
+      rel="stylesheet"
+      type="text/css">
+<link href="/assets/css/main.css"
+      rel="stylesheet"
+      type="text/css">
+
+<link href="/assets/css/theme.css"
+      rel="stylesheet"
+      type="text/css">
+
+<link rel="alternate" type="application/rss+xml"
+      href="/feed.xml" 
+      title="RSS Feed"> 
+    </head>
+
+    <body>
+        <div class="wrapper">
+<nav class="navigation">
+    <ul class="clearfix links">
+     
+        <li class="left">
+            <a class="" 
+               href="/">
+                Главная 
+            </a>
+        </li>
+     
+        <li class="left">
+            <a class="current" 
+               href="/blog/">
+                Блог 
+            </a>
+        </li>
+     
+        <li class="left">
+            <a class="" 
+               href="/projects/">
+                Проекты 
+            </a>
+        </li>
+     
+        <li class="left">
+            <a class="" 
+               href="/links/">
+                Ссылки 
+            </a>
+        </li>
+     
+    </ul>
+</nav> 
+<article class="content full full-padding post">
+    <h1 class="post-title">
+        extract и compact 
+    </h1>
+    
+<p>В этом посте я расскажу о двух очень полезных функциях которыми я очень часто
+пользуюсь и о которых, наверное, мало кто знает или считает говном.</p>
+<p>Для начала я скажу что управление областью видимости не является плохой вещью.
+По моему мнению, нету плохого и хорошего в программирование. Есть просто разные
+инструменты и техники для решение определенной задачи.</p>
+<p class="notice">
+<b>Внимание</b>: в параграфе выше я не утверждаю что нужно пользоватся только  
+синглетонами, глобальными переменными и <code>goto</code>. Каждый решает для 
+себя какую технику использовать и имеет право на мнение против/за разные практики.
+</p>
+<p>Теперь перейдем к самому интересному, самим функциям <code>extract</code> и <code>compact</code>.</p>
+<h2>extract</h2>
+<p><a href="http://php.net/manual/en/function.extract.php">extract</a> функция распаковывает
+значение из ассоциативного массива в данную область видимости. Аналогичный код
+который делает тоже самое что и extract с одним аргументом в виде массива:</p>
+<pre><code class="language-php">foreach ($assoc_array as $key =&gt; $value) {
+    $$key = $value;
+}
+
+// vs.
+
+extract($assos_array);</code></pre>
+<p>Данная функция полезна для следующих задач:</p>
+<ul>
+<li>Распаковка переменных в шаблонах в кастомном шаблонизаторе на основе PHP/своего
+синтаксиса</li>
+<li>Распаковка переменных для облегчения обращение к ключам ассоциативного массива
+<code>$config['abc']</code> → <code>$abc</code> (но тут нужно точно знать какие ключи существуют)</li>
+<li>Пседо-эмуляция Python <code>**kwargs</code> в PHP</li>
+</ul>
+<p>Пример использования:</p>
+<div class="tabs-container full">
+    <div class="tab">index.php</div>
+    <div data-tab="index.php">
+<pre class="language-php"><code>&lt;?php
+
+/**
+ * __ нужны для предотвращения перезаписи переменных
+ * 
+ * @param string $__view__
+ * @param array $__data__
+ */
+function render ($__view__, $__data__) {
+    extract($__data__);
+
+    require($__view__);
+}
+
+$title = 'Привет мир!';
+$text  = 'Длинный текст...';
+
+render('theme/view.php', [
+    'title' =&gt; $title,
+    'text'  =&gt; $text
+]);</code></pre> 
+    </div>
+
+    <div class="tab">theme/view.php</div>
+    <div data-tab="theme/view.php">
+<pre class="language-html"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;title&gt;&lt;?php echo $title ?&gt;&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;body&gt;
+        &lt;h1&gt;
+            &lt;?php echo $title ?&gt; 
+        &lt;/h1&gt;
+
+        &lt;p&gt;
+            &lt;?php echo $text ?&gt;
+        &lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre> 
+    </div>
+</div>
+<p>Я уверен что есть еще применение этой функции, но только их пока что не знаю.</p>
+<h2>compact</h2>
+<p><a href="http://php.net/manual/en/function.compact.php">compact</a> функция является
+противоположностью функции extract. Данная функция запаковывает массив ключей
+или названия переменных, разделенные через запятые, в ассоциативный массив, где
+название переменной станет ключем, а значение значением в массиве.</p>
+<p>Эта функция будет полезна в следующих случаях:</p>
+<ul>
+<li>Передать из контролера переменные в представление (MVC)</li>
+<li>Вернуть из функции значения переменных в виде массива</li>
+</ul>
+<p>Предыдущий пример можно упростить (укоротить) за счет использования compact:</p>
+<pre class="language-php"><code>&lt;?php
+
+/**
+ * __ нужны для предотвращения перезаписи переменных
+ * 
+ * @param string $__view__
+ * @param array $__data__
+ */
+function render ($__view__, $__data__) {
+    extract($__data__);
+
+    require($__view__);
+}
+
+$title = 'Привет мир!';
+$text  = 'Длинный текст...';
+
+render('theme/view.php', compact('title', 'text'));</code></pre> 
+<p>Эти функции очень полезны для работы с переменными в данной области видимости.
+Используйте там где они нужны. В любом случае, пример был усложнен для
+того чтобы показать как работает extract/compact. Примере можно упростить до:</p>
+<pre class="language-php"><code>&lt;?php
+
+$title = 'Привет мир!';
+$text  = 'Длинный текст...';
+
+require 'theme/view.php';</code></pre> 
+<p>Всем хорошего дня/вечера!</p> 
+
+
+<div class="likely likely-medium" data-title="extract и compact">
+    <div class="twitter" data-via="volter_9">Твитнуть</div>
+    <div class="vkontakte">Поделиться</div>
+    <div class="facebook">Поделиться</div>
+</div> 
+
+    <ul class="post-details">
+        <li class="post-date">
+            Ноябрь 3, 2015 
+        </li>
+         
+        <li>
+            <span class="post-category post-php-category">
+                PHP 
+            </span>
+        </li>
+         
+        <li>
+             
+            <span class="post-tag">область видимости</span>
+             
+            <span class="post-tag">extract</span>
+             
+            <span class="post-tag">compact</span>
+             
+            <span class="post-tag">массивы</span>
+             
+            <span class="post-tag">трюки</span>
+             
+        </li>
+         
+    </ul>
+    
+<div class="post-comments">
+    <h2>Комментарии</h2>
+
+    <div id="disqus_thread"></div>
+    <script>
+        var disqus_config = function () {
+            this.page.url = 'http://volter9.github.io/blog/php-extract-and-compact/';
+            this.page.identifier = 'php-extract-and-compact';
+        };
+    
+        (function() {
+            // Stylish...
+            var d = document, 
+                s = d.createElement('script');
+    
+            s.src = '//volter9-github-io.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+        
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>
+        Please enable JavaScript to view the 
+        <a href="https://disqus.com/?ref_noscript" rel="nofollow">
+            comments powered by Disqus.
+        </a>
+    </noscript>
+</div>
+ 
+</article> 
+
+<footer class="fluid footer">
+    <ul class="footer-menu clearfix">
+        <li>
+            &copy; 2015+
+        </li>
+        <li>
+            <a href="http://twitter.com/volter_9"
+               target="_blank">Twitter</a>
+        </li> 
+        <li>
+            <a href="http://github.com/volter9"
+               target="_blank">Github</a>
+        </li>
+    </ul>
+</footer>
+
+<script src="/assets/js/hljs.js" 
+        type="text/javascript"></script>
+
+<script src="/assets/uploads/likely/likely.js"
+        type="text/javascript"></script>
+<script src="/assets/js/spoiler.js"
+        type="text/javascript"></script>
+<script type="text/javascript">
+    typeof hljs !== 'undefined' && hljs.initHighlightingOnLoad();
+</script> 
+ 
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+<noscript><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt=""></noscript>
+<!-- /Yandex.Metrika counter -->
+         </div>
+    </body>
+</html>
