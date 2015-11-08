@@ -322,7 +322,6 @@ hr {
     overflow-x: auto;
     max-width: 100%;
     padding: 0;
-    width: 100%;
 }
 .post pre code {
     background: transparent;
@@ -330,10 +329,11 @@ hr {
     font-size: inherit;
     display: block;
     padding: 16px;
-    padding-left: 32px;
 }
 .post > pre {
     border-radius: 8px;
+    margin-left: 16px;
+    margin-right: 16px;
 }
 .post hr {
     max-width: 100%;
@@ -378,13 +378,12 @@ hr {
     .post {
         padding-left: 0;
     }
-    .post pre code {
-        padding-left: 16px;
-    }
 }
 @media (max-width: 1200px) {
     .post > pre {
         border-radius: 0;
+        margin-left: 0;
+        margin-right: 0;
     }
 }
 /**
@@ -430,7 +429,7 @@ hr {
 }
 @media (max-width: 800px) {
     .project-image {
-        padding: 32px 16px;
+        padding: 16px;
     }
 }
 @media (max-width: 1200px) {
@@ -490,6 +489,7 @@ hr {
 }
 .spoiler pre {
     margin-bottom: 0;
+    padding-left: 16px;
 }
 .spoiler-toggle {
     background-color: rgba(0, 0, 0, 0.025);
