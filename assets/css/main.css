@@ -308,11 +308,14 @@ hr {
     padding-left: 0;
     padding-right: 0;
 }
-.likely .likely__widget:first-child {
+.post .likely__widget:first-child {
     margin-left: -3px;
 }
-.likely-small .likely__widget:first-child {
+.post .likely__widget:first-child {
     margin-left: -2px !important;
+}
+.likely-separated .likely__widget {
+    margin-bottom: 0.4em;
 }
 .post pre {
     background-color: #f4f4f4;
