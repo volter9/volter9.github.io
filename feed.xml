@@ -768,8 +768,7 @@ if ($errors) {
 он все равно нечитабелен. Из-за маленького отступа между строчками плохо виден отступ.
 Также, многие JS разработчики не разделяют блоки кода друг от друга логически,
 в итоге получается вот такая нечитабельная каша:&lt;/p&gt;
-&lt;div class="spoiler spoiler-js"&gt;&lt;pre class="language-code"&gt;&lt;code&gt;// lib/install/flatten-tree.js
-'use strict'
+&lt;div class="spoiler spoiler-js"&gt;&lt;pre class="language-code"&gt;&lt;code&gt;'use strict'
 var validate = require('aproba')
 
 module.exports = function (tree) {
@@ -800,7 +799,7 @@ var flatName = module.exports.flatName = function (path, child) {
 }&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p class="notice"&gt;
     Один из исходников 
-    &lt;a href="https://github.com/npm/npm/" 
+    &lt;a href="https://github.com/npm/npm/blob/d2178a9ea034ede58f02919f259ee072a6554c59/lib/install/flatten-tree.js" 
        title="Node Package Manager" 
        target="blank"&gt;NPM&lt;/a&gt;
 &lt;/p&gt;
