@@ -252,30 +252,7 @@ PHP шаблонов без потери форматирования в исх�
             <link>http://volter9.github.io/blog/8-loc-cms/</link>
             <guid isPermaLink="true">http://volter9.github.io/blog/8-loc-cms/</guid>
             
-            <description>&lt;style type="text/css"&gt;
-    /**
-     * Говно код, говнокод, 
-     * единственный в мире CSS говнокод
-     */
-    .buy-button {
-        background-color: hsl(40, 95%, 66%); 
-        border: 0px !important; 
-        border-radius: 8px;
-        color: #000; 
-        font-size: 24px; 
-        font-weight: bold; 
-        line-height: 140%;
-
-        display: inline-block; 
-        margin-left: -8px;
-        padding: 0.85em 2em; 
-    }
-
-    .buy-button:hover {
-        background-color: hsl(40, 100%, 72%); 
-    }
-&lt;/style&gt;
-&lt;p&gt;Привет ребята!&lt;/p&gt;
+            <description>&lt;p&gt;Привет ребята!&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;UPD&lt;/strong&gt;: CMS из этой крутой статьи теперь на &lt;a href="https://github.com/volter9/8-cms"&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;PHP &amp;mdash; это такой мощный язык программирования на котором можно написать какой-угодно
 вебсайт, в зависимости от вашего опыта.
@@ -410,7 +387,30 @@ return [
 &lt;!-- А это правда --&gt;
 &lt;p&gt;&lt;strong&gt;Забавный факт&lt;/strong&gt;: данный блог начинался именно с этих строк.&lt;/p&gt;
 &lt;p&gt;P.S.: 8 строчек PHP кода. Контент, .htaccess конфиг, и шаблоны не идут в счет строчек.
-Только index.php&lt;/p&gt;</description>
+Только index.php&lt;/p&gt;
+&lt;style type="text/css"&gt;
+    /**
+     * Говно код, говнокод, 
+     * единственный в мире CSS говнокод
+     */
+    .buy-button {
+        background-color: hsl(40, 95%, 66%); 
+        border: 0px !important; 
+        border-radius: 8px;
+        color: #000; 
+        font-size: 24px; 
+        font-weight: bold; 
+        line-height: 140%;
+
+        display: inline-block; 
+        margin-left: -8px;
+        padding: 0.85em 2em; 
+    }
+
+    .buy-button:hover {
+        background-color: hsl(40, 100%, 72%); 
+    }
+&lt;/style&gt;</description>
             <pubDate>Fri, 09 Oct 2015 20:44:03 -0700</pubDate>
         </item>
          

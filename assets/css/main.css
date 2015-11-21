@@ -282,6 +282,14 @@ hr {
     float: left;
     margin-right: 8px;
 }
+.footer-menu li:after {
+    color: #666;
+    content: "–";
+    margin-left: 4px;
+}
+.footer-menu li:last-child:after {
+    content: "";
+}
 /** 
  * Blog styles
  */
