@@ -313,6 +313,10 @@ hr {
 .post {
     width: 100%;
     max-width: 100%;
+    padding-left: 32px;
+    padding-right: 32px;
+}
+.post > * {
     padding-left: 0;
     padding-right: 0;
 }
@@ -343,8 +347,6 @@ hr {
 }
 .post > pre {
     border-radius: 8px;
-    margin-left: 16px;
-    margin-right: 16px;
 }
 .post hr {
     max-width: 100%;
@@ -400,6 +402,10 @@ hr {
 /**
  * Projects styles
  */
+.projects {
+    padding-left: 32px;
+    padding-right: 32px;
+}
 .project:first-child {
     border-radius: 8px 8px 0 0;
 }
@@ -444,6 +450,9 @@ hr {
     }
 }
 @media (max-width: 1200px) {
+    .projects {
+        padding: 0;
+    }
     .projects .project {
         border-radius: 0;
     }
