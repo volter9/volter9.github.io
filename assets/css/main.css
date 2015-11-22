@@ -153,6 +153,9 @@ hr {
     margin: 0 auto;
     padding-bottom: 5em;
 }
+.columns-2 > * {
+    width: 50%;
+}
 .adaptive {
     margin-left: 32px;
 }
@@ -316,10 +319,6 @@ hr {
     padding-left: 32px;
     padding-right: 32px;
 }
-.post > * {
-    padding-left: 0;
-    padding-right: 0;
-}
 .post .likely__widget:first-child {
     margin-left: -3px;
 }
@@ -393,10 +392,19 @@ hr {
     }
 }
 @media (max-width: 1200px) {
+    .post {
+        padding: 0;
+    }
     .post > pre {
         border-radius: 0;
-        margin-left: 0;
-        margin-right: 0;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+@media (min-width: 1200px) {
+    .post > * {
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 /**
