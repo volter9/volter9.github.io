@@ -1,69 +1,43 @@
 <!DOCTYPE html>
+
 <html>
-    <head>
-<meta charset="utf-8">
-<meta name="viewport" 
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-
-<title>Простой PHP валидатор &ndash; volter9.github.io</title>
-
-<link href="/assets/uploads/likely/likely.css"
-      rel="stylesheet"
-      type="text/css">
-<link href="/assets/css/main.css"
-      rel="stylesheet"
-      type="text/css">
-
-<link href="/assets/css/theme.css"
-      rel="stylesheet"
-      type="text/css">
-
-<link rel="alternate" type="application/rss+xml"
-      href="/feed.xml" 
-      title="RSS Feed"> 
-    </head>
-
-    <body>
-        <div class="wrapper">
-<nav class="fluid navigation">
-    <ul class="clearfix links">
-     
-        <li class="left">
-            <a class="" 
-               href="/">
-                Главная 
-            </a>
-        </li>
-     
-        <li class="left">
-            <a class="current" 
-               href="/blog/">
-                Блог 
-            </a>
-        </li>
-     
-        <li class="left">
-            <a class="" 
-               href="/projects/">
-                Проекты 
-            </a>
-        </li>
-     
-        <li class="left">
-            <a class="" 
-               href="/links/">
-                Ссылки 
-            </a>
-        </li>
-     
-    </ul>
-</nav> 
-<article class="content full full-padding post">
-    <h1 class="post-title">
-        Простой PHP валидатор 
-    </h1>
-    
-<p>Однажды, один мой знакомый спросил меня, как
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+    <title>
+      Простой PHP валидатор –  volter9.github.io
+    </title>
+    <link href='/assets/uploads/likely/likely.css' rel='stylesheet'>
+    <link href='/assets/css/main.css' rel='stylesheet'>
+    <link href='/assets/css/theme.css' rel='stylesheet'>
+        <link rel='alternate' type='application/rss+xml' title='RSS Title' href='/feed.xml'>
+  </head>
+  <body>
+    <div class='wrapper'>
+            <nav class='fluid navigation'>
+        <ul class='clearfix links'>
+                      <li class='left'>
+                            <a href='/' class=''>
+                Главная              </a>
+            </li>
+                      <li class='left'>
+                            <a href='/blog/' class='current'>
+                Блог              </a>
+            </li>
+                      <li class='left'>
+                            <a href='/projects/' class=''>
+                Проекты              </a>
+            </li>
+                      <li class='left'>
+                            <a href='/links/' class=''>
+                Ссылки              </a>
+            </li>
+                  </ul>
+      </nav>
+      <article class='content full full-padding post'>
+        <h1 class='post-title'>
+          Простой PHP валидатор        </h1>
+        <p>Однажды, один мой знакомый спросил меня, как
 <abbr title="Человек который пишет велосипеды">велосипедиста</abbr>, как
 бы я реализовал простую валидацию данных.
 Ну если там несколько полей, то можно делать проверку через <code>empty</code> или <code>isset</code>:</p>
@@ -257,108 +231,113 @@ if ($errors) {
     var_dump($errors);
 }</code></pre></div>
 <p>Также данная библиотека доступна на
-<a href="http://gist.github.com/volter9/2d0bf88fceb8bdbfd201">GitHub Gist</a>. Лицензия MIT.</p> 
-
-    <div class="fluid">
-
-<div class="likely likely-medium" data-title="Простой PHP валидатор">
-    <div class="twitter" data-via="volter_9">Твитнуть</div>
-    <div class="vkontakte">Поделиться</div>
-    <div class="facebook">Поделиться</div>
-</div> 
-
-        <ul class="post-details">
-            <li class="post-date">
-                Октябрь 6, 2015 
-            </li>
-             
-            <li>
-                <span class="post-category post-php-category">
-                    PHP 
-                </span>
-            </li>
-             
-            <li>
-                 
-                <span class="post-tag">валидация</span>
-                 
-                <span class="post-tag">KISS</span>
-                 
-                <span class="post-tag">YAGNI</span>
-                 
-                <span class="post-tag">минимализм</span>
-                 
-                <span class="post-tag">велосипед</span>
-                 
-            </li>
-             
-        </ul>
-    </div>
-    
-<div class="post-comments">
-    <h2>Комментарии</h2>
-
-    <div id="disqus_thread"></div>
-    <script>
-        var disqus_config = function () {
-            this.page.url = 'http://volter9.github.io/blog/simple-php-validator/';
-            this.page.identifier = 'simple-php-validator';
-        };
-    
-        (function() {
-            // Stylish...
-            var d = document, 
-                s = d.createElement('script');
-    
-            s.src = '//volter9-github-io.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-        
-            (d.head || d.body).appendChild(s);
-        })();
-    </script>
-    <noscript>
-        Please enable JavaScript to view the 
-        <a href="https://disqus.com/?ref_noscript" rel="nofollow">
-            comments powered by Disqus.
-        </a>
-    </noscript>
+<a href="http://gist.github.com/volter9/2d0bf88fceb8bdbfd201">GitHub Gist</a>. Лицензия MIT.</p>        <div class='fluid'>
+          <div data-title='Простой PHP валидатор' data-url='' class='likely likely-medium'>
+  <div data-via='volter_9' class='twitter'>
+    Твитнуть
+  </div>
+  <div class='vkontakte'>
+    Поделится
+  </div>
+  <div class='facebook'>
+    Поделится
+  </div>
 </div>
+          <ul class='post-details'>
+            <li class='post-date'>
+              Октябрь 6, 2015            </li>
+                                        <li>
+                <span class='post-category post-php-category'>
+                  PHP                </span>
+              </li>
+                          <li>
+                                  <span class='post-tag'>
+                    валидация                  </span>
+                                  <span class='post-tag'>
+                    KISS                  </span>
+                                  <span class='post-tag'>
+                    YAGNI                  </span>
+                                  <span class='post-tag'>
+                    минимализм                  </span>
+                                  <span class='post-tag'>
+                    велосипед                  </span>
+                              </li>
+                      </ul>
+            <div class='post-comments'>
+    <h2>
+      Комментарии
+    </h2>
+  </div>
+  <div id='disqus_thread'>
+  </div>
+  <script type="text/javascript"> var disqus_config = function () {
+     this.page.url = 'http://volter9.github.io/blog/blog/simple-php-validator';
+     this.page.identifier = 'blog/simple-php-validator';
+ };
  
-</article> 
-
-<footer class="footer">
-    <div class="fluid">
-        <ul class="footer-menu clearfix">
+ (function() {
+     // Stylish...
+     var d = document, 
+         s = d.createElement('script');
+         
+     s.src = '//volter9-github-io.disqus.com/embed.js';
+     s.setAttribute('data-timestamp', +new Date());
+     
+     (d.head || d.body).appendChild(s);
+ })();
+ 
+</script>
+  <noscript>
+    Please enable JavaScript to view the 
+    <a href='https://disqus.com/?ref_noscript' rel='nofollow'>
+      comments powered by Disqus.
+    </a>
+  </noscript>
+        </div>
+      </article>
+      <footer class='footer'>
+        <div class='fluid'>
+          <ul class='footer-menu clearfix'>
             <li>
-                &copy; 2015
+              &copy; 2015
             </li>
             <li>
-                <a href="http://twitter.com/volter_9"
-                   target="_blank">Twitter</a>
-            </li> 
-            <li>
-                <a href="http://github.com/volter9"
-                   target="_blank">Github</a>
+              <a href='http://twitter.com/volter_9' target='_blank'>
+                Twitter
+              </a>
             </li>
-        </ul>
-    </div>
-</footer>
-
-<script src="/assets/js/hljs.js" 
-        type="text/javascript"></script>
-
-<script src="/assets/uploads/likely/likely.js"
-        type="text/javascript"></script>
-<script src="/assets/js/spoiler.js"
-        type="text/javascript"></script>
-<script type="text/javascript">
-    typeof hljs !== 'undefined' && hljs.initHighlightingOnLoad();
-</script> 
- 
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
-<noscript><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt=""></noscript>
-<!-- /Yandex.Metrika counter -->
-         </div>
-    </body>
+            <li>
+              <a href='http://github.com/volter9' target='_blank'>
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a href='#'>
+                Наверх
+              </a>
+            </li>
+            <li>
+              Powered by
+              <a href='https://github.com/bloge/bloge'>
+                Bloge
+              </a>
+            </li>
+          </ul>
+        </div>
+      </footer>
+            <script type='text/javascript' src='/assets/uploads/likely/likely.js'>
+      </script>
+      <script type='text/javascript' src='/assets/js/spoiler.js'>
+      </script>
+      <script type='text/javascript' src='/assets/js/hljs.js'>
+      </script>
+      <script type='text/javascript'>
+         typeof hljs !== 'undefined' && hljs.initHighlightingOnLoad();
+      </script>
+              <!-- Yandex.Metrika counter-->
+        <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+        <noscript><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt=""></noscript>
+        <!-- /Yandex.Metrika counter-->
+          </div>
+  </body>
 </html>
