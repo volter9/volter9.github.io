@@ -16,38 +16,41 @@
     <div class='wrapper'>
             <nav class='fluid navigation'>
         <ul class='clearfix links'>
-                      <li class='left'>
-                            <a href='/' class=''>
-                Главная              </a>
-            </li>
-                      <li class='left'>
-                            <a href='/blog/' class='current'>
-                Блог              </a>
-            </li>
-                      <li class='left'>
-                            <a href='/projects/' class=''>
-                Проекты              </a>
-            </li>
-                      <li class='left'>
-                            <a href='/links/' class=''>
-                Ссылки              </a>
-            </li>
-                  </ul>
+          <li class='left'>
+            <a href='/'>
+              <img alt='logo' src='/assets/img/avatar_small.png' class='avatar'>
+            </a>
+          </li>
+          <li class='left'>
+            <a href='/blog/' class='nav-link'>
+              Блог
+            </a>
+          </li>
+          <li class='left'>
+            <a href='/projects/' class='nav-link'>
+              Проекты
+            </a>
+          </li>
+        </ul>
       </nav>
       <article class='content full full-padding post'>
         <h1 class='post-title'>
           CMS в 8 строк!        </h1>
+        <p class='post-date'>
+          Октябрь 9, 2015        </p>
         <p>Привет ребята!</p>
-<p><strong>UPD</strong>: CMS из этой крутой статьи теперь на <a href="https://github.com/volter9/8-cms">GitHub</a>.</p>
-<p>PHP &mdash; это такой мощный язык программирования на котором можно написать какой-угодно
+<p>PHP &mdash; такой мощный язык программирования на котором можно написать какой-угодно
 вебсайт, в зависимости от вашего опыта.
 Но ты, уважаемый читатель, даже не подозревал что на PHP можно написать
 собственную CMS всего лишь в 8 строк! </p>
-<p>PHP &mdash; это самый крутой язык программирования на планете.</p>
-<!--              этого булшита -->
+<p>Короче, PHP это самый крутой язык программирования на планете.</p>
 <p>После прочтение этой научной статьи, ты получишь знание о том как создать свою
 крутую CMS в 8 строк!
 Ну что же, давай начнем наше путешествие в удивительный мир <!-- психоделического --> PHP!</p>
+<p><strong>UPD</strong>: CMS из этой крутой статьи теперь на
+<a href="https://github.com/volter9/8-cms">GitHub</a>.</p>
+<p><strong>Дисклеймер</strong>: 8 строчек PHP кода. Контент, <code>.htaccess</code> конфиг, и шаблоны не
+идут в счет количества строчек. Только <code>index.php</code>, только ядро.</p>
 <h2>CMS</h2>
 <!-- Пожалуйста, не воспринимайте этот параграф всерьез, это же шутка :) -->
 <p>Наша CMS самая крутая и быстрая CMS на всей планете.
@@ -56,7 +59,7 @@
 Нам нужен план. Предлагаю такой план:
 <a href="http://macode.ru" target="_blank">просто написать код</a>.
 Отличный план.</p>
-<p>Я вот написал, а ты следуюешь за мной?</p>
+<p>Я вот написал:</p>
 <pre><code class="language-php">&lt;?php  
 
 $route = trim(!empty($_GET['route']) ? $_GET['route'] : 'index', '/');
@@ -71,6 +74,8 @@ $content = ob_get_clean();
 extract($data ?: []);
 
 include 'theme/layout.php';</code></pre>
+<!-- А это правда -->
+<p><strong>Забавный факт</strong>: данный блог начинался именно с этих строк.</p>
 <p>Вот и вся наша CMS. В папке <code>theme</code> должны содержатся шаблоны CMS,
 а в папке <code>content</code> должен содержатся контент который должен возвращять массив
 с данными.</p>
@@ -160,19 +165,17 @@ return [
 <!--               пограммированию -->
 <p>Ты хочешь научится программировать на PHP, познать самые крутые паттерны и Дзен PHP
 и грести деньги лопатой? Не пропусти этот редкий щанс получить золотую жилу
-знаний, купите наш курс и ты получишь все богатсво мира!</p>
+знаний, купите наш курс и ты получишь все богатсво мира!!!</p>
 <!-- Нот реалли -->
-<p>
+<p style="text-align: center">
     <a class="buy-button" 
        href="javascript:alert('Хе-хе, шутка')" 
        title="Купишь сейчас, получишь скидку в 50%, лимитед оффер">
-        Жми на большую желтую кнопку, купи курс!
+        Жми кнопку, купи курс!
     </a>
 </p>
-<!-- А это правда -->
-<p><strong>Забавный факт</strong>: данный блог начинался именно с этих строк.</p>
-<p>P.S.: 8 строчек PHP кода. Контент, .htaccess конфиг, и шаблоны не идут в счет строчек.
-Только index.php</p>
+<p>Также не забудь подписаться на наш канал на ютубе, вк паблик, инстаграм, гугл
+плюс, и твиттер аккаунты.</p>
 <style type="text/css">
     /**
      * Говно код, говнокод, 
@@ -186,9 +189,9 @@ return [
         font-size: 24px; 
         font-weight: bold; 
         line-height: 140%;
+        text-align: center;
 
         display: inline-block; 
-        margin-left: -8px;
         padding: 0.85em 2em; 
     }
 
@@ -208,8 +211,6 @@ return [
   </div>
   </div>
           <ul class='post-details'>
-            <li class='post-date'>
-              Октябрь 9, 2015            </li>
                                         <li>
                 <span class='post-category post-php-category'>
                   PHP                </span>
@@ -254,34 +255,24 @@ return [
         </div>
       </article>
       <footer class='footer'>
-        <div class='fluid'>
-          <ul class='footer-menu clearfix'>
-            <li>
-              &copy; 2015
-            </li>
-            <li>
-              <a href='http://twitter.com/volter_9' target='_blank'>
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a href='http://github.com/volter9' target='_blank'>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href='#'>
-                Наверх
-              </a>
-            </li>
-            <li>
-              Powered by
-              <a href='https://github.com/bloge/bloge'>
-                Bloge
-              </a>
-            </li>
-          </ul>
-        </div>
+        <ul class='footer-menu clearfix fluid'>
+          <li>
+            &copy; 2015
+          </li>
+          <!-- li: a(href='http://twitter.com/volter_9', target='_blank') Twitter-->
+          <!-- li: a(href='http://github.com/volter9', target='_blank') GitHub-->
+          <li class='up'>
+            <a href='#'>
+              &#8613;
+            </a>
+          </li>
+          <li class='right'>
+            Powered by
+            <a href='https://github.com/bloge/bloge'>
+              Bloge
+            </a>
+          </li>
+        </ul>
       </footer>
             <script type='text/javascript' src='/assets/uploads/likely/likely.js'>
       </script>
@@ -293,8 +284,11 @@ return [
          typeof hljs !== 'undefined' && hljs.initHighlightingOnLoad();
       </script>
               <!-- Yandex.Metrika counter-->
-        <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
-        <noscript><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt=""></noscript>
+        <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+</script>
+        <noscript>
+          <img src='https://mc.yandex.ru/watch/32699335' style='position:absolute; left:-9999px;' alt=''>
+        </noscript>
         <!-- /Yandex.Metrika counter-->
           </div>
   </body>

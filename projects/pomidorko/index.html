@@ -15,56 +15,46 @@
   </head>
   <body>
     <div class='wrapper'>
-                 
-      <div class="epic-header full"
-     id="pomidorko"
-     style="background-color: #ED4455; padding-bottom: 40px;">
-
-<nav class='fluid navigation navigation-white navigation-shadow'>
-  <ul class='clearfix links'>
+            <nav class='fluid navigation'>
+        <ul class='clearfix links'>
           <li class='left'>
-                <a href='/' class=''>
-          Главная        </a>
-      </li>
+            <a href='/'>
+              <img alt='logo' src='/assets/img/avatar_small.png' class='avatar'>
+            </a>
+          </li>
           <li class='left'>
-                <a href='/blog/' class=''>
-          Блог        </a>
-      </li>
+            <a href='/blog/' class='nav-link'>
+              Блог
+            </a>
+          </li>
           <li class='left'>
-                <a href='/projects/' class='current'>
-          Проекты        </a>
-      </li>
-          <li class='left'>
-                <a href='/links/' class=''>
-          Ссылки        </a>
-      </li>
-      </ul>
-</nav>
- 
-    
-    <div class="fluid">
-        <h1 class="epic-header-title">
-            Помидорковый таймер 
-        </h1>
+            <a href='/projects/' class='nav-link'>
+              Проекты
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <article class='content full full-padding post'>
+        <h1 class='post-title'>
+          Помидорковый таймер        </h1>
+        <p><a href="http://pomidorko.ru/" target="_blank">Помидорковый таймер</a> &mdash;
+это инструмент для управления времени с помощью технике «Помодоро». Суть данной
+техники это распределенние времени таким образом чтобы перенагружать мозг,
+давая себе и мозгу сделать небольшой перерыв. </p>
+<div id="pomidorko" style="background-color: #ED4455; border-radius: 8px; margin-bottom: 1em">
+    <div class="pa-skip">
+        <span>Пропустить</span>
     </div>
-    
-    <div class="pa-timer adaptive clearfix">
+
+    <div class="pa-timer clearfix">
         <div class="pa-left-block">
             <div class="pa-timer-time">
                 <span class="pa-min">00</span>
                 <span class="pa-colon">:</span>
                 <span class="pa-sec">00</span>
             </div>
-        
-            <div class="pa-timer-control pa-play">
-                <span class="pa-icon pa-play"></span>
-            </div>
-            
-            <div class="pa-skip">
-                <span>Пропустить</span>
-            </div>
         </div>
-        
+
         <div class="pa-timer-scale pa-right-block">
             <div class="pa-timer-wrapper">
                 <img srcset="/assets/uploads/pomidorko/img/scale@2x.png 2x"
@@ -73,11 +63,11 @@
             </div>
         </div>
     </div>
-</div>      <article class='content full full-padding post'>
-        <p><a href="http://pomidorko.ru/" target="_blank">Помидорковый таймер</a> &mdash;
-это инструмент для управления времени с помощью технике «Помодоро». Суть данной
-техники это распределенние времени таким образом чтобы перенагружать мозг,
-давая себе и мозгу сделать небольшой перерыв. </p>
+
+    <div class="pa-timer-control pa-play">
+        <span class="pa-icon pa-play"></span>
+    </div>
+</div>
 <p><a href="http://omelekhin.ru" target="_target">Паша Омелёхин</a> и я создали
 этот таймер. Помидорковый таймер также доступен на
 <a href="http://pomidorko.com/" target="_blank">Английском</a>.
@@ -100,14 +90,13 @@
 <p>Основная часть кода написана на JS. Код распределен во множество require модулей
 и собирается посредством browserify. JS код состоит из: компонентов, хелперов и моделей.</p>
 <h3>Компоненты</h3>
-<p>Компоненты это &quot;классы&quot; которые
-Компоненты принимают DOM узел и объекты на которые можно повесить события, вроде
+<p>Компоненты принимают DOM узел и объекты на которые можно повесить события, вроде
 моделей и таймера. У каждого компонента имеется обязтаельный activate метод который
 запускает компонент (привязывает события к таймеру/модели и отображает/меняет
 состояние модели).</p>
 <p>Вот пример компонента который меняет Favicon в зависимости от состояния таймера
-(перерыв/помидорка):</p>
-<div class="spoiler spoiler-big"><pre class="language-js"><code>var Component = require('./component');
+(перерыв/работа):</p>
+<pre class="language-js"><code>var Component = require('./component');
 
 module.exports = Component.extend({
     /**
@@ -132,7 +121,7 @@ module.exports = Component.extend({
 
         this.link.href = 'assets/img/' + icon;
     }
-});</code></pre></div> 
+});</code></pre> 
 <p>Организуя весь код в модулях, изолирует отдельный функционал от остального кода
 и обязывает данный код в модуле иметь одну обязанность, тем самым делая код
 более чище и модульным. Но не весь код что помещен в модули является модульным.</p>
@@ -156,7 +145,7 @@ mixin и содержит в себе данные которые можно п�
 модели из localStorage или дефолтные значения, заполнить языковой конфиг,
 создать компоненты/сервисы и активировать все компоненты, в общем bootstrap
 код таймера:</p>
-<div class="spoiler spoiler-big"><pre class="language-js"><code>var components = pomidorko.components,
+<pre class="language-js"><code>var components = pomidorko.components,
     dom        = pomidorko.dom;
 
 /* reset() - отвечает за сброс goals после 6 часов утра */
@@ -199,7 +188,7 @@ var services = [
 
 services.forEach(function (service) {
     service.activate();
-});</code></pre></div> 
+});</code></pre> 
 <p>Ну и конечно же нужно до этого загрузить HTML.</p>
 <h2>PHP</h2>
 <p>PHP в данном проекте служит как простой сборщик локализированных шаблонов. Там
@@ -213,7 +202,7 @@ file_put_contents("build/$lang.html", ob_get_clean());</code></pre>
 <p>ncftp нужен для деплоя помидрокового таймера на сервер через FTP. Ручками каждый
 раз заливать все файлы через filezilla не очень удобно, а git'a на хостинге нету,
 поэтому приходится придумывать вот такие скрипты:</p>
-<div class="spoiler spoiler-big"><pre class="language-sh"><code>#!/bin/sh
+<pre class="language-sh"><code>#!/bin/sh
 
 # FTP deploy script
 source ./ftp.sh
@@ -240,7 +229,7 @@ mkdir assets/img
 mkdir assets/sounds
 put -zf ./build/$LANG.html index.php
 $FILES
-EOF</code></pre></div>
+EOF</code></pre>
 <p>Данный скрипт загружает разницу файлов между сейчашним и последним созданным
 коммитом на FTP сервер. Если этому скрипту дать третий аргумент который равен
 строке &quot;true&quot;, то делается полный upload файлов на FTP сервер.</p>
@@ -252,7 +241,7 @@ EOF</code></pre></div>
 make deploy
 
 # Полный деплой
-make deploy FULL_DEPLOY=true</code></pre>          <div data-title='Помидорковый таймер' class='likely'>
+make deploy FULL_DEPLOY=true</code></pre>          <div data-title='Помидорковый таймер' class='likely likely-medium'>
       <div data-via='volter_9' class='twitter'>
     Твитнуть
   </div>
@@ -265,34 +254,24 @@ make deploy FULL_DEPLOY=true</code></pre>          <div data-title='Помидо
   </div>
       </article>
       <footer class='footer'>
-        <div class='fluid'>
-          <ul class='footer-menu clearfix'>
-            <li>
-              &copy; 2015
-            </li>
-            <li>
-              <a href='http://twitter.com/volter_9' target='_blank'>
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a href='http://github.com/volter9' target='_blank'>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href='#'>
-                Наверх
-              </a>
-            </li>
-            <li>
-              Powered by
-              <a href='https://github.com/bloge/bloge'>
-                Bloge
-              </a>
-            </li>
-          </ul>
-        </div>
+        <ul class='footer-menu clearfix fluid'>
+          <li>
+            &copy; 2015
+          </li>
+          <!-- li: a(href='http://twitter.com/volter_9', target='_blank') Twitter-->
+          <!-- li: a(href='http://github.com/volter9', target='_blank') GitHub-->
+          <li class='up'>
+            <a href='#'>
+              &#8613;
+            </a>
+          </li>
+          <li class='right'>
+            Powered by
+            <a href='https://github.com/bloge/bloge'>
+              Bloge
+            </a>
+          </li>
+        </ul>
       </footer>
                         <script type='text/javascript' src='/assets/uploads/pomidorko/pomidorko.js'>
           </script>
@@ -306,8 +285,11 @@ make deploy FULL_DEPLOY=true</code></pre>          <div data-title='Помидо
          typeof hljs !== 'undefined' && hljs.initHighlightingOnLoad();
       </script>
               <!-- Yandex.Metrika counter-->
-        <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
-        <noscript><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt=""></noscript>
+        <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+</script>
+        <noscript>
+          <img src='https://mc.yandex.ru/watch/32699335' style='position:absolute; left:-9999px;' alt=''>
+        </noscript>
         <!-- /Yandex.Metrika counter-->
           </div>
   </body>

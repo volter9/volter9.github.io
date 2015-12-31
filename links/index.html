@@ -16,23 +16,22 @@
     <div class='wrapper'>
             <nav class='fluid navigation'>
         <ul class='clearfix links'>
-                      <li class='left'>
-                            <a href='/' class=''>
-                Главная              </a>
-            </li>
-                      <li class='left'>
-                            <a href='/blog/' class=''>
-                Блог              </a>
-            </li>
-                      <li class='left'>
-                            <a href='/projects/' class=''>
-                Проекты              </a>
-            </li>
-                      <li class='left'>
-                            <a href='/links/' class='current'>
-                Ссылки              </a>
-            </li>
-                  </ul>
+          <li class='left'>
+            <a href='/'>
+              <img alt='logo' src='/assets/img/avatar_small.png' class='avatar'>
+            </a>
+          </li>
+          <li class='left'>
+            <a href='/blog/' class='nav-link'>
+              Блог
+            </a>
+          </li>
+          <li class='left'>
+            <a href='/projects/' class='nav-link'>
+              Проекты
+            </a>
+          </li>
+        </ul>
       </nav>
       <article class='content full full-padding'>
         <h1 class='post-title'>
@@ -43,6 +42,36 @@
 </p>
 
 <ul>
+ 
+    <li>
+        <a href="http://stackoverflow.com/questions/23313571/hiding-the-dock-icon-without-hiding-the-menu-bar">
+            Cocoa: Как скрыть иконку в доке 
+        </a>
+    </li>
+ 
+    <li>
+        <a href="http://undefinedvalue.com/2009/07/07/adding-custom-view-nsstatusitem">
+            Кастомное представление для NSStatusItem 
+        </a>
+    </li>
+ 
+    <li>
+        <a href="https://www.reddit.com/r/Xcom/comments/3umiec/i_made_an_xcom_game_in_excel/">
+            XCOM в экселе 
+        </a>
+    </li>
+ 
+    <li>
+        <a href="http://cactusformac.com">
+            Кактус статический генератор сайтов 
+        </a>
+    </li>
+ 
+    <li>
+        <a href="http://vuejs.org">
+            Аналог AngularJS 
+        </a>
+    </li>
  
     <li>
         <a href="https://moquet.net/blog/5-features-about-composer-php/">
@@ -321,7 +350,7 @@
     ниже, я уверен, это может кому то пригодится.
 </p>
 
-  <div class='likely'>
+  <div class='likely likely-medium'>
       <div data-via='volter_9' class='twitter'>
     Твитнуть
   </div>
@@ -367,34 +396,24 @@
 
       </article>
       <footer class='footer'>
-        <div class='fluid'>
-          <ul class='footer-menu clearfix'>
-            <li>
-              &copy; 2015
-            </li>
-            <li>
-              <a href='http://twitter.com/volter_9' target='_blank'>
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a href='http://github.com/volter9' target='_blank'>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href='#'>
-                Наверх
-              </a>
-            </li>
-            <li>
-              Powered by
-              <a href='https://github.com/bloge/bloge'>
-                Bloge
-              </a>
-            </li>
-          </ul>
-        </div>
+        <ul class='footer-menu clearfix fluid'>
+          <li>
+            &copy; 2015
+          </li>
+          <!-- li: a(href='http://twitter.com/volter_9', target='_blank') Twitter-->
+          <!-- li: a(href='http://github.com/volter9', target='_blank') GitHub-->
+          <li class='up'>
+            <a href='#'>
+              &#8613;
+            </a>
+          </li>
+          <li class='right'>
+            Powered by
+            <a href='https://github.com/bloge/bloge'>
+              Bloge
+            </a>
+          </li>
+        </ul>
       </footer>
             <script type='text/javascript' src='/assets/uploads/likely/likely.js'>
       </script>
@@ -406,8 +425,11 @@
          typeof hljs !== 'undefined' && hljs.initHighlightingOnLoad();
       </script>
               <!-- Yandex.Metrika counter-->
-        <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
-        <noscript><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt=""></noscript>
+        <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+</script>
+        <noscript>
+          <img src='https://mc.yandex.ru/watch/32699335' style='position:absolute; left:-9999px;' alt=''>
+        </noscript>
         <!-- /Yandex.Metrika counter-->
           </div>
   </body>

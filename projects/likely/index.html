@@ -14,44 +14,30 @@
   </head>
   <body>
     <div class='wrapper'>
-                 
-      
-<div class="epic-header full"
-     style="background-size: cover; 
-            background-position: 0px 50%;
-            background-image: url('/assets/uploads/likely/lights.jpg');">
-
-<nav class='fluid navigation navigation-white navigation-shadow'>
-  <ul class='clearfix links'>
+            <nav class='fluid navigation'>
+        <ul class='clearfix links'>
           <li class='left'>
-                <a href='/' class=''>
-          Главная        </a>
-      </li>
+            <a href='/'>
+              <img alt='logo' src='/assets/img/avatar_small.png' class='avatar'>
+            </a>
+          </li>
           <li class='left'>
-                <a href='/blog/' class=''>
-          Блог        </a>
-      </li>
+            <a href='/blog/' class='nav-link'>
+              Блог
+            </a>
+          </li>
           <li class='left'>
-                <a href='/projects/' class='current'>
-          Проекты        </a>
-      </li>
-          <li class='left'>
-                <a href='/links/' class=''>
-          Ссылки        </a>
-      </li>
-      </ul>
-</nav>
- 
-    
-    <div class="fluid">
-        <h1 class="epic-header-title text-shadow">
-            Лайкли 
-        </h1>
-    </div>
-    
-    <div class="fluid text-shadow" style="margin: 1em 0px 2em 0px">
-
-  <div class='likely likely-big likely-light'>
+            <a href='/projects/' class='nav-link'>
+              Проекты
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <article class='content full full-padding post'>
+        <h1 class='post-title'>
+          Лайкли        </h1>
+        <div class="text-shadow" style="background-size: cover; background-position: 0px 50%; background-image: url('/assets/uploads/likely/lights.jpg'); padding: 32px; margin-bottom: 1em; border-radius: 8px">
+      <div class='likely likely-big likely-light'>
       <div data-via='volter_9' class='twitter'>
     Твитнуть
   </div>
@@ -62,11 +48,9 @@
     Поделится
   </div>
   </div>
- 
 
-    </div>
-</div>      <article class='content full full-padding post'>
-        <p><a href="http://ilyabirman.ru/projects/likely" target="_blank">Лайкли</a> &mdash;
+</div>
+<p><a href="http://ilyabirman.ru/projects/likely" target="_blank">Лайкли</a> &mdash;
 это красивые социокнопоки с счетчиками. Лайкли поддерживает шаринг страницы
 в Фейсбуке, Твиттере, Вконтакте, Гугл плюсе, Пинтересте и Одноклассниках.
 Оргинальный автор этого виджета является
@@ -131,7 +115,7 @@
 $.Deferred API. </p>
 <p>Social Likes и Лайкли использовали $.Deferred только для <code>.always()</code>, поэтому
 вместо аналога $.Deferred я решил написать что то вроде <code>ko.observable()</code>:</p>
-<div class="spoiler spoiler-big"><pre class="language-js"><code>/**
+<pre class="language-js"><code>/**
  * Factory function
  * 
  * This function returns function with following API:
@@ -165,7 +149,7 @@ module.exports = function (value) {
             });
         }
     };
-};</code></pre></div>          <div data-title='Лайкли' class='likely'>
+};</code></pre>          <div data-title='Лайкли' class='likely likely-medium'>
       <div data-via='volter_9' class='twitter'>
     Твитнуть
   </div>
@@ -178,34 +162,24 @@ module.exports = function (value) {
   </div>
       </article>
       <footer class='footer'>
-        <div class='fluid'>
-          <ul class='footer-menu clearfix'>
-            <li>
-              &copy; 2015
-            </li>
-            <li>
-              <a href='http://twitter.com/volter_9' target='_blank'>
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a href='http://github.com/volter9' target='_blank'>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href='#'>
-                Наверх
-              </a>
-            </li>
-            <li>
-              Powered by
-              <a href='https://github.com/bloge/bloge'>
-                Bloge
-              </a>
-            </li>
-          </ul>
-        </div>
+        <ul class='footer-menu clearfix fluid'>
+          <li>
+            &copy; 2015
+          </li>
+          <!-- li: a(href='http://twitter.com/volter_9', target='_blank') Twitter-->
+          <!-- li: a(href='http://github.com/volter9', target='_blank') GitHub-->
+          <li class='up'>
+            <a href='#'>
+              &#8613;
+            </a>
+          </li>
+          <li class='right'>
+            Powered by
+            <a href='https://github.com/bloge/bloge'>
+              Bloge
+            </a>
+          </li>
+        </ul>
       </footer>
             <script type='text/javascript' src='/assets/uploads/likely/likely.js'>
       </script>
@@ -217,8 +191,11 @@ module.exports = function (value) {
          typeof hljs !== 'undefined' && hljs.initHighlightingOnLoad();
       </script>
               <!-- Yandex.Metrika counter-->
-        <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
-        <noscript><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt=""></noscript>
+        <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+</script>
+        <noscript>
+          <img src='https://mc.yandex.ru/watch/32699335' style='position:absolute; left:-9999px;' alt=''>
+        </noscript>
         <!-- /Yandex.Metrika counter-->
           </div>
   </body>

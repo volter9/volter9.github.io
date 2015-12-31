@@ -16,31 +16,31 @@
     <div class='wrapper'>
             <nav class='fluid navigation'>
         <ul class='clearfix links'>
-                      <li class='left'>
-                            <a href='/' class=''>
-                Главная              </a>
-            </li>
-                      <li class='left'>
-                            <a href='/blog/' class='current'>
-                Блог              </a>
-            </li>
-                      <li class='left'>
-                            <a href='/projects/' class=''>
-                Проекты              </a>
-            </li>
-                      <li class='left'>
-                            <a href='/links/' class=''>
-                Ссылки              </a>
-            </li>
-                  </ul>
+          <li class='left'>
+            <a href='/'>
+              <img alt='logo' src='/assets/img/avatar_small.png' class='avatar'>
+            </a>
+          </li>
+          <li class='left'>
+            <a href='/blog/' class='nav-link'>
+              Блог
+            </a>
+          </li>
+          <li class='left'>
+            <a href='/projects/' class='nav-link'>
+              Проекты
+            </a>
+          </li>
+        </ul>
       </nav>
       <article class='content full full-padding post'>
         <h1 class='post-title'>
           Красивые PHP шаблоны        </h1>
-        <p>Привет, данный пост посвящен перфекционистам как я.</p>
-<p>Бывало у тебя такое что когда пишешь PHP/Twig шаблоны в итоге вывод получается
-что-то вроде такого?:</p>
-<div class="spoiler"><pre class="language-html"><code>&lt;!-- blocks/navigation --&gt;
+        <p class='post-date'>
+          Октябрь 27, 2015        </p>
+        <p>Привет, данный пост посвящен перфекционистам как я. Бывало у тебя такое что
+когда пишешь PHP/Twig шаблоны в итоге вывод получается что-то вроде такого?:</p>
+<pre class="language-html"><code>&lt;!-- blocks/navigation --&gt;
 &lt;nav class="navigation"&gt;
     &lt;ul&gt;
                 &lt;li&gt;
@@ -56,7 +56,7 @@
             Контакты            &lt;/a&gt;
         &lt;/li&gt;
             &lt;/ul&gt;
-&lt;/nav&gt;</code></pre></div>
+&lt;/nav&gt;</code></pre>
 <p>Этот вывод... это же <em>некрасиво</em>. PHP шаблон имеет такое содержание:</p>
 <pre class="language-html"><code>&lt;!-- blocks/navigation --&gt;
 &lt;nav class="navigation"&gt;
@@ -76,7 +76,7 @@
 <p>Закрывающиеся PHP тэги (<code>?&gt;</code>) удаляют один перенос строки (<code>\n</code>) в итоге
 форматирование шаблонов обрывается. Чтобы предотвратить данную проблему все что
 нужно сделать это добавить после каждого <code>?&gt;</code> пробел.</p>
-<div class="spoiler"><pre class="language-html"><code>&lt;!-- blocks/navigation --&gt;
+<pre class="language-html"><code>&lt;!-- blocks/navigation --&gt;
 &lt;nav class="navigation"&gt;
     &lt;ul&gt;
         &lt;!-- Так намного лучше --&gt;
@@ -100,7 +100,7 @@
         &lt;/li&gt;
 
     &lt;/ul&gt;
-&lt;/nav&gt;</code></pre></div>
+&lt;/nav&gt;</code></pre>
 <p>Вот так то лучше! Это вывод того же самого PHP шаблона, только после каждого
 закрывающегося PHP тэга добавлен пробел.</p>
 <h3>Вывод</h3>
@@ -118,8 +118,6 @@ PHP шаблонов без потери форматирования в исх�
   </div>
   </div>
           <ul class='post-details'>
-            <li class='post-date'>
-              Октябрь 27, 2015            </li>
                                         <li>
                 <span class='post-category post-php-category'>
                   PHP                </span>
@@ -166,34 +164,24 @@ PHP шаблонов без потери форматирования в исх�
         </div>
       </article>
       <footer class='footer'>
-        <div class='fluid'>
-          <ul class='footer-menu clearfix'>
-            <li>
-              &copy; 2015
-            </li>
-            <li>
-              <a href='http://twitter.com/volter_9' target='_blank'>
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a href='http://github.com/volter9' target='_blank'>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href='#'>
-                Наверх
-              </a>
-            </li>
-            <li>
-              Powered by
-              <a href='https://github.com/bloge/bloge'>
-                Bloge
-              </a>
-            </li>
-          </ul>
-        </div>
+        <ul class='footer-menu clearfix fluid'>
+          <li>
+            &copy; 2015
+          </li>
+          <!-- li: a(href='http://twitter.com/volter_9', target='_blank') Twitter-->
+          <!-- li: a(href='http://github.com/volter9', target='_blank') GitHub-->
+          <li class='up'>
+            <a href='#'>
+              &#8613;
+            </a>
+          </li>
+          <li class='right'>
+            Powered by
+            <a href='https://github.com/bloge/bloge'>
+              Bloge
+            </a>
+          </li>
+        </ul>
       </footer>
             <script type='text/javascript' src='/assets/uploads/likely/likely.js'>
       </script>
@@ -205,8 +193,11 @@ PHP шаблонов без потери форматирования в исх�
          typeof hljs !== 'undefined' && hljs.initHighlightingOnLoad();
       </script>
               <!-- Yandex.Metrika counter-->
-        <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
-        <noscript><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt=""></noscript>
+        <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+</script>
+        <noscript>
+          <img src='https://mc.yandex.ru/watch/32699335' style='position:absolute; left:-9999px;' alt=''>
+        </noscript>
         <!-- /Yandex.Metrika counter-->
           </div>
   </body>

@@ -16,37 +16,39 @@
     <div class='wrapper'>
             <nav class='fluid navigation'>
         <ul class='clearfix links'>
-                      <li class='left'>
-                            <a href='/' class=''>
-                Главная              </a>
-            </li>
-                      <li class='left'>
-                            <a href='/blog/' class='current'>
-                Блог              </a>
-            </li>
-                      <li class='left'>
-                            <a href='/projects/' class=''>
-                Проекты              </a>
-            </li>
-                      <li class='left'>
-                            <a href='/links/' class=''>
-                Ссылки              </a>
-            </li>
-                  </ul>
+          <li class='left'>
+            <a href='/'>
+              <img alt='logo' src='/assets/img/avatar_small.png' class='avatar'>
+            </a>
+          </li>
+          <li class='left'>
+            <a href='/blog/' class='nav-link'>
+              Блог
+            </a>
+          </li>
+          <li class='left'>
+            <a href='/projects/' class='nav-link'>
+              Проекты
+            </a>
+          </li>
+        </ul>
       </nav>
       <article class='content full full-padding post'>
         <h1 class='post-title'>
           Как использовать PJAX        </h1>
-        <p><abbr title="Too Long; Don't Read">TL;DR</abbr> – пример внизу.</p>
-<p>Вчера, я наткнулся на плагин <a href="https://github.com/defunkt/jquery-pjax">PJAX</a> для
-jQuery. Решил я потестировать этот плагин.
-К моему сожалению, код из примера не хотел работать с полноценными HTML
-документами (без конфигурации приложения, это относится для статических сайтов
-вроде моего).</p>
+        <p class='post-date'>
+          Октябрь 7, 2015        </p>
+        <p>Вчера я наткнулся на плагин <a href="https://github.com/defunkt/jquery-pjax">PJAX</a> для
+jQuery и решил его потестировать. К моему сожалению, код из примера не хотел
+работать с полноценными HTML документами (без конфигурации приложения, это
+относится для статических сайтов вроде моего).</p>
+<p class="notice">
+    <abbr title="Too Long; Don't Read">TL;DR</abbr> – пример внизу.
+</p>
 <p>По этой причине, мне пришлость лезть в исходный код плагина и смотреть в чем проблема.
 Изначально я думал что проблема была в том что веб-сервер неправильно обрабатывает
 AJAX запросы т.к. Safari консоль не показывала AJAX запрос.</p>
-<p>В итоге вычислилось что все работает, но в исходном код содержимое AJAX запроса
+<p>В итоге вычислилось что все работает, но в исходном коде содержимое AJAX запроса
 не доходит до точки вывода содержимого в основной контейнер.</p>
 <div class="spoiler spoiler-big"><pre class="language-js"><code>function extractContainer() {
   /* ... */
@@ -80,15 +82,15 @@ AJAX запросы т.к. Safari консоль не показывала AJAX 
 
   /* ... */
 }</code></pre></div> 
-<p>Таким образом я потратил впустую пол часа на разгадку &quot;почему же PJAX не работает?&quot;
+<p>Таким образом я потратил впустую пол часа на разгадку &quot;почему же PJAX не работает?&quot;.
 Было бы намного легче если бы данный плагин кинул исключение с сообщением вроде:</p>
 <blockquote>
-<h2>Ахтунг!</h2>
-<p>Я получил ответ с сервера и это оказался полноценный HTML документ, омг<br />
-Тебе нужно установить fragment свойство в параметрах чтобы я смог нормально
-обработать HTML ответ с сервера</p>
+<p>Я получил ответ с сервера и это оказался полноценный HTML документ, ОМГ  </p>
+<p>Тебе нужно установить свойство fragment в параметрах чтобы я смог нормально
+обработать HTML ответ с сервера, хе-хе</p>
 </blockquote>
-<p>А теперь сам пример:</p>
+<p>Главное чтобы это сообщение было красным, сверкало и было очень заметным.
+А теперь внимание... сам пример:</p>
 <div class="tabs-container full">
     <!-- script.js -->
     <div class="tab">script.js</div>
@@ -163,9 +165,10 @@ AJAX запросы т.к. Safari консоль не показывала AJAX 
 <p class="notice">
     Файл jquery.pjax.js нужно скачать с оффициального GitHub репозитория плагина
 </p>
-<p>Я думаю что этот пример нужно обязательно добавить в README.md PJAX плагина для
+<p>Я думаю что этот пример нужно обязательно добавить в <code>README.md</code> PJAX плагина для
 jQuery. Хотя ниже в README, в секции &quot;Response types that force a reload&quot;,
-данная проблема описана, жалко что оно там оче.</p>        <div class='fluid'>
+данная проблема описана, жалко что описание недостает нужных ключевых слов
+т.е. &quot;как запустить PJAX на чистом веб-сервере&quot;.</p>        <div class='fluid'>
             <div data-title='Как использовать PJAX' class='likely likely-medium'>
       <div data-via='volter_9' class='twitter'>
     Твитнуть
@@ -178,8 +181,6 @@ jQuery. Хотя ниже в README, в секции &quot;Response types that f
   </div>
   </div>
           <ul class='post-details'>
-            <li class='post-date'>
-              Октябрь 7, 2015            </li>
                                         <li>
                 <span class='post-category post-javascript-category'>
                   JavaScript                </span>
@@ -226,34 +227,24 @@ jQuery. Хотя ниже в README, в секции &quot;Response types that f
         </div>
       </article>
       <footer class='footer'>
-        <div class='fluid'>
-          <ul class='footer-menu clearfix'>
-            <li>
-              &copy; 2015
-            </li>
-            <li>
-              <a href='http://twitter.com/volter_9' target='_blank'>
-                Twitter
-              </a>
-            </li>
-            <li>
-              <a href='http://github.com/volter9' target='_blank'>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href='#'>
-                Наверх
-              </a>
-            </li>
-            <li>
-              Powered by
-              <a href='https://github.com/bloge/bloge'>
-                Bloge
-              </a>
-            </li>
-          </ul>
-        </div>
+        <ul class='footer-menu clearfix fluid'>
+          <li>
+            &copy; 2015
+          </li>
+          <!-- li: a(href='http://twitter.com/volter_9', target='_blank') Twitter-->
+          <!-- li: a(href='http://github.com/volter9', target='_blank') GitHub-->
+          <li class='up'>
+            <a href='#'>
+              &#8613;
+            </a>
+          </li>
+          <li class='right'>
+            Powered by
+            <a href='https://github.com/bloge/bloge'>
+              Bloge
+            </a>
+          </li>
+        </ul>
       </footer>
             <script type='text/javascript' src='/assets/uploads/likely/likely.js'>
       </script>
@@ -265,8 +256,11 @@ jQuery. Хотя ниже в README, в секции &quot;Response types that f
          typeof hljs !== 'undefined' && hljs.initHighlightingOnLoad();
       </script>
               <!-- Yandex.Metrika counter-->
-        <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
-        <noscript><img src="https://mc.yandex.ru/watch/32699335" style="position:absolute; left:-9999px;" alt=""></noscript>
+        <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+</script>
+        <noscript>
+          <img src='https://mc.yandex.ru/watch/32699335' style='position:absolute; left:-9999px;' alt=''>
+        </noscript>
         <!-- /Yandex.Metrika counter-->
           </div>
   </body>

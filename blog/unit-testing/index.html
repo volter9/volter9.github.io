@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
     <title>
-      Два пробела –  volter9.github.io
+      Юнит тестирование –  volter9.github.io
     </title>
     <link href='/assets/uploads/likely/likely.css' rel='stylesheet'>
     <link href='/assets/css/main.css' rel='stylesheet'>
@@ -35,97 +35,31 @@
       </nav>
       <article class='content full full-padding post'>
         <h1 class='post-title'>
-          Два пробела        </h1>
+          Юнит тестирование        </h1>
         <p class='post-date'>
-          Октябрь 5, 2015        </p>
-        <p>Почему многие JS разработчики используют два пробела для отступа вместо табов или
-4-ех пробелов? Это типа модно?</p>
-<p>С двумя пробелами получается каша а не код. Как бы хорошо он не был бы написан,
-он все равно нечитабелен. Из-за маленького отступа между строчками плохо виден отступ.
-Также, многие JS разработчики не разделяют блоки кода друг от друга логически,
-в итоге получается вот такая нечитабельная каша:</p>
-<div class="spoiler spoiler-js"><pre class="language-code"><code>'use strict'
-var validate = require('aproba')
-
-module.exports = function (tree) {
-  validate('O', arguments)
-  var seen = {}
-  var flat = {}
-  var todo = [[tree, '/']]
-  while (todo.length) {
-    var next = todo.shift()
-    var pkg = next[0]
-    seen[pkg.path] = true
-    var path = next[1]
-    flat[path] = pkg
-    if (path !== '/') path += '/'
-    for (var ii = 0; ii &lt; pkg.children.length; ++ii) {
-      var child = pkg.children[ii]
-      if (!seen[child.path]) {
-        todo.push([child, flatName(path, child)])
-      }
-    }
-  }
-  return flat
-}
-
-var flatName = module.exports.flatName = function (path, child) {
-  validate('SO', arguments)
-  return path + (child.package.name || 'TOP')
-}</code></pre></div>
-<p class="notice">
-    Один из исходников 
-    <a href="https://github.com/npm/npm/blob/d2178a9ea034ede58f02919f259ee072a6554c59/lib/install/flatten-tree.js" 
-       title="Node Package Manager" 
-       target="blank">NPM</a>
-</p>
-<p>Мне не удалось с первого раза прочитать этот код и понять что он делать.
-Этот код не читабелен.
-Вся его проблема читабельности этого кода в том что он слишком сжат.
-У нету разделения между блоками и имеется отступ в два пробела.</p>
-<p>После форматирование, код становится более читабельным:</p>
-<div class="spoiler spoiler-js"><pre class="language-code"><code>'use strict'
-
-var validate = require('aproba')
-
-module.exports = function (tree) {
-    validate('O', arguments)
-
-    var seen = {},
-        flat = {},
-        todo = [[tree, '/']]
-
-    while (todo.length) {
-        var next = todo.shift(),
-            pkg  = next[0],
-            path = next[1]
-
-        seen[pkg.path] = true
-        flat[path] = pkg
-
-        if (path !== '/') path += '/'
-
-        for (var ii = 0; ii &lt; pkg.children.length; ++ii) {
-            var child = pkg.children[ii]
-
-            if (!seen[child.path]) {
-                todo.push([child, flatName(path, child)])
-            }
-        }
-    }
-
-    return flat
-}
-
-var flatName = module.exports.flatName = function (path, child) {
-    validate('SO', arguments)
-
-    return path + (child.package.name || 'TOP')
-}</code></pre></div>
-<p>Все что я сделал это разделил код на логические блоки и заменил отступ в два
-пробела на четыре пробела.
-Разве код стал более читабельным? По моему, да.</p>        <div class='fluid'>
-            <div data-title='Два пробела' class='likely likely-medium'>
+          Декабрь 1, 2015        </p>
+        <p>Привет! Давно не писал в свой бложик. Пора исправить эту ситуацию. В данном
+посте я опишу достойнства юнит тестирования и TDD.</p>
+<h3>Юнит тестирование</h3>
+<blockquote>
+<p>... юнит-тестирование – процесс в программировании, позволяющий проверить на
+корректность отдельные модули исходного кода программы</p>
+</blockquote>
+<p>Определение юнит тестирование на
+<a href="https://ru.wikipedia.org/wiki/Модульное_тестирование" target="_blank">википедии</a>.</p>
+<p>В первую очередь чтобы убедить тебя в чем преймущество юнит тестирование, мне
+нужно задать простой риторический вопрос: какую выгоду даст мне юнит
+тестирование?</p>
+<p>Все очень просто. Юнит тестирование даст тебе способ проверить отдельные
+фукнции (методы) на соответсвия твоим ожиданиям. Проще говоря в юнит тесте ты
+описываешь функционал и что должен этот функционал делать (какие значения
+функции должны возвращать) при определенной обстоятельствах.</p>
+<h3>TDD</h3>
+<h3>Заключение</h3>
+<p>Хоть и юнит тестирование требует больше времени и усилий, но оно
+повышает качество и модульность кода и понижает вероятность возникновения
+логических ошибок, если, конечно же, правильно сделано.</p>        <div class='fluid'>
+            <div data-title='Юнит тестирование' class='likely likely-medium'>
       <div data-via='volter_9' class='twitter'>
     Твитнуть
   </div>
@@ -138,16 +72,16 @@ var flatName = module.exports.flatName = function (path, child) {
   </div>
           <ul class='post-details'>
                                         <li>
-                <span class='post-category post-javascript-category'>
-                  JavaScript                </span>
+                <span class='post-category post-php-category'>
+                  PHP                </span>
               </li>
                           <li>
                                   <span class='post-tag'>
-                    npm                  </span>
+                    юнит тестирование                  </span>
                                   <span class='post-tag'>
-                    ИМХО                  </span>
+                    PHPUnit                  </span>
                                   <span class='post-tag'>
-                    форматирование                  </span>
+                    TDD                  </span>
                               </li>
                       </ul>
             <div class='post-comments'>
@@ -158,8 +92,8 @@ var flatName = module.exports.flatName = function (path, child) {
   <div id='disqus_thread'>
   </div>
   <script type="text/javascript"> var disqus_config = function () {
-     this.page.url = 'http://volter9.github.io/blog/blog/double-space';
-     this.page.identifier = 'blog/double-space';
+     this.page.url = 'http://volter9.github.io/blog/blog/unit-testing';
+     this.page.identifier = 'blog/unit-testing';
  };
  
  (function() {
