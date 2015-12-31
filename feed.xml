@@ -14,6 +14,33 @@
     <atom:link rel='self' type='application/rss+xml' href='http://volter9.github.io/feed/'>
     </atom:link>
           <item>
+        Обновление блога      </item>
+      <guid isPermaLink='isPermaLink'>
+        http://volter9.github.io/blog/blog-update-v2/      </guid>
+      <description>
+        &lt;p&gt;Привет всем! Я сделал небольшое обновление блога и теперь он выглядит намного
+приятнее предыдущей версии. Кроме этого есть еще пару моментов которых я хотел
+описать.&lt;/p&gt;
+&lt;h2&gt;Мой блог теперь на GitHub&lt;/h2&gt;
+&lt;p&gt;Ну это новость совсем не новая. Вы наверное уже знаете что сайт расположен на
+GitHub (благодаря &lt;code&gt;volter9.github.io&lt;/code&gt; домену). Но новость не об этом. Сам исходник
+моего сайта лежит на &lt;a href=&quot;https://github.com/volter9/volter9&quot;&gt;GitHub&lt;/a&gt;. Данный сайт
+построен на &lt;a href=&quot;https://github.com/bloge/bloge&quot;&gt;Bloge&lt;/a&gt;, моем фреймворке для
+статических вебсайтов, который еще в разработке. В данный момент, я потихоньку
+пишу документацию и дорабатываю удобство API. Скоро будет стабильный релиз,
+наверное (надеюсь).&lt;/p&gt;
+&lt;h2&gt;Комментарии&lt;/h2&gt;
+&lt;p&gt;К сожалению, все комментарии, которые были на сайте (5 штук), были удалены т.к.
+при локальном тестирование сайта (просмотр блога и проверка верстки) у меня
+произошел небольшой &lt;abbr title=&quot;Я лоханулся&quot;&gt;факап&lt;/abbr&gt;: генератор ссылок
+для Disqus генерировал разные абсолютные ссылки в зависимости от среды. По этому
+что-то странное произошло с комментариями и ссылками. Мне пришлось удалить сайт с
+Disqus и добавить еще раз. По этому все что связано с комментированием
+начинается с нового листа.&lt;/p&gt;
+&lt;p&gt;На этом все, с наступающим новым годом!&lt;/p&gt;      </description>
+      <pubdate>
+        Thu, 31 Dec 2015 20:00:00 -0800      </pubdate>
+          <item>
         extract и compact      </item>
       <guid isPermaLink='isPermaLink'>
         http://volter9.github.io/blog/php-extract-and-compact/      </guid>
