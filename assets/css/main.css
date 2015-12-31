@@ -444,6 +444,9 @@ hr {
 .about-me-text h2 {
     margin-top: 0;
 }
+.about-me ul {
+    padding: 0;
+}
 .about-me-text p:last-child {
     margin: 0;
 }
