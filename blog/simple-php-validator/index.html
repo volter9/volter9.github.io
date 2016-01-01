@@ -139,7 +139,7 @@ function parse_rule ($rule) {
 <p>Пример упрощенной и обычной записи правил.</p>
 <pre><code class="language-php">$rules = [
     /* Упрощенная запись */
-    'name' =&gt; 'required',
+    'name' =&gt; 'required|confirm:password_confirm',
 
     /* Обычная запись */
     'password' =&gt; [

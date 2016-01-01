@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'>
+    <title>
+      Юнит тестирование и TDD –  volter9.github.io
+    </title>
+    <link href='/assets/uploads/likely/likely.css' rel='stylesheet'>
+    <link href='/assets/css/main.css' rel='stylesheet'>
+    <link href='/assets/css/theme.css' rel='stylesheet'>
+        <link rel='alternate' type='application/rss+xml' title='RSS Title' href='/feed.xml'>
+  </head>
+  <body>
+    <div class='wrapper'>
+            <nav class='fluid navigation'>
+        <ul class='clearfix links'>
+          <li class='left'>
+            <a href='/'>
+              <img alt='logo' src='/assets/img/avatar_small.png' class='avatar'>
+            </a>
+          </li>
+          <li class='left'>
+            <a href='/blog/' class='nav-link'>
+              Блог
+            </a>
+          </li>
+          <li class='left'>
+            <a href='/projects/' class='nav-link'>
+              Проекты
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <article class='content full full-padding post'>
+        <h1 class='post-title'>
+          Юнит тестирование и TDD        </h1>
+        <p class='post-date'>
+          Январь 1, 2016        </p>
+        <p>Привет! Давно я не писал в свой бложик. Пора исправить эту ситуацию. В данном
+посте я опишу достойнства юнит тестирования и TDD.</p>
+<h2>Юнит тестирование</h2>
+<p><a href="https://ru.wikipedia.org/wiki/Модульное_тестирование" target="_blank">Википедия</a>
+определяет юнит тестирование следующим образом:</p>
+<blockquote>
+<p>... юнит-тестирование — процесс в программировании, позволяющий проверить на
+корректность отдельные модули исходного кода программы.</p>
+</blockquote>
+<p>Т.е. этот процесс позволяет тестировать отдельные классы и функции в &quot;вакуме&quot;
+(как они есть по себе без всяких зависимостей и вне контекста программы).</p>
+<p>В первую очередь чтобы убедить тебя в чем преймущество юнит тестирование, мне
+нужно задать простой риторический вопрос: &quot;какую выгоду даст мне юнит
+тестирование?&quot;.</p>
+<p>Ответ очень прост. Юнит тестирование даст тебе способ проверить отдельные
+фукнции (методы) на соответсвия твоим ожиданиям. Проще говоря в юнит тесте ты
+описываешь функционал и что должен этот функционал делать (какие значения
+функции должны возвращать) при определенной обстоятельствах. Это дает тебе
+следующии преймущества:</p>
+<ul>
+<li>Твой код будет соответствовать твоим ожиданиям (меньше вероятность получить
+сюрприз в виде бага)</li>
+<li>При рефакторе, если ты сломал какой то функционал (нечайно), ты сможешь
+узнать это намного быстрее. Все что нужно сделать это запустить юнит тесты еще
+раз </li>
+<li>Если правильно писать юнит тесты, твой код будет намного лучше по качеству из-за
+того что юнит тестирование заставляет тебя думать в конкретном контексте
+(концентрирует твое внимание только на одном аспекте)</li>
+</ul>
+<p>Пример простого юнит теста на PHP и
+<a href="https://phpunit.de" target="_blank" title="PHP фреймоворк для юнит тестирование">PHPUnit</a>:</p>
+<pre><code class="language-php">class Addition 
+{
+    /**
+     * Сложит два числа
+     * 
+     * @param int $a
+     * @param int $b
+     * @return int
+     */
+    public function add($a, $b)
+    {
+        return $a + $b;
+    }
+}
+
+class AdditionTest extends PHPUnit_Framework_TestCase
+{
+    /**
+     * Тестирование единственного метода `add` на правильную работу
+     * вычислений
+     */
+    public function testAddition()
+    {
+        $addition = new Addition;
+
+        $this-&gt;assertEquals(10, $addition-&gt;add(4, 6));
+    }
+}</code></pre>
+<p>В данном упрощенном примере, я проверяю класс <code>Addition</code> на соотвествие моим
+ожиданиям: <code>4 + 6</code> должно всегда возвращать <code>10</code>.</p>
+<h2>TDD</h2>
+<p>TDD (Test Driven Development – Разработка через тестирование)
+это дисциплина (как ООП) связанная с юнит тестированием. Смысл
+TDD это сначала написать тесты а после этого уже рабочий код. Процесс написания
+кода через TDD обычно проходит через следующии этапы:</p>
+<ol>
+<li>Пишем сначала голый тест и запускаем его. Мы должны получить
+ошибку от компилятора/интерпретатора что такого класса/функции не существует.</li>
+<li>Мы создаем класс и пустой метод (или функцию) который мы тестируем в данный
+момент. Теперь после запуска тестов мы должны получить ошибку уже от самого
+фреймворка, что метод/функцию который мы тестируем не возвращает правильное
+значение.</li>
+<li>Теперь мы можем уже написать минимальную реализацию метода чтобы пройти выше
+описанный тест. Запускаем тест и мы должны получить сообщение что наш тест
+был пройден.</li>
+<li>Добавляем еще пару тестов с разными входными значениями и ожиданием.
+Мы снова должны получить ошибку из-за того что результат метода/функции
+не совпадает с новыми значениями.</li>
+<li>И наконец-таки мы можем полностью переписать метод/функцию чтобы он проходил все
+тесты. В итоге мы получим полностью работающий код как задумывалось и
+пройденные тесты.</li>
+</ol>
+<p>А теперь я покажу это на примере класса <code>Addition</code>.</p>
+<h3>TDD на примере класса Addition</h3>
+<p>В данной секции я покажу наглядно простой пример TDD на примере класса <code>Addition</code> и
+фреймворка для юнит тестирования PHPUnit. Для начала создаем только тест:</p>
+<pre><code class="language-php">class AdditionTest extends PHPUnit_Framework_TestCase
+{
+    public function testAddition()
+    {
+        $addition = new Addition;
+
+        $this-&gt;assertEquals(10, $addition-&gt;add(4, 6));
+    }
+}</code></pre>
+<p>Сохраним этот класс в файл <code>AdditionTest.php</code>. Теперь давайте запустим этот
+тест в косноли с помощью PHPUnit:</p>
+<pre><code class="language-sh">phpunit AdditionTest.php</code></pre>
+<p>В итоге мы должны получить PHP ошибку что некий класс <code>Addition</code> не был найден.
+Первая фаза выполнена. Теперь наша задача это создать класс <code>Addition</code> и пустой
+метод <code>add</code>:</p>
+<pre><code class="language-php">class Addition
+{
+    public function add($a, $b)
+    {
+        // Тут будет реализация позже
+    }
+}</code></pre>
+<p>Сохраняем этот класс как <code>Addition.php</code>, подключаем класс через <code>require</code> в
+<code>AdditionTest.php</code> и запускаем тест еще раз. В итоге мы получим похожий вывод:</p>
+<pre><code>PHPUnit 4.8.10 by Sebastian Bergmann and contributors.
+
+F
+
+Time: 183 ms, Memory: 5.25Mb
+
+There was 1 failure:
+
+1) AdditionTest::testAddition
+Failed asserting that null matches expected 10.
+
+/Users/Volter/.../AdditionTest.php:11
+
+FAILURES!
+Tests: 1, Assertions: 1, Failures: 1.</code></pre>
+<p>Фаза №2 была выполнена, приступаем к следующей. Теперь нам надо чтобы класс
+<code>Addition</code> проходил с минимальными усилиями. В данной ситуации все что нам
+нужно сделать это добавить <code>return 10</code> в <code>Addition.php</code>:</p>
+<pre><code class="language-php">class Addition
+{
+    public function add($a, $b)
+    {
+        return 10;
+    }
+}</code></pre>
+<p>Запускаем тест, и узнаем что наш тест прошел успешно:</p>
+<pre><code>PHPUnit 4.8.10 by Sebastian Bergmann and contributors.
+
+.
+
+Time: 176 ms, Memory: 5.00Mb
+
+OK (1 test, 1 assertion)</code></pre>
+<p>Третья фаза была выполнена успешно. Наш класс проходит тест, теперь нужно
+добавить еще пару утверждений (assert) в код чтобы наш класс функционировал:</p>
+<pre><code class="language-php">class AdditionTest extends PHPUnit_Framework_TestCase
+{
+    public function testAddition()
+    {
+        $addition = new Addition;
+
+        $this-&gt;assertEquals(10, $addition-&gt;add(4, 6));
+        $this-&gt;assertEquals(15, $addition-&gt;add(10, 5));
+        $this-&gt;assertEquals(20, $addition-&gt;add(8, 12));
+    }
+}</code></pre>
+<p>Запускаем тест еще раз и... мы видим ошибку, наш тест не был пройден т.к.
+возвращаемое значение не соответствовало ожиданием: </p>
+<pre><code>PHPUnit 4.8.10 by Sebastian Bergmann and contributors.
+
+F
+
+Time: 181 ms, Memory: 5.25Mb
+
+There was 1 failure:
+
+1) AdditionTest::testAddition
+Failed asserting that 10 matches expected 15.
+
+/Users/Volter/.../AdditionTest.php:12
+
+FAILURES!
+Tests: 1, Assertions: 2, Failures: 1.</code></pre>
+<p>В итоге мы прошли еще одну фазу, четвертую фазу <!-- луны -->. Теперь настал час
+для последней фазы. Нужно переписать метод <code>Addition::add</code> так чтобы он проходил
+тесты и функционировал. Для этого нам нужно поменять всего лишь одну строчку в
+<code>Addition.php</code>:</p>
+<pre><code class="language-php">class Addition
+{
+    public function add($a, $b)
+    {
+        return $a + $b;
+    }
+}</code></pre>
+<p>Запускаем тест, и profit:</p>
+<pre><code>PHPUnit 4.8.10 by Sebastian Bergmann and contributors.
+
+.
+
+Time: 178 ms, Memory: 5.00Mb
+
+OK (1 test, 3 assertions)</code></pre>
+<h2>Заключение</h2>
+<p>Хоть юнит тестирование и TDD требует больше времени и усилий, но оно
+повышает качество и модульность кода и понижает вероятность возникновения
+логических ошибок в отдельных модулях, если, конечно же, все сделано правильно.</p>
+<p>Если есть какие нибудь вопросы или поправки (что я в чем то не прав), жду ваших
+комментариев. </p>        <div class='fluid'>
+            <div data-title='Юнит тестирование и TDD' class='likely likely-medium'>
+      <div data-via='volter_9' class='twitter'>
+    Твитнуть
+  </div>
+  <div class='vkontakte'>
+    Поделится
+  </div>
+  <div class='facebook'>
+    Поделится
+  </div>
+  </div>
+          <ul class='post-details'>
+                                        <li>
+                <span class='post-category post-php-category'>
+                  PHP                </span>
+              </li>
+                          <li>
+                                  <span class='post-tag'>
+                    юнит тестирование                  </span>
+                                  <span class='post-tag'>
+                    PHPUnit                  </span>
+                                  <span class='post-tag'>
+                    TDD                  </span>
+                              </li>
+                      </ul>
+            <div class='post-comments'>
+    <h2>
+      Комментарии
+    </h2>
+  </div>
+  <div id='disqus_thread'>
+  </div>
+  <script type="text/javascript"> var disqus_config = function () {
+     this.page.url = 'http://volter9.github.io/blog/unit-testing';
+     this.page.identifier = 'blog/unit-testing';
+ };
+ 
+ (function() {
+     // Stylish...
+     var d = document, 
+         s = d.createElement('script');
+         
+     s.src = '//volter9-blog.disqus.com/embed.js';
+     s.setAttribute('data-timestamp', +new Date());
+     
+     (d.head || d.body).appendChild(s);
+ })();
+ 
+</script>
+  <noscript>
+    Please enable JavaScript to view the 
+    <a href='https://disqus.com/?ref_noscript' rel='nofollow'>
+      comments powered by Disqus.
+    </a>
+  </noscript>
+        </div>
+      </article>
+      <footer class='footer'>
+        <ul class='footer-menu clearfix fluid'>
+          <li>
+            &copy; 2015 &mdash; v2.0
+          </li>
+          <li class='up'>
+            <a href='#'>
+              &#8613;
+            </a>
+          </li>
+          <li class='right'>
+            Powered by
+            <a href='https://github.com/bloge/bloge'>
+              Bloge
+            </a>
+          </li>
+        </ul>
+      </footer>
+            <script type='text/javascript' src='/assets/uploads/likely/likely.js'>
+      </script>
+      <script type='text/javascript' src='/assets/js/spoiler.js'>
+      </script>
+      <script type='text/javascript' src='/assets/js/hljs.js'>
+      </script>
+      <script type='text/javascript'>
+         typeof hljs !== 'undefined' && hljs.initHighlightingOnLoad();
+      </script>
+              <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter32699335 = new Ya.Metrika({ id:32699335, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");
+</script>
+        <noscript>
+          <img src='https://mc.yandex.ru/watch/32699335' style='position:absolute; left:-9999px;' alt=''>
+        </noscript>
+          </div>
+  </body>
+</html>
